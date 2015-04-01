@@ -4,82 +4,107 @@
 // 获取IndexId
 var IndexIdUrl = '../Library/WebModuleContentPage.tkx?Source=Accounting/PlateData&Data=Index';
 $.ajax({
-    url: IndexIdUrl,
-    dataType: 'jsonp',
-    async: false,
-    jsonpCallback: "jsonpcallback"
-})
-.done(function(data) {
-    if( $.isArray(data.Index) ) {
-        var IndexIdArr = data.Index,
-            IndexIdOptionsStr = '';
+        url: IndexIdUrl,
+        dataType: 'jsonp',
+        async: false,
+        jsonpCallback: "jsonpcallback"
+    })
+    .done(function(data) {
+        if($.isArray(data.Index)) {
+            var IndexIdArr = data.Index,
+                IndexIdOptionsStr = '';
 
-        $.each(IndexIdArr, function(index, val) {
-            IndexIdOptionsStr += '<option value="' + IndexIdArr[index].IndexId + '">' + IndexIdArr[index].Name + '</option>';
-        });
-        $('#IndexId').append(IndexIdOptionsStr);
-    }
-});
+            $.each(IndexIdArr, function(index, val) {
+                IndexIdOptionsStr += '<option value="' + IndexIdArr[index].IndexId + '">' + IndexIdArr[index].Name + '</option>';
+            });
+            $('#IndexId').append(IndexIdOptionsStr);
+        }
+    });
 
 // var plateIdUrl = 'http://192.168.1.13/Account/Library/WebModuleContentPage.tkx?Source=Accounting/PlateData'
 var plateIdUrl = '../Library/WebModuleContentPage.tkx?Source=Accounting/PlateData';
 $.ajax({
-    url: plateIdUrl,
-    dataType: 'jsonp',
-    async: false,
-    jsonpCallback: "jsonpcallback"
-})
-.done(function(data) {
-    if( $.isArray(data.Plate) ) {
-        var plateIdArr = data.Plate,
-            PlateIdOptionsStr = '';
+        url: plateIdUrl,
+        dataType: 'jsonp',
+        async: false,
+        jsonpCallback: "jsonpcallback"
+    })
+    .done(function(data) {
+        if($.isArray(data.Plate)) {
+            var plateIdArr = data.Plate,
+                PlateIdOptionsStr = '';
 
-        $.each(plateIdArr, function(index, val) {
-            PlateIdOptionsStr += '<option value="' + plateIdArr[index].PlateId + '">' + plateIdArr[index].Name + '</option>';
-        });
-        $('#PlateId').append(PlateIdOptionsStr);
-    }
-});
+            $.each(plateIdArr, function(index, val) {
+                PlateIdOptionsStr += '<option value="' + plateIdArr[index].PlateId + '">' + plateIdArr[index].Name + '</option>';
+            });
+            $('#PlateId').append(PlateIdOptionsStr);
+        }
+    });
 
 // 工具栏的细分行业选项，jsonp获取
 // 地址 /Library/WebListXmlPage.tkx?Source=Accounting/TradeData
 var TradeUrl = '../Library/WebListXmlPage.tkx?Source=Accounting/TradeData';
 $.ajax({
-    url: TradeUrl,
-    dataType: 'jsonp',
-    async: false,
-    jsonpCallback: "jsonpcallback"
-})
-.done(function(data) {
-    if( $.isArray(data.CD_TRADE) ) {
-        var TradeArr = data.CD_TRADE,
-            TradeOptionsStr = '';
+        url: TradeUrl,
+        dataType: 'jsonp',
+        async: false,
+        jsonpCallback: "jsonpcallback"
+    })
+    .done(function(data) {
+        if($.isArray(data.CD_TRADE)) {
+            var TradeArr = data.CD_TRADE,
+                TradeOptionsStr = '';
 
-        $.each(TradeArr, function(index, val) {
-            TradeOptionsStr += '<option value="' + TradeArr[index].Value + '">' + (TradeArr[index].Value + ' - ' + TradeArr[index].Name) + '</option>';
-        });
-        $('#Trade').append(TradeOptionsStr);
-    }
-})
+            $.each(TradeArr, function(index, val) {
+                TradeOptionsStr += '<option value="' + TradeArr[index].Value + '">' + (TradeArr[index].Value + ' - ' + TradeArr[index].Name) + '</option>';
+            });
+            $('#Trade').append(TradeOptionsStr);
+        }
+    })
 
-// 设置 select的当前年倒退20年的option
+// 设置 select的当前年倒退20年的option, 这里已经确定默认就是当前这一年了的
 var thisYear = (new Date).getFullYear();
 var optionsStr = '';
 var optionVal;
-for (var i = 0; i < 20; i++) {
+for(var i = 0; i < 20; i++) {
     optionVal = thisYear - i;
     optionsStr += '<option value="' + optionVal + '">' + optionVal + '</option>';
 }
 $('#ReportDateYear').append(optionsStr);
 
+// 这里处理一下报表时期，显示为每月的前一个季度
+var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth() + 1;
+
+var $ReportDateYear = $("#ReportDateYear")
+var $ReportDateMonth = $("#ReportDateMonth")
+
+if(month <= 3) { // 3月以内，年用去年，月用 12月
+    var lastYear = year - 1;
+    $ReportDateYear.children('option:selected').removeAttr('selected')
+    $ReportDateYear.children('option[value=' + lastYear + ']').attr('selected', 'selected');
+    $ReportDateMonth.children('option[value=12]').attr('selected', 'selected');
+
+} else if(month > 3 && month <= 6) {
+    $ReportDateYear.children('option[value=' + year + ']').attr('selected', 'selected');
+    $ReportDateMonth.children('option[value=03]').attr('selected', 'selected');
+} else if(month > 6 && month <= 9) {
+    $ReportDateYear.children('option[value=' + year + ']').attr('selected', 'selected');
+    $ReportDateMonth.children('option[value=06]').attr('selected', 'selected');
+} else if(month > 9 && month <= 12) {
+    $ReportDateYear.children('option[value=' + year + ']').attr('selected', 'selected');
+    $ReportDateMonth.children('option[value="09"]').attr('selected', 'selected');
+}
+
 // 设置日期默认为当天
 var today = new Date();
-thisYear = today.getFullYear();
-thisMonth = addZero(today.getMonth() + 1); // js存月份的时候按数组来存的
-thisDay = addZero(today.getDate());
+var thisYear = today.getFullYear();
+var thisMonth = addZero(today.getMonth() + 1); // js存月份的时候按数组来存的
+var thisDay = addZero(today.getDate());
 
 function addZero(num) {
-    if (num < 10) {
+    if(num < 10) {
         num = '0' + num;
     }
     return num;
@@ -139,13 +164,13 @@ $('#searchData').click(function(event) {
         type: 'POST',
         data: toBackJson,
         success: function() {
-            // console.log('成功，开始绘制表格')
-            // 这里最后就可以调用 getAllDataAndDrawTable 来获取两个jsonp数据并绘制表格了
-            getAllDataAndDrawTable();
-        }
-        // fail: function() {
-        //     // console.log('没有触发后台使后台产生数据')
-        // }
+                // console.log('成功，开始绘制表格')
+                // 这里最后就可以调用 getAllDataAndDrawTable 来获取两个jsonp数据并绘制表格了
+                getAllDataAndDrawTable();
+            }
+            // fail: function() {
+            //     // console.log('没有触发后台使后台产生数据')
+            // }
     })
 })
 
@@ -168,26 +193,26 @@ function getAllDataAndDrawTable() {
         url: allDataUrl + '&_toolkit=meta', // 获取meta数据
         type: 'GET',
         success: function(data) {
-            if (data.Table) {
-                var ListField = data.Table.List.Field;
-                var tempObj;
+                if(data.Table) {
+                    var ListField = data.Table.List.Field;
+                    var tempObj;
 
-                $.each(ListField, function(index, val) {
-                    tempObj = {};
-                    tempObj.DisplayName = ListField[index].DisplayName;
-                    tempObj.NickName = ListField[index].NickName;
-                    allData.thData.push(tempObj);
-                });
+                    $.each(ListField, function(index, val) {
+                        tempObj = {};
+                        tempObj.DisplayName = ListField[index].DisplayName;
+                        tempObj.NickName = ListField[index].NickName;
+                        allData.thData.push(tempObj);
+                    });
 
-            } else {
-                alreadyGetMeta = false;
+                } else {
+                    alreadyGetMeta = false;
+                }
             }
-        }
-        // 第一个数据获取完了之后获取第二个具体数据
+            // 第一个数据获取完了之后获取第二个具体数据
     }).done(function() {
         $('#loadingAnimate').fadeOut(1000);
         // 这里用全局的 alreadyGetMeta来判断是否获取到了 meta
-        if (alreadyGetMeta) {
+        if(alreadyGetMeta) {
             $.ajax({
                     url: allDataUrl + '&_toolkit=jsonp',
                     type: 'GET'
@@ -203,17 +228,17 @@ function getAllDataAndDrawTable() {
                     var needFixed = ['ClosePrice', 'PerShare', 'PerAsset', 'PeRatio', 'BookValue', 'PriceSalesRatio', 'TotalPrice', 'FreePrice', 'ROE', 'CostRate', 'ProfitRatio', 'TurnoverRatio', 'ProfitRate', 'EquityMultiplier'];
                     // console.log(allData.thData) 这是上一个 ajax获取来的 th数据，所有的 th 都是有的
                     // 在具体数据获取的时候，就按 属性名 去获取
-                    for (item in Company) {
+                    for(item in Company) {
                         tempArr = [];
                         // eachCompanyId = Company[item].CompanyId;
                         eachTcode = Company[item].Tcode;
                         // 获取每个公司的 CompanyId，用来做链接的
-                        for (metaItem in allData.thData) {
+                        for(metaItem in allData.thData) {
                             NickName = allData.thData[metaItem].NickName || '';
                             // var CompanyId = allData.thData[metaItem].CompanyId
                             // 这里包含的话就需要处理一下数据
-                            if (needFixed.indexOf(NickName) > -1 && Company[item][NickName]) {
-                                if (NickName == 'PerShare') {
+                            if(needFixed.indexOf(NickName) > -1 && Company[item][NickName]) {
+                                if(NickName == 'PerShare') {
                                     tempArr.push((+Company[item][NickName]).toFixed(3));
                                 } else {
                                     tempArr.push((+Company[item][NickName]).toFixed(2));
@@ -229,7 +254,7 @@ function getAllDataAndDrawTable() {
 
                         // 保证最后一项总计不加链接
 
-                        if (eachTcode !== '999999') {
+                        if(eachTcode !== '999999') {
                             // tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
                             tempArr[1] = '<a href="' + 'http://www.mituyun.com/AccountMgr/cc-echart/companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
                         } else {

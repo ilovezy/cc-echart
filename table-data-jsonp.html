@@ -17,11 +17,11 @@
     table th {
         text-align: center;
     }
-
+    
     table td {
         text-align: right;
     }
-
+    
     table td:nth-child(1) {
         text-align: left;
     }
@@ -66,7 +66,7 @@
                 报表时期
                 <select id="ReportDateYear" name="ReportDateYear" class="cc-form-control">
                 </select>年
-                <select name="ReportDateMonth" class="cc-form-control">
+                <select id="ReportDateMonth" name="ReportDateMonth" class="cc-form-control">
                     <option value="03">3</option>
                     <option value="06">6</option>
                     <option value="09">9</option>
@@ -74,10 +74,10 @@
                 </select>月
             </label>
 
-             <label>
+            <label>
                 <select id="DataType" name="DataType" class="form-control mr20" style="width: 110px">
                     <option value="3" selected>滚动一年</option>
-                    <option value="1" >本年累计</option>
+                    <option value="1">本年累计</option>
                     <option value="2">本期数</option>
                 </select>
             </label>
