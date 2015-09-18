@@ -10,7 +10,7 @@
 
 <body>
     <div id="navbarToggle">
-        <nav class="navbar navbar-default" style="margin-bottom: 0">
+        <nav class="navbar navbar-default" style="margin-bottom: 0;">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -49,26 +49,48 @@
         </nav>
     </div>
 
-    <button type="button" id="toggleNavbar" class="btn btn-default center-block" style="padding:0 30px; font-size: 5px; border-radius: 0; border-top: 0">
-        <span class="glyphicon glyphicon-chevron-up "></span>
-        <span class="glyphicon glyphicon-chevron-down hide"></span>
+    <button type="button" id="toggleNavbarBtn" class="btn btn-default center-block" style="padding:0 30px; font-size: 5px; border-radius: 0; border-top: 0;">
+        <span class="glyphicon glyphicon-chevron-up"></span>
     </button>
 
-    <div class="container">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <style type="text/css">
+    /*.tk-main {
+        position: absolute;
+        top: 52px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding-right: 15px;
+        padding-left: 15px;
+        overflow: hidden;
+        z-index: -100;
+    }*/
+    </style>
+    <div class="container-fluid ">
+        <div class="jumbotron tk-main">
+            <iframe src="test.html" frameborder="0" style="width: 100%;"></iframe>
+
+        </div>
+
     </div>
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     <script>
-    $('#toggleNavbar').click(function(event) {
-        $('#navbarToggle').slideToggle('slow')
-        $(this).find('span').toggleClass('hide');
+    $('#toggleNavbarBtn').click(function(event) {
+        var $navbarToggle = $('#navbarToggle');
+        var $toggleNavbarBtn = $('#toggleNavbarBtn');
+        var $tkMain = $('div.tk-main');
+
+        if(!$navbarToggle.is(':hidden')) {
+            $navbarToggle.slideUp('slow');
+            $toggleNavbarBtn.find('span').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+            $tkMain.animate({'top': '0px'}, 'slow');
+        } else {
+            $navbarToggle.slideDown('down');
+            $toggleNavbarBtn.find('span').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+            $tkMain.animate({'top': '52px'}, 'slow');
+        }
     });
     </script>
 </body>
