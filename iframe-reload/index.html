@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center">reload iframe</h2>
+
+        <iframe id="myframe" width="100%" frameBorder="0" src="test.html" scrolling="no"></iframe>
+        <input type="button" onclick="javascript:refreshFrame();" value="Refresh Frame" />
+
+        <script type="text/javascript">
+        </script>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script>
+    function refreshFrame() {
+        document.getElementById('myframe').contentWindow.location.reload(true);
+    }
+    </script>
+</body>
+
+</html>
