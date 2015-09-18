@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>定投模拟计算</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.7/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.7/extensions/TableTools/css/dataTables.tableTools.min.css">
+    <link rel="stylesheet" type="text/css" href="bootdatepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/spinkit/css/spinkit.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/spinkit/css/spinners/10-fading-circle.css">
+    <link rel="stylesheet" type="text/css" href="bootdatepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+    <style type="text/css">
+    table th {
+        text-align: center;
+    }
+
+    table td {
+        text-align: right;
+    }
+
+    table td:nth-child(1) {
+        text-align: left;
+    }
+    </style>
+</head>
+
+<body>
+    <br>
+    <div class="container-fluid">
+        <form class="form-inline" data-toggle="validator" id="hiddenToolbar" style="position: absolute; z-index: 1000; height: 80px">
+            <label class="form-group">
+                股票代码：
+                <input type="text" id="Tcode" name="Tcode" class="form-control mr15" style="width: 110px;" required>
+            </label>
+            <label class="form-group">
+                起始日期：
+                <input type="text" id="StartDate" name="StartDate" class="form-control mr15" style="width: 110px" required>
+            </label>
+            <label class="form-group">
+                结束日期：
+                <input type="text" id="EndDate" name="EndDate" class="form-control mr15" style="width: 110px">
+            </label>
+
+            <label class="form-group">
+                定投周期：
+                <select name="Type" id="Type" class="form-control" style="width: 65px">
+                    <option value="Month" selected="selected">月</option>
+                    <option value="Week">周</option>
+                </select>
+            </label>
+
+            <label class="form-group">
+                定投日期：
+                <select name="Day" id="Day" class="form-control mr15" style="width: 80px" required></select>
+            </label>
+
+            <label class="form-group">
+                定投金额：
+                <input type="number" id="Money" name="Money" class="form-control" style="width: 110px" required>
+            </label>
+
+            <button class="btn btn-default" id="searchData">计算</button>
+            <span class="btn btn-default" data-toggle="modal" id="showChartBtn" style="display:none" data-target="#myModal">图示</span>
+        </form>
+
+        <!-- 这个模态框里放图示 -->
+        <div class="modal fade" id="myModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body" id="threeLineChart" style="height: 600px">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 加载动画 -->
+        <div id="loadingAnimate" style="position: absolute; width: 100%; margin-left: -15px; margin-right: -15px; top: 200px; padding: 40px; z-index: 999999; display:none;">
+            <div class="sk-fading-circle" style="width: 100px; height: 100px;">
+                <div class="sk-circle1 sk-circle"></div>
+                <div class="sk-circle2 sk-circle"></div>
+                <div class="sk-circle3 sk-circle"></div>
+                <div class="sk-circle4 sk-circle"></div>
+                <div class="sk-circle5 sk-circle"></div>
+                <div class="sk-circle6 sk-circle"></div>
+                <div class="sk-circle7 sk-circle"></div>
+                <div class="sk-circle8 sk-circle"></div>
+                <div class="sk-circle9 sk-circle"></div>
+                <div class="sk-circle10 sk-circle"></div>
+                <div class="sk-circle11 sk-circle"></div>
+                <div class="sk-circle12 sk-circle"></div>
+            </div>
+        </div>
+        <!-- 加载动画 -->
+
+        <div id="showTable">
+        </div>
+    </div>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="../DataTables-1.10.7/media/js/jquery.dataTables.min.js"></script>
+    <script src="../DataTables-1.10.7/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script src="bootdatepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap-validator-master/dist/validator.min.js"></script>
+    <!-- 这个 echarts.js还不能放 dataTable.js签名，不然会报错 -->
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+    <script src="js/calcIPush.js?timeStamp='+new Date().getTime();'"></script>
+
+</body>
+
+</html>

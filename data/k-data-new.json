@@ -1,0 +1,55 @@
+jsonpcallback({
+    "AR_COMPANY": [{
+        "CompanyId": "201",
+        "Tcode": "002379",
+        "Tname": "鲁丰环保",
+        "FullName": "鲁丰环保科技股份有限公司",
+        "Trade": "C",
+        "DetailTrade": "铝",
+        "Area": "370000",
+        "TotalStock": "92640.0000",
+        "FreeStock": "66829.5000",
+        "Board": "SZ",
+        "ListDate": "2010-03-31 00:00:00",
+        "CreateId": "1",
+        "BeginDate": "2015-05-19 00:00:00",
+        "EndDate": "2015-08-19 00:00:00"
+    }],
+    "AR_DAILY_EXCHANGE": [{
+        "Id": "485911",
+        "ExchangeDate": "2015-08-18 00:00:00",
+        "Board": "SZ",
+        "Tcode": "002379",
+        "Tname": "鲁丰环保",
+        "OpeningPrice": "6.1900",
+        "HighPrice": "6.1900",
+        "LowPrice": "5.5800",
+        "ClosePrice": "5.5800",
+        "Volume": "696328.00",
+        "Turnover": "410731040.00"
+    }, {
+        "Id": "483618",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "Board": "SZ",
+        "Tcode": "002379",
+        "Tname": "鲁丰环保",
+        "OpeningPrice": "5.8700",
+        "HighPrice": "6.3000",
+        "LowPrice": "5.8200",
+        "ClosePrice": "6.2000",
+        "Volume": "681934.00",
+        "Turnover": "415843680.00"
+    }, {
+        "Id": "481418",
+        "ExchangeDate": "2015-08-14 00:00:00",
+        "Board": "SZ",
+        "Tcode": "002379",
+        "Tname": "鲁丰环保",
+        "OpeningPrice": "5.8200",
+        "HighPrice": "5.9900",
+        "LowPrice": "5.7600",
+        "ClosePrice": "5.8900",
+        "Volume": "587396.00",
+        "Turnover": "345029216.00"
+    }]
+})

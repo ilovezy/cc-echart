@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="text-center">公司概况和新浪K线图</h1>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="text-center">公司概况</h2>
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <td>交易代码</td>
+                        <td id="Tcode"></td>
+                    </tr>
+                    <tr>
+                        <td>名称</td>
+                        <td id="Tname"></td>
+                    </tr>
+                    <tr>
+                        <td>公司全称</td>
+                        <td id="FullName"></td>
+                    </tr>
+                    <tr>
+                        <td>行业</td>
+                        <td id="Trade_Name"></td>
+                    </tr>
+                    <tr>
+                        <td>细分行业</td>
+                        <td id="DetailTrade"></td>
+                    </tr>
+                    <tr>
+                        <td>所在区域</td>
+                        <td id="Area_Name"></td>
+                    </tr>
+                    <tr>
+                        <td>总股本</td>
+                        <td id="TotalStock"></td>
+                    </tr>
+                    <tr>
+                        <td>流通股本</td>
+                        <td id="FreeStock"></td>
+                    </tr>
+                    <tr>
+                        <td>市场板块</td>
+                        <td id="Board_Name"></td>
+                    </tr>
+                    <tr>
+                        <td>挂牌日期</td>
+                        <td id="ListDate"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-sm-6" id="sinaKShow">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script>
+    // function getUrlParam(name) {
+    //     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    //     var r = window.location.search.substr(1).match(reg);
+    //     if (r != null) return unescape(r[2]);
+    //     return null;
+    // }
+    // var CompanyId = getUrlParam('CompanyId');
+    // console.log(CompanyId)
+
+    // var CompanyInfoUrl = 'http://192.168.1.13/Account/Library/WebDetailXmlPage.tkx?Source=Query/CompanyQuery&CompanyId=' + CompanyId + '&_toolkit=jsonp';
+
+    // var CompanyInfoUrl = window.location.href.replace(/cc-echart\/companyInfo-sina-K.html\?/, 'Library/WebDetailXmlPage.tkx?Source=Query/CompanyQuery&CompanyId=' + CompanyId + '&_toolkit=jsonp');
+
+    var CompanyInfoUrl = window.location.href.replace(/cc-echart\/companyInfo-sina-K.html\?/, 'Library/WebDetailXmlPage.tkx?Source=Query/CompanyQuery&');
+    CompanyInfoUrl = CompanyInfoUrl + '&_toolkit=jsonp'
+
+    $.ajax({
+        url: CompanyInfoUrl,
+        dataType: 'jsonp',
+        jsonpCallback: "jsonpcallback"
+    })
+    .done(function(data) {
+        var companyInfo = data.AR_COMPANY[0];
+        var Tcode = companyInfo.Tcode,
+            Tname = companyInfo.Tname,
+            FullName = companyInfo.FullName,
+            Trade_Name = companyInfo.Trade_Name,
+            DetailTrade = companyInfo.DetailTrade,
+            Area_Name = companyInfo.Area_Name,
+            TotalStock = companyInfo.TotalStock,
+            FreeStock = companyInfo.FreeStock,
+            Board_Name = companyInfo.Board_Name,
+            ListDate = companyInfo.ListDate;
+
+        $('#Tcode').html(Tcode);
+        $('#Tname').html(Tname);
+        $('#FullName').html(FullName);
+        $('#Trade_Name').html(Trade_Name);
+        $('#DetailTrade').html(DetailTrade);
+        $('#Area_Name').html(Area_Name);
+        $('#TotalStock').html(TotalStock);
+        $('#FreeStock').html(FreeStock);
+        $('#Board_Name').html(Board_Name);
+        $('#ListDate').html(ListDate);
+
+        // 这里新浪需要这儿字符串
+        var Board = companyInfo.Board;
+        var sinaSymbol = Board.toLowerCase() + Tcode
+        var flashvars = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="700" height="700" id="flash"> <param name="allowFullScreen" value="true"> <param name="allowScriptAccess" value="always"> <param name="wmode" value="transparent"> <param name="flashvars" value="symbol=' + sinaSymbol + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"> </object>'
+
+        $('#sinaKShow').html(flashvars)
+    });
+    </script>
+</body>
+
+</html>

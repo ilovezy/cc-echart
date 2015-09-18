@@ -1,0 +1,206 @@
+{
+    "Title": "定投模拟计算",
+    "Table": {
+        "TableName": "PushData",
+        "TableDesc": "数据分析结果",
+        "JsonFields": "{\"Table\":\"PushData\",\"SearchMethod\":\"Id\",\"JsonType\":\"Object\",\"Fields\":[]}",
+        "Hidden": {
+            "Field": []
+        },
+        "List": {
+            "Field": [{
+                "IsEmpty": true,
+                "DataType": "Date",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "10",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "DE_EXCHANGE_DATE",
+                "DisplayName": "交易日期",
+                "NickName": "ExchangeDate",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "40",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "DE_CLOSE_PRICE",
+                "DisplayName": "价格",
+                "NickName": "ClosePrice",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Format": "0.00",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "50",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "MyAccount",
+                "DisplayName": "数量",
+                "NickName": "MyAccount",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Format": "0.00",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "60",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "MySum",
+                "DisplayName": "净值",
+                "NickName": "MySum",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Format": "0.00",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "61",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "MyTotal",
+                "DisplayName": "本金",
+                "NickName": "MyTotal",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Format": "0.00",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "62",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "MyProfit",
+                "DisplayName": "盈亏率%",
+                "NickName": "MyProfit",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Format": "0.00",
+                    "Align": "Right"
+                }
+            }]
+        }
+    }
+}

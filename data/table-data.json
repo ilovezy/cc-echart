@@ -1,0 +1,446 @@
+{
+    "Company": [{
+        "CompanyId": "203",
+        "BoardCode": "SZ_000002",
+        "Tcode": "000002",
+        "Tname": "万  科Ａ",
+        "TotalStock": "1103750.7500",
+        "FreeStock": "970667.7500",
+        "ClosePrice": "14.22",
+        "ExchangeDate": "2015-08-18 00:00:00",
+        "TotalPrice": "1569.53",
+        "FreePrice": "1380.29"
+    }, {
+        "CompanyId": "209",
+        "BoardCode": "SZ_000009",
+        "Tcode": "000009",
+        "Tname": "中国宝安",
+        "TotalStock": "159210.7300",
+        "FreeStock": "148966.9100"
+    }, {
+        "CompanyId": "213",
+        "BoardCode": "SZ_000014",
+        "Tcode": "000014",
+        "Tname": "沙河股份",
+        "TotalStock": "20170.5100",
+        "FreeStock": "20170.5100",
+        "ClosePrice": "28.96",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "58.41",
+        "FreePrice": "58.41"
+    }, {
+        "CompanyId": "222",
+        "BoardCode": "SZ_000024",
+        "Tcode": "000024",
+        "Tname": "招商地产",
+        "TotalStock": "257595.0600",
+        "FreeStock": "102642.6300"
+    }, {
+        "CompanyId": "229",
+        "BoardCode": "SZ_000031",
+        "Tcode": "000031",
+        "Tname": "中粮地产",
+        "TotalStock": "181373.1600",
+        "FreeStock": "181372.0200",
+        "ClosePrice": "23.17",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "420.24",
+        "FreePrice": "420.24"
+    }, {
+        "CompanyId": "234",
+        "BoardCode": "SZ_000036",
+        "Tcode": "000036",
+        "Tname": "华联控股",
+        "TotalStock": "114048.7700",
+        "FreeStock": "112388.0200",
+        "ClosePrice": "9.3",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "106.07",
+        "FreePrice": "104.52"
+    }, {
+        "CompanyId": "238",
+        "BoardCode": "SZ_000040",
+        "Tcode": "000040",
+        "Tname": "宝安地产",
+        "TotalStock": "46959.3300",
+        "FreeStock": "46443.8300"
+    }, {
+        "CompanyId": "239",
+        "BoardCode": "SZ_000042",
+        "Tcode": "000042",
+        "Tname": "中洲控股",
+        "TotalStock": "47892.6000",
+        "FreeStock": "47879.0700",
+        "ClosePrice": "21.38",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "102.39",
+        "FreePrice": "102.37"
+    }, {
+        "CompanyId": "240",
+        "BoardCode": "SZ_000043",
+        "Tcode": "000043",
+        "Tname": "中航地产",
+        "TotalStock": "66696.1400",
+        "FreeStock": "66696.1400",
+        "ClosePrice": "16.21",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "108.11",
+        "FreePrice": "108.11"
+    }, {
+        "CompanyId": "242",
+        "BoardCode": "SZ_000046",
+        "Tcode": "000046",
+        "Tname": "泛海控股",
+        "TotalStock": "455731.1900",
+        "FreeStock": "455078.8100",
+        "ClosePrice": "13.55",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "617.52",
+        "FreePrice": "616.63"
+    }, {
+        "CompanyId": "280",
+        "BoardCode": "SZ_000402",
+        "Tcode": "000402",
+        "Tname": "金 融 街",
+        "TotalStock": "298893.0000",
+        "FreeStock": "298598.3800",
+        "ClosePrice": "11.12",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "332.37",
+        "FreePrice": "332.04"
+    }, {
+        "CompanyId": "309",
+        "BoardCode": "SZ_000505",
+        "Tcode": "000505",
+        "Tname": "珠江控股",
+        "TotalStock": "42674.5300",
+        "FreeStock": "36044.5300",
+        "ClosePrice": "13.3",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "56.76",
+        "FreePrice": "47.94"
+    }, {
+        "CompanyId": "368",
+        "BoardCode": "SZ_000616",
+        "Tcode": "000616",
+        "Tname": "海航投资",
+        "TotalStock": "143023.4400",
+        "FreeStock": "143022.6400",
+        "ClosePrice": "11.18",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "159.9",
+        "FreePrice": "159.9"
+    }, {
+        "CompanyId": "371",
+        "BoardCode": "SZ_000667",
+        "Tcode": "000667",
+        "Tname": "美好集团",
+        "TotalStock": "255959.2300",
+        "FreeStock": "255959.2300",
+        "ClosePrice": "6.96",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "178.15",
+        "FreePrice": "178.15"
+    }, {
+        "CompanyId": "87",
+        "BoardCode": "SZ_000736",
+        "Tcode": "000736",
+        "Tname": "中房地产",
+        "TotalStock": "29719.3900",
+        "FreeStock": "13873.3700",
+        "ClosePrice": "16.26",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "48.32",
+        "FreePrice": "22.56"
+    }, {
+        "CompanyId": "435",
+        "BoardCode": "SZ_000797",
+        "Tcode": "000797",
+        "Tname": "中国武夷",
+        "TotalStock": "38945.2300",
+        "FreeStock": "33436.1000",
+        "ClosePrice": "32.8",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "127.74",
+        "FreePrice": "109.67"
+    }, {
+        "CompanyId": "517",
+        "BoardCode": "SZ_000918",
+        "Tcode": "000918",
+        "Tname": "嘉凯城",
+        "TotalStock": "180419.1600",
+        "FreeStock": "180419.1600",
+        "ClosePrice": "6.39",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "115.29",
+        "FreePrice": "115.29"
+    }, {
+        "CompanyId": "121",
+        "BoardCode": "SZ_002133",
+        "Tcode": "002133",
+        "Tname": "广宇集团",
+        "TotalStock": "77414.4000",
+        "FreeStock": "42156.0500",
+        "ClosePrice": "9.09",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "70.37",
+        "FreePrice": "38.32"
+    }, {
+        "CompanyId": "134",
+        "BoardCode": "SZ_002146",
+        "Tcode": "002146",
+        "Tname": "荣盛发展",
+        "TotalStock": "381363.1300",
+        "FreeStock": "335541.4700",
+        "ClosePrice": "10.62",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "405.01",
+        "FreePrice": "356.35"
+    }, {
+        "CompanyId": "1466",
+        "BoardCode": "SH_600048",
+        "Tcode": "600048",
+        "Tname": "保利地产",
+        "TotalStock": "1075268.6300",
+        "FreeStock": "1075148.5000",
+        "ClosePrice": "9.92",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "1066.67",
+        "FreePrice": "1066.55"
+    }, {
+        "CompanyId": "1483",
+        "BoardCode": "SH_600067",
+        "Tcode": "600067",
+        "Tname": "冠城大通",
+        "TotalStock": "148290.4500",
+        "FreeStock": "148290.4500",
+        "ClosePrice": "12.98",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "192.48",
+        "FreePrice": "192.48"
+    }, {
+        "CompanyId": "1493",
+        "BoardCode": "SH_600077",
+        "Tcode": "600077",
+        "Tname": "宋都股份",
+        "TotalStock": "134012.2300",
+        "FreeStock": "109096.4500",
+        "ClosePrice": "9.27",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "124.23",
+        "FreePrice": "101.13"
+    }, {
+        "CompanyId": "2442",
+        "BoardCode": "SH_600162",
+        "Tcode": "600162",
+        "Tname": "香江控股",
+        "TotalStock": "76781.2700",
+        "FreeStock": "76781.2700",
+        "ClosePrice": "9.2",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "70.64",
+        "FreePrice": "70.64"
+    }, {
+        "CompanyId": "1547",
+        "BoardCode": "SH_600173",
+        "Tcode": "600173",
+        "Tname": "卧龙地产",
+        "TotalStock": "72514.7400",
+        "FreeStock": "72505.7400",
+        "ClosePrice": "8.07",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "58.52",
+        "FreePrice": "58.51"
+    }, {
+        "CompanyId": "1548",
+        "BoardCode": "SH_600175",
+        "Tcode": "600175",
+        "Tname": "美都能源",
+        "TotalStock": "245103.7500",
+        "FreeStock": "144803.3100",
+        "ClosePrice": "8.1",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "198.53",
+        "FreePrice": "117.29"
+    }, {
+        "CompanyId": "2452",
+        "BoardCode": "SH_600208",
+        "Tcode": "600208",
+        "Tname": "新湖中宝",
+        "TotalStock": "813813.1900",
+        "FreeStock": "636300.2500",
+        "ClosePrice": "6.63",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "539.56",
+        "FreePrice": "421.87"
+    }, {
+        "CompanyId": "1576",
+        "BoardCode": "SH_600240",
+        "Tcode": "600240",
+        "Tname": "华业资本",
+        "TotalStock": "142425.3400",
+        "FreeStock": "142425.3400",
+        "ClosePrice": "15.1",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "215.06",
+        "FreePrice": "215.06"
+    }, {
+        "CompanyId": "1635",
+        "BoardCode": "SH_600383",
+        "Tcode": "600383",
+        "Tname": "金地集团",
+        "TotalStock": "449961.0000",
+        "FreeStock": "449849.3800",
+        "ClosePrice": "11.68",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "525.55",
+        "FreePrice": "525.42"
+    }, {
+        "CompanyId": "1644",
+        "BoardCode": "SH_600393",
+        "Tcode": "600393",
+        "Tname": "东华实业",
+        "TotalStock": "30000.0000",
+        "FreeStock": "28950.5000",
+        "ClosePrice": "10.66",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "31.98",
+        "FreePrice": "30.86"
+    }, {
+        "CompanyId": "2577",
+        "BoardCode": "SH_600510",
+        "Tcode": "600510",
+        "Tname": "黑牡丹",
+        "TotalStock": "79552.2700",
+        "FreeStock": "79552.2700",
+        "ClosePrice": "12.85",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "102.22",
+        "FreePrice": "102.22"
+    }, {
+        "CompanyId": "1709",
+        "BoardCode": "SH_600565",
+        "Tcode": "600565",
+        "Tname": "迪马股份",
+        "TotalStock": "234586.2000",
+        "FreeStock": "103278.0300",
+        "ClosePrice": "12.32",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "289.01",
+        "FreePrice": "127.24"
+    }, {
+        "CompanyId": "1731",
+        "BoardCode": "SH_600621",
+        "Tcode": "600621",
+        "Tname": "华鑫股份",
+        "TotalStock": "52408.2300",
+        "FreeStock": "52408.2300",
+        "ClosePrice": "14.39",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "75.42",
+        "FreePrice": "75.42"
+    }, {
+        "CompanyId": "2648",
+        "BoardCode": "SH_600657",
+        "Tcode": "600657",
+        "Tname": "信达地产",
+        "TotalStock": "152426.0500",
+        "FreeStock": "152426.0500",
+        "ClosePrice": "8.38",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "127.73",
+        "FreePrice": "127.73"
+    }, {
+        "CompanyId": "2655",
+        "BoardCode": "SH_600665",
+        "Tcode": "600665",
+        "Tname": "天地源",
+        "TotalStock": "86412.2500",
+        "FreeStock": "86412.2500",
+        "ClosePrice": "7.74",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "66.88",
+        "FreePrice": "66.88"
+    }, {
+        "CompanyId": "1755",
+        "BoardCode": "SH_600684",
+        "Tcode": "600684",
+        "Tname": "珠江实业",
+        "TotalStock": "71121.7200",
+        "FreeStock": "71121.7200",
+        "ClosePrice": "13.63",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "96.94",
+        "FreePrice": "96.94"
+    }, {
+        "CompanyId": "1786",
+        "BoardCode": "SH_600748",
+        "Tcode": "600748",
+        "Tname": "上实发展",
+        "TotalStock": "108337.0900",
+        "FreeStock": "108337.0900",
+        "ClosePrice": "16.15",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "174.96",
+        "FreePrice": "174.96"
+    }, {
+        "CompanyId": "1824",
+        "BoardCode": "SH_600791",
+        "Tcode": "600791",
+        "Tname": "京能置业",
+        "TotalStock": "45288.0000",
+        "FreeStock": "45231.3700",
+        "ClosePrice": "10.05",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "45.51",
+        "FreePrice": "45.46"
+    }, {
+        "CompanyId": "1854",
+        "BoardCode": "SH_600823",
+        "Tcode": "600823",
+        "Tname": "世茂股份",
+        "TotalStock": "175994.3000",
+        "FreeStock": "175947.3000",
+        "ClosePrice": "13.04",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "229.5",
+        "FreePrice": "229.44"
+    }, {
+        "CompanyId": "2716",
+        "BoardCode": "SH_600862",
+        "Tcode": "600862",
+        "Tname": "南通科技",
+        "TotalStock": "63792.8500",
+        "FreeStock": "63792.8500",
+        "ClosePrice": "26.1",
+        "ExchangeDate": "2015-08-17 00:00:00",
+        "TotalPrice": "166.5",
+        "FreePrice": "166.5"
+    }],
+    "URL": [{
+        "SelfURL": "http%3a%2f%2f192.168.1.13%2fAccount%2fLibrary%2fWebListXmlPage.tkx%3fSource%3dQuery%2fAnalysisReport%26_toolkit%3djsonp%26",
+        "DSelfURL": "http://192.168.1.13/Account/Library/WebListXmlPage.tkx?Source=Query/AnalysisReport&_toolkit=jsonp&"
+    }],
+    "Info": [{
+        "UserId": "1",
+        "RoleId": "1",
+        "Source": "Query/AnalysisReport",
+        "Module": "true",
+        "IsHttpPost": "false",
+        "Guid": "0d708dca-13aa-4222-8af4-cd812685bd4e",
+        "PageX": "tkx",
+        "SessionId": "artp5lrdon5jplpdhjpizyky",
+        "Culture": "zh-CHS",
+        "Style": "List"
+    }],
+    "QueryString": [{
+        "Source": "Query/AnalysisReport",
+        "_toolkit": "jsonp"
+    }],
+    "Count": [{
+        "TotalCount": "39",
+        "TotalPage": "0",
+        "CurrentPage": "0",
+        "PageSize": "39"
+    }]
+}

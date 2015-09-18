@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="js/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+    <style type="text/css">
+    .cc-form-control {
+        height: 34px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 10px 15px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h2 class="text-center" id="FullName"></h2>
+        <form>
+            <input class="cc-form-control dateTimePicker beginDate" id="beginDate" name="BeginDate" placeholder="起始日期">
+            <input class="cc-form-control dateTimePicker endDate" id="endDate" name="EndDate" placeholder="结束日期">
+            <button id="searchByDate" type="button" class="btn btn-default">查询</button>
+        </form>
+        <br>
+        <div class="well" id="main" style="height: 700px"></div>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="echarts-2.2.7/build/dist/echarts.js"></script>
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+    <script src="js/getDataAndDrawK.js"></script>
+    <script type="text/javascript">
+    // 设置 dateTimePicker
+    $('input.dateTimePicker').datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView: 3,
+        autoclose: true,
+        language: 'zh-CN'
+    })
+
+    // 写一个函数从 url 中获取 CompanyId
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+
+    // var baseUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Accounting/KData&CompanyId=',
+
+    // 这里去截取修改地址
+    var testUrl = window.location.href,
+        ccEcharIndex = testUrl.indexOf('cc-echart'),
+        hostString = testUrl.substring(0, ccEcharIndex),
+
+        baseUrl = hostString + 'Library/WebDetailXmlPage.tkx?Source=Accounting/KData&CompanyId=',
+        CompanyId = getUrlParam('CompanyId') || 202,
+        drawDomId = 'main'
+
+    getDataAndDrawK(baseUrl, CompanyId, drawDomId)
+
+    // 判断日期大小
+    $('#searchByDate').click(function() {
+        var beginDate = $('.beginDate').val(),
+            endDate = $('.endDate').val()
+
+        if (beginDate >= endDate) {
+            alert('日期选择错误')
+        } else {
+            var baseUrl = window.baseUrl,
+                CompanyId = getUrlParam('CompanyId'),
+                drawDomId = 'main',
+                QueryString = '&BeginDate=' + beginDate + '&EndDate=' + endDate;
+
+            getDataAndDrawK(baseUrl, CompanyId, drawDomId, QueryString)
+        }
+    })
+    </script>
+</body>
+
+</html>

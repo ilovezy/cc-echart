@@ -1,0 +1,52 @@
+jsonpcallback({
+    "AR_COMPANY": [{
+        "CompanyId": "202",
+        "Tcode": "000001",
+        "Tname": "平安银行",
+        "FullName": "平安银行股份有限公司",
+        "Trade": "J66",
+        "DetailTrade": "银行",
+        "Area": "440300",
+        "TotalStock": "1430867.6300",
+        "FreeStock": "1180405.5000",
+        "Board_Name": "SZ",
+        "ListDate": "1991-04-03 00:00:00",
+        "CreateId": "1",
+        "CreateDate": "2015-08-03 11:32:50",
+        "UpdateId": "1",
+        "UpdateDate": "2015-08-18 10:25:40",
+        "Trade_Name": "J66 - 货币金融服务",
+        "Area_Name": "广东省深圳市",
+        "CreateId_Name": "sa",
+        "UpdateId_Name": "sa"
+    }],
+    "DetailOperator": [{
+        "Id": "Update",
+        "Caption": "修改",
+        "Info": "Update",
+        "Content": "/Account/Library/WebUpdateXmlPage.tkx?Source=Query/CompanyQuery&CompanyId=*CompanyId*",
+        "IconClass": "icon-edit",
+        "DialogTitle": "修改"
+    }],
+    "URL": [{
+        "SelfURL": "http%3a%2f%2f192.168.1.13%2fAccount%2fLibrary%2fWebDetailXmlPage.tkx%3fSource%3dQuery%2fCompanyQuery%26CompanyId%3d202%26_toolkit%3djsonp%26",
+        "DSelfURL": "http://192.168.1.13/Account/Library/WebDetailXmlPage.tkx?Source=Query/CompanyQuery&CompanyId=202&_toolkit=jsonp&"
+    }],
+    "Info": [{
+        "UserId": "1",
+        "RoleId": "1",
+        "Source": "Query/CompanyQuery",
+        "Module": "true",
+        "IsHttpPost": "false",
+        "Guid": "11a8c5ab-a69f-4e9e-a953-00357fb1d34b",
+        "PageX": "tkx",
+        "SessionId": "4yvs4vydflnibx3lqrkisdle",
+        "Culture": "zh-CHS",
+        "Style": "Detail"
+    }],
+    "QueryString": [{
+        "Source": "Query/CompanyQuery",
+        "CompanyId": "202",
+        "_toolkit": "jsonp"
+    }]
+})

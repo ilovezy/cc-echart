@@ -1,0 +1,969 @@
+{
+    "Title": "数据分析",
+    "Table": {
+        "TableName": "Company",
+        "TableDesc": "数据分析结果",
+        "JsonFields": "{\"Table\":\"Company\",\"SearchMethod\":\"Id\",\"JsonType\":\"Object\",\"Fields\":[]}",
+        "Hidden": {
+            "Field": [{
+                "IsEmpty": true,
+                "DataType": "Int",
+                "IsKey": true,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Hidden",
+                    "Order": "20",
+                    "Control": "Hidden"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_COMPANY_ID",
+                "DisplayName": "公司ID",
+                "NickName": "CompanyId",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder"
+            }]
+        },
+        "List": {
+            "Field": [{
+                "IsEmpty": true,
+                "DataType": "String",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "30",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_BOARD_CODE",
+                "DisplayName": "代码",
+                "NickName": "Tcode",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "String",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "30",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "COM_TNAME",
+                "DisplayName": "名称",
+                "NickName": "Tname",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "40",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "DE_CLOSE_PRICE",
+                "DisplayName": "价格",
+                "NickName": "ClosePrice",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "50",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "PerShare",
+                "DisplayName": "每股收益",
+                "NickName": "PerShare",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "60",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "PerAsset",
+                "DisplayName": "每股净资产",
+                "NickName": "PerAsset",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "61",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "PeRatio",
+                "DisplayName": "市盈率",
+                "NickName": "PeRatio",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "62",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "BookValue",
+                "DisplayName": "市净率",
+                "NickName": "BookValue",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "70",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "TotalPrice",
+                "DisplayName": "总市值",
+                "NickName": "TotalPrice",
+                "PlaceHolder": true,
+                "Hint": "亿元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "80",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FreePrice",
+                "DisplayName": "流通市值",
+                "NickName": "FreePrice",
+                "PlaceHolder": true,
+                "Hint": "亿元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "String",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "90",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "RD_REPORT_DATE",
+                "DisplayName": "报表时期",
+                "NickName": "ReportDate",
+                "PlaceHolder": true,
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "210",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_ZC13",
+                "DisplayName": "总资产",
+                "NickName": "ZC13",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "310",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_ZC23",
+                "DisplayName": "净资产",
+                "NickName": "ZC23",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "390",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR01",
+                "DisplayName": "营业收入",
+                "NickName": "LR01",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "400",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR02",
+                "DisplayName": "营业成本",
+                "NickName": "LR02",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "410",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR03",
+                "DisplayName": "营业税金",
+                "NickName": "LR03",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "420",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR04",
+                "DisplayName": "销售费用",
+                "NickName": "LR04",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "430",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR05",
+                "DisplayName": "管理费用",
+                "NickName": "LR05",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "440",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR06",
+                "DisplayName": "财务费用",
+                "NickName": "LR06",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "450",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR07",
+                "DisplayName": "资产减值损失",
+                "NickName": "LR07",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "460",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR08",
+                "DisplayName": "公允价值变动",
+                "NickName": "LR08",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "470",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR09",
+                "DisplayName": "投资收益",
+                "NickName": "LR09",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "480",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR10",
+                "DisplayName": "补贴收入",
+                "NickName": "LR10",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "490",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR11",
+                "DisplayName": "营业利润",
+                "NickName": "LR11",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "500",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR12",
+                "DisplayName": "利润总额",
+                "NickName": "LR12",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "510",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR13",
+                "DisplayName": "所得税费用",
+                "NickName": "LR13",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "520",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR14",
+                "DisplayName": "税后利润",
+                "NickName": "LR14",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "530",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR15",
+                "DisplayName": "净利润",
+                "NickName": "LR15",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "540",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_LR16",
+                "DisplayName": "少数股东损益",
+                "NickName": "LR16",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }, {
+                "IsEmpty": true,
+                "DataType": "Double",
+                "IsKey": false,
+                "Layout": {
+                    "Layout": "PerUnit",
+                    "UnitNum": "1"
+                },
+                "Control": {
+                    "SrcControl": "Text",
+                    "Order": "590",
+                    "Control": "Text"
+                },
+                "Decoder": {
+                    "Type": "None"
+                },
+                "FieldName": "FD_XJ01",
+                "DisplayName": "经营现金流",
+                "NickName": "XJ01",
+                "PlaceHolder": true,
+                "Hint": "万元",
+                "HintPosition": "PlaceHolder",
+                "ListDetail": {
+                    "ListWidth": "0",
+                    "TextHead": true,
+                    "Span": false,
+                    "Search": false
+                },
+                "Extension": {
+                    "CheckValue": "1",
+                    "UnCheckValue": "0",
+                    "Align": "Right"
+                }
+            }]
+        }
+    }
+}

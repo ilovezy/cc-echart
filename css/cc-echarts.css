@@ -1,0 +1,27 @@
+ table.table-nowrap th, table.table-nowrap td {
+     white-space: nowrap;
+ }
+ .mr20 {
+     margin-right: 20px;
+ }
+ .cc-form-control {
+     height: 34px;
+     line-height: 34;
+     padding: 5px 10px;
+     -webkit-border-radius: 4px;
+     border-radius: 4px;
+     border: 1px solid #ccc;
+ }
+ .mr15 {
+     margin-right: 15px;
+ }
+ @media (min-width:992px) {
+     .modal-lg {
+         width: 1200px
+     }
+ }
+ @media (max-width:992px) {
+     .modal-lg {
+         width: 900px
+     }
+ }

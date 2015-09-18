@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>draw line chart</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.2.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div id="lineChart" style="height: 600px"></div>
+    </div>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="echarts-2.2.7/build/dist/echarts.js"></script>
+    <script src="js/getDataAndDrawLine.js"></script>
+    <script>
+    // 写一个函数从 url 中获取 CompanyId
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    // 数据的地址
+    // var dataUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Accounting/ViewReportData&CompanyId=202&  Type=CashFlow&Ids=%7b%22RowId%22%3a%5b%22647%22%2c%22648%22%2c%22649%22%2c%22650%22%2c%22651%22%2c%22652%22%2c%22653%22%2c%22654%22%2c%22655%22%2c%22656%22%2c%22657%22%2c%22658%22%2c%22659%22%2c%22660%22%2c%22661%22%2c%22662%22%2c%22663%22%2c%22664%22%2c%22665%22%2c%22666%22%2c%22667%22%2c%22668%22%2c%22669%22%2c%22670%22%2c%22671%22%2c%22672%22%2c%22673%22%2c%22674%22%2c%22675%22%2c%22676%22%2c%22677%22%2c%22678%22%2c%22679%22%2c%22680%22%2c%22681%22%2c%22682%22%2c%22683%22%2c%22684%22%2c%22685%22%5d%7d'
+
+    // // iframe的地址
+    // var iframeUrl = 'http://192.168.1.13/cc-echart/getData-line.html?CompanyId=202&Type=Balance&Ids=%7b%22RowId%22%3a%5b%22897%22%2c%22898%22%2c%22899%22%2c%22900%22%2c%22901%22%2c%22902%22%2c%22903%22%2c%22904%22%2c%22905%22%2c%22906%22%2c%22907%22%2c%22908%22%2c%22909%22%2c%22910%22%2c%22911%22%2c%22912%22%2c%22913%22%2c%22914%22%2c%22915%22%2c%22916%22%2c%22917%22%2c%22918%22%2c%22919%22%2c%22920%22%2c%22921%22%2c%22922%22%2c%22923%22%2c%22924%22%2c%22925%22%2c%22926%22%2c%22927%22%2c%22928%22%2c%22929%22%2c%22930%22%2c%22931%22%2c%22932%22%2c%22933%22%2c%22934%22%5d%7d&Name=%e8%b4%a7%e5%b8%81%e8%b5%84%e9%87%91'
+
+    // 这里去截取修改地址
+    // 先获取要去的数据的字段名
+    var Name = decodeURI(escape(getUrlParam('Name')));
+    var Base = getUrlParam('Base') || ''
+    var baseUrl = window.location.href.replace(/cc-echart\/getData-line.html\?/, "Library/WebDetailXmlPage.tkx?Source=Accounting/ViewReportData&");
+
+    $.ajax({
+            url: baseUrl,
+            dataType: 'jsonp',
+            jsonpCallback: "jsonpcallback",
+        })
+        .done(function(data) {
+            var lineData = {
+                    xData: [],
+                    yData: []
+                };
+                // 获取LINE 数据了
+            var ReportData = data.ReportData;
+                // for (item in ReportData) {
+                //     lineData.xData.unshift(ReportData[item].ReportDate)
+                //     lineData.yData.unshift(ReportData[item][Name])
+                // }
+            $.each(ReportData, function(index, el) {
+                lineData.xData.unshift(ReportData[index].ReportDate);
+                lineData.yData.unshift(ReportData[index][Name]);
+            })
+
+            // function getDataAndDrawLine(drawDomId, titleText, xData, yData) {}
+            getDataAndDrawLine('lineChart', Name, Base, lineData.xData, lineData.yData);
+        })
+    </script>
+</body>
+
+</html>
