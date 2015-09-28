@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <META HTTP-EQUIV=REFREASH CONTENT=1>
+    <title>美国原油接口数据</title>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+
+    <style type="text/css">
+    body {
+        font-size: 12px;
+    }
+
+    table {
+        border: solid 1px #999999;
+        border-collapse: collapse;
+    }
+
+    tr {
+        border: solid 1px #CCC
+    }
+
+    th {
+        font-weight: normal;
+        color: #009
+    }
+
+    th,
+    td {
+        padding: 15px;
+    }
+
+    .trcolor {
+        background-color: #E8E8E8
+    }
+
+    div {
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+    </style>
+    <script type="text/javascript">
+    var _interval;
+
+    function refresh_fuc() {
+        $.ajax({
+            cache: true,
+            url: "http://hq.sinajs.cn/list=hf_CL",
+            type: "GET",
+            dataType: "script",
+            success: function() {
+                var elements = hq_str_hf_CL.split(",");
+                $("table tr:eq(1) td").each(function(index) {
+                    //var rate=1;
+                    var rate = $("#exchange_rate").val() * 10;
+                    switch (index) {
+                        case 0:
+                            $(this).text(elements[13]);
+                            break;
+                        case 1:
+                            $(this).text((elements[0] - elements[7]).toFixed(3));
+                            break;
+                        case 2:
+                            $(this).text((elements[0] * rate).toFixed(3));
+                            break;
+                        case 3:
+                            $(this).text((elements[7] * rate).toFixed(3));
+                            break;
+                        case 4:
+                            $(this).text((elements[8] * rate).toFixed(3));
+                            break;
+                        case 5:
+                            $(this).text((elements[4] * rate).toFixed(3));
+                            break;
+                        case 6:
+                            $(this).text((elements[5] * rate).toFixed(3));
+                            break;
+                        case 7:
+                            $(this).text((elements[2] * rate).toFixed(3));
+                            break;
+                        case 8:
+                            $(this).text((elements[3] * rate).toFixed(3));
+                            break;
+                        case 9:
+                            $(this).text(elements[10]);
+                            break;
+                        case 10:
+                            $(this).text(elements[11]);
+                            break;
+                        case 11:
+                            $(this).text(elements[9]);
+                            break;
+                        case 12:
+                            $(this).text((elements[0] * rate - $("#strike_price").val()).toFixed(3));
+                            break;
+                        case 13:
+                            $(this).text(elements[12]);
+                            break;
+                        case 14:
+                            $(this).text(elements[6]);
+                            break;
+                        default:
+                            $(this).text("");
+                    }
+                });
+            }
+        });
+
+    }
+    $(document).ready(function() {
+        $("table tr:odd").addClass("trcolor");
+        $("#btn_query").click(function(e) {
+            if ($("#strike_price").val() == "") {
+                alert("请输入成交价！");
+            } else {
+                setInterval(refresh_fuc, 1000);
+            }
+        });
+    })
+    </script>
+</head>
+
+<body>
+
+    <div>
+        <span>输入汇率</span>
+        <input type="text" id="exchange_rate" value="6.1239" /> <span>成交价</span>
+        <input type="text" id="strike_price" />
+        <button id="btn_query">查询</button>
+    </div>
+    <table>
+        <tr>
+            <th>名称</th>
+            <th>涨跌额</th>
+            <th>最新价</th>
+            <th>昨收</th>
+            <th>今开</th>
+            <th>最高</th>
+            <th>最低</th>
+            <th>买入</th>
+            <th>卖出</th>
+            <th>买量</th>
+            <th>卖量</th>
+            <th>持仓量</th>
+            <th>浮动盈亏</th>
+            <th>日期</th>
+            <th>时间</th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+
+</html>
