@@ -27,8 +27,6 @@ table.table-nowrap th, table.table-nowrap td {
 }
 
 /* 两列布局 */
-sidebar.cc-sidebar {
-    padding-top: 65px}
 input.cc-companyInfo-search {
     display: inline;
     max-width: 130px;
