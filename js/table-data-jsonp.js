@@ -29,7 +29,6 @@ $.ajax({
     jsonpCallback: "jsonpcallback"
 })
 .done(function(data) {
-    // console.log(data.CD_TRADE)
     var TradeArr = data.CD_TRADE,
         TradeOptionsStr = '';
 
@@ -78,12 +77,8 @@ $('#searchData').click(function(event) {
     event = window.event || event;
     event.preventDefault();
 
-
     var formData = $("form").serializeArray();
     var formDataArr = [];
-    // for (var i = 0; i < formData.length; i++) {
-    //     formDataArr.push(formData[i].value)
-    // }
     $.each(formData, function(index, val) {
         formDataArr.push(formData[index].value);
     });
@@ -94,6 +89,7 @@ $('#searchData').click(function(event) {
         AnalysisReportCondition: {
             PlateId: '',
             Trade: '',
+            DataType: '',
             DetailTrade: '',
             PriceDate: '',
             ReportDate: ''
@@ -101,16 +97,13 @@ $('#searchData').click(function(event) {
     };
     var tbAnasCondition = toBackJson.AnalysisReportCondition;
     tbAnasCondition.PlateId = formDataArr[0];
-    tbAnasCondition.Trade = formDataArr[1]
-    tbAnasCondition.DetailTrade = formDataArr[2];
-    tbAnasCondition.PriceDate = formDataArr[3];
-    tbAnasCondition.ReportDate = formDataArr[4] + formDataArr[5];
+    tbAnasCondition.Trade = formDataArr[1];
+    tbAnasCondition.DataType = formDataArr[2];
+    tbAnasCondition.DetailTrade = formDataArr[3];
+    tbAnasCondition.PriceDate = formDataArr[4];
+    tbAnasCondition.ReportDate = formDataArr[5] + formDataArr[6];
 
     toBackJson = JSON.stringify(toBackJson);
-    // console.log(toBackJson)
-    // alert(toBackJson + typeof toBackJson)
-    // toBackJson = $.parseJSON(toBackJson);
-    // console.log(typeof toBackJson + ' -  ' + toBackJson)
     // 已经出来了需要的字符串
 
     // 调用 ajax先去触发一下后台，让后台产生数据
@@ -120,16 +113,14 @@ $('#searchData').click(function(event) {
         type: 'POST',
         data: toBackJson,
         success: function() {
-                // console.log('成功，开始绘制表格')
-                // 这里最后就可以调用 getAllDataAndDrawTable 来获取两个jsonp数据并绘制表格了
-                getAllDataAndDrawTable();
-            }
-            // fail: function() {
-            //     // console.log('没有触发后台使后台产生数据')
-            // }
+            // console.log('成功，开始绘制表格')
+            // 这里最后就可以调用 getAllDataAndDrawTable 来获取两个jsonp数据并绘制表格了
+            getAllDataAndDrawTable();
+        }
+        // fail: function() {
+        //     // console.log('没有触发后台使后台产生数据')
+        // }
     })
-
-
 })
 
 function getAllDataAndDrawTable() {
@@ -156,7 +147,6 @@ function getAllDataAndDrawTable() {
                 var tempObj;
 
                 $.each(ListField, function(index, val) {
-                    // console.log(ListField[index]);
                     tempObj = {};
                     tempObj.DisplayName = ListField[index].DisplayName;
                     tempObj.NickName = ListField[index].NickName;
@@ -169,7 +159,6 @@ function getAllDataAndDrawTable() {
         }
         // 第一个数据获取完了之后获取第二个具体数据
     }).done(function() {
-        // console.log("hello cc it's over")
         $('#loadingAnimate').fadeOut(1000);
         // 这里用全局的 alreadyGetMeta来判断是否获取到了 meta
         if (alreadyGetMeta) {
@@ -183,9 +172,9 @@ function getAllDataAndDrawTable() {
                     var tempArr;
                     var item, metaItem;
                     var eachCompanyId;
-                    var NickName
-                        // var needFixed = ['价格', '每股收益', '每股净资产', '市盈率', '市净率', '总市值', '流通市值', 'ROE%', '营业成本率%', '销售净利率%', '资产周转倍数', '资产净利率%', '权益乘数']
-                    var needFixed = ['ClosePrice', 'PerShare', 'PerAsset', 'PeRatio', 'BookValue', 'TotalPrice', 'FreePrice', 'ROE', 'CostRate', 'ProfitRatio', 'TurnoverRatio', 'ProfitRate', 'EquityMultiplier'];
+                    var NickName;
+                    // var needFixed = ['价格', '每股收益', '每股净资产', '市盈率', '市净率', '市销率' '总市值', '流通市值', 'ROE%', '营业成本率%', '销售净利率%', '资产周转倍数', '资产净利率%', '权益乘数']
+                    var needFixed = ['ClosePrice', 'PerShare', 'PerAsset', 'PeRatio', 'BookValue', 'PriceSalesRatio', 'TotalPrice', 'FreePrice', 'ROE', 'CostRate', 'ProfitRatio', 'TurnoverRatio', 'ProfitRate', 'EquityMultiplier'];
                     // console.log(allData.thData) 这是上一个 ajax获取来的 th数据，所有的 th 都是有的
                     // 在具体数据获取的时候，就按 属性名 去获取
                     for (item in Company) {
