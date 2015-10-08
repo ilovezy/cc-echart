@@ -9,16 +9,16 @@
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
 </head>
 
-<body class="container">
+<body class="container-fluid">
     <br>
     <br>
     <div class="row">
         <!-- 左半边导航栏 -->
         <sidebar class="affix hidden-xs">
-            <div class="list-group">
+            <div class="list-group" id="sidebarLinks">
                 <div class="list-group-item form-inline">
                     <div class="form-group">
-                        <input type="text" id="input-companyInfo-search" class="form-control input-companyInfo-search" placeholder="公司代码">
+                        <input type="text" id="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
                     </div>
                     <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
                 </div>
@@ -26,17 +26,8 @@
                 <a href="companyInfo-main.html" class="list-group-item">主要财务指标</a>
             </div>
         </sidebar>
-
         <!-- 右半边显式数据 -->
-        <div class="col-sm-10 col-sm-offset-3 col-xs-12">
-            <!--  $('#stockName').text(companyInfoArr[0]); // 股票名
-            $('#todayOpen').text(companyInfoArr[1]); // 今日开盘价
-            $('#yestodayClose').text(companyInfoArr[2]); // 昨日收盘价
-            $('#nowPrice').text(companyInfoArr[3]); // 当前价格
-            $('#highestPrice').text(companyInfoArr[4]); // 今日最高价
-            $('#lowestPrice').text(companyInfoArr[5]); // 今日最低价
-            $('#volume').text(companyInfoArr[8]); // 成交量
-            $('#amount').text(companyInfoArr[9]) // 成交金额 -->
+        <div class="col-sm-10 col-sm-offset-2 col-xs-12">
             <div style="margin-top: 0;" class="h2">
                 <span id="stockName"></span> <span id="stockId"></span>
             </div>
@@ -62,80 +53,57 @@
                     </div>
                 </div>
             </div>
-
             <hr>
-
             <!-- 新浪k线图 -->
-            <object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;">
-                <param name="allowFullScreen" value="true">
-                <param name="allowScriptAccess" value="always">
-                <param name="wmode" value="transparent">
-                <param name="flashvars" value="symbol=sz000002&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3">
-            </object>
-
+            <div id="sina-K-show" style="height: 500px">
+                <!-- <object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;">
+                    <param name="allowFullScreen" value="true">
+                    <param name="allowScriptAccess" value="always">
+                    <param name="wmode" value="transparent">
+                    <param name="flashvars" value="symbol=sz000002&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3">
+                </object> -->
+            </div>
             <hr>
-            <!-- 其他内容 -->
-            <h2>其他</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div id="showError"></div>
+            <h3>季度报表 </h3>
+            <table id="mainSingleTable" class="table table-striped">
+                <tr>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                </tr>
+                <tr>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                </tr>
+                <tr>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                </tr>
+                <tr>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                    <td>hello</td>
+                </tr>
+            </table>
         </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="js/URI.min.js"></script>
     <!-- 正常的方法 -->
     <!-- // <script id="sinaData" type="text/javascript" src="http://hq.sinajs.cn/list=sz000002" charset="gb2312"></script> -->
-    <script>
-    function getSinaBaseDataAndShow(companyId) {
-        var companyId = companyId;
-        $.ajax({
-            cache: true,
-            url: "http://hq.sinajs.cn/list=" + companyId,
-            type: "GET",
-            dataType: "script",
-            success: function() {
-                var tempStr = 'hq_str_' + companyId;
-                // 特殊的取变量的方法
-                var companyInfoArr = window[tempStr].split(",");
-                // console.log(companyInfoArr);
-
-                $('#stockName').text(companyInfoArr[0]); // 股票名
-                $('#todayOpen').text(companyInfoArr[1]); // 今日开盘价
-                $('#yestodayClose').text(companyInfoArr[2]); // 昨日收盘价
-
-                // $('#nowPrice').text(companyInfoArr[3]); // 当前价格
-                if (companyInfoArr[3] > companyInfoArr[2]) {
-                    $('#nowPrice').addClass('text-danger').html(companyInfoArr[3] + '<span class="glyphicon glyphicon-arrow-up" style="font-size: 20px"></span>')
-                } else {
-                    $('#nowPrice').addClass('text-success').html(companyInfoArr[3] + '<span class="glyphicon glyphicon-arrow-down" style="font-size: 20px"></span>')
-                }
-
-                $('#stockId').text(companyId);
-                $('#highestPrice').text(companyInfoArr[4]); // 今日最高价
-                $('#lowestPrice').text(companyInfoArr[5]); // 今日最低价
-                $('#volume').text((companyInfoArr[8] / 1000000).toFixed(2) + ' 万手'); // 成交量
-                $('#amount').text((companyInfoArr[9] / 100000000).toFixed(2) + ' 亿元') // 成交金额
-
-                // 计算涨幅和跌幅
-                // var UpStop = (companyInfoArr[2] * 1.1).toFixed(2);
-                // $('#upStop').text(UpStop);
-                // var downStop = (companyInfoArr[2] * 0.9).toFixed(2);
-                // $("#downStop").text(downStop);
-            }
-        });
-    }
-
-    getSinaBaseDataAndShow('sz000002')
-
-    $('#btn-companyInfo-search').click(function () {
-        var companyIdVal = $('#input-companyInfo-search').val();
-        getSinaBaseDataAndShow(companyIdVal);
-    })
-    </script>
-
+    <script src="js/companyInfo-base.js"></script>
 </body>
 
 </html>
