@@ -98,10 +98,10 @@ $('#searchData').click(function(event) {
     var tbAnasCondition = toBackJson.AnalysisReportCondition;
     tbAnasCondition.PlateId = formDataArr[0];
     tbAnasCondition.Trade = formDataArr[1];
-    tbAnasCondition.DataType = formDataArr[2];
-    tbAnasCondition.DetailTrade = formDataArr[3];
-    tbAnasCondition.PriceDate = formDataArr[4];
-    tbAnasCondition.ReportDate = formDataArr[5] + formDataArr[6];
+    tbAnasCondition.DetailTrade = formDataArr[2];
+    tbAnasCondition.PriceDate = formDataArr[3];
+    tbAnasCondition.ReportDate = formDataArr[4] + formDataArr[5];
+    tbAnasCondition.DataType = formDataArr[6];
 
     toBackJson = JSON.stringify(toBackJson);
     // 已经出来了需要的字符串

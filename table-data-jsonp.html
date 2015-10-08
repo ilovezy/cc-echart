@@ -38,37 +38,26 @@
     <div class="container-fluid">
         <form class="form-inline" id="hiddenToolbar" style="position: absolute; z-index: 1000">
             <label>
-                板块：
                 <select id="PlateId" name="PlateId" class="form-control mr20">
                     <option value=""></option>
                 </select>
             </label>
             <label>
-                行业：
                 <select id="Trade" name="Trade" class="form-control mr20" style="width: 110px">
                     <option value=""></option>
                 </select>
             </label>
-            <label>
-                数据类型：
-                <select id="DataType" name="DataType" class="form-control mr20" style="width: 110px">
-                    <option value="1" >本年累计</option>
-                    <option value="2" selected>本期数</option>
-                    <option value="3" >滚动一年</option>
-                </select>
-            </label>
 
             <label>
-                细分行业：
+                细分行业
                 <input type="text" name="DetailTrade" class="form-control mr20" style="width: 110px">
             </label>
             <label>
-                价格日期：
                 <input type="text" id="PriceDate" name="PriceDate" class="form-control mr20" style="width: 110px">
             </label>
 
             <label>
-                报告日期：
+                报表时期
                 <select id="ReportDateYear" name="ReportDateYear" class="cc-form-control">
                 </select>年
                 <select name="ReportDateMonth" class="cc-form-control">
@@ -78,6 +67,15 @@
                     <option value="12">12</option>
                 </select>月
             </label>
+
+             <label>
+                <select id="DataType" name="DataType" class="form-control mr20" style="width: 110px">
+                    <option value="3" selected>滚动一年</option>
+                    <option value="1" >本年累计</option>
+                    <option value="2">本期数</option>
+                </select>
+            </label>
+
             <button class="btn btn-default" id="searchData">查询</button>
         </form>
 
