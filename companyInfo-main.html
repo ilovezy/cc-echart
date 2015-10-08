@@ -14,11 +14,11 @@
 </head>
 
 <body class="container-fluid">
-    <br>
-    <br>
     <div class="row">
+        <br>
+        <br>
         <!-- 左半边导航栏 -->
-        <sidebar class="affix hidden-xs" style="left: 15px">
+        <sidebar class="affix hidden-xs">
             <div class="list-group" id="sidebarLinks">
                 <div class="list-group-item form-inline">
                     <div class="form-group">
@@ -27,18 +27,20 @@
                     <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
                 </div>
                 <a href="companyInfo-base.html" class="list-group-item">个股基本情况</a>
-                <a href="companyInfo-main.html" class="list-group-item active">主要财务指标</a>
+                <!-- <a href="companyInfo-main.html" class="list-group-item active">主要财务指标</a> -->
+                <a href="http://www.mituyun.com//AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=000001" id="mainCJYpage" class="list-group-item active">主要财务指标</a>
             </div>
         </sidebar>
         <!-- 右半边显式数据 -->
-        <div class="col-sm-10 col-sm-offset-2 col-xs-12">
-            <div style="margin-top: 0;" class="h2">
+        <div class="col-sm-12 showContent col-xs-12">
+
+            <!-- <div style="margin-top: 0;" class="h2">
                 <span id="stockName"></span> <span id="stockId"></span>
             </div>
-            <hr>
+            <hr> -->
             <!-- 没有数据的时候的处理 -->
-            <div id="showError"></div>
-            <h3>季度报表 </h3>
+            <!-- <div id="showError"></div>
+            <h3>季度报表</h3>
             <table id="mainSingleTable" class="table table-striped">
                 <tr>
                     <td>hello</td>
@@ -68,7 +70,10 @@
                     <td>hello</td>
                     <td>hello</td>
                 </tr>
-            </table>
+            </table> -->
+
+
+            <iframe src="http://www.mituyun.com//AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=000001" frameborder="0" style="width: 100%; height: 800px "></iframe>
         </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>

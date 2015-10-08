@@ -72,7 +72,7 @@ function getSinaBaseDataAndShow(Tcode) {
         }
     });
 
-    // 从勇哥后台获取主要财务指标数据
+    // 从后台获取主要财务指标数据
     var mainSingleDataUrl = 'http://www.mituyun.com/AccountMgr/Library' + '/query_FetchDataKData.c?TCode=' + Tcode.substring(2);
     $.ajax({
         url: mainSingleDataUrl,
@@ -98,7 +98,7 @@ function getSinaBaseDataAndShow(Tcode) {
                 tempObj.PerShare = val.PerShare;
                 tempArFetchData.push(tempObj);
 
-                console.log(val.ReportDate + ' 年份 ' + val.ReportDate.substring(0, 4) + ' 每股收益 ' + val.PerShare)
+                console.log(val.ReportDate + ' 年份 ' + val.ReportDate.substring(0, 4) + ' 月份 ' + val.ReportDate.substring(4) + ' 每股收益 ' + val.PerShare)
             });
             console.log(tempArFetchData)
         }

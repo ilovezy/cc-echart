@@ -31,7 +31,15 @@ table.table-nowrap th, table.table-nowrap td {
 
 /* 两列布局 */
 
+sidebar {
+    left: 15px;
+}
+
 input.input-companyInfo-search {
     display: inline;
     max-width: 130px;
+}
+
+.showContent {
+    padding-left: 14%;
 }
