@@ -2,7 +2,7 @@
 
 this.src=this.src+'?time='+Math.random() // 给地址加一串随机数
 
-function getDataAndDrawLine(drawDomId, titleText, Base, xData, yData) {
+function getDataAndDrawLine(drawDomId, titleText, midText, Base, xData, yData) {
     // 这段对应单位
     var danwei = ''
 
@@ -16,7 +16,7 @@ function getDataAndDrawLine(drawDomId, titleText, Base, xData, yData) {
         danwei = "百万元"
     }
 
-    console.log(danwei)
+    // console.log(danwei)
 
     require.config({
         paths: {
@@ -37,7 +37,7 @@ function getDataAndDrawLine(drawDomId, titleText, Base, xData, yData) {
 
             // 居中的标题
             legend: {
-                data: [titleText]
+                data: [midText]
             },
 
             //  右上角的工具栏

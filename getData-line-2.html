@@ -10,6 +10,9 @@
 
 <body>
     <div class="container-fluid">
+    	<br>
+    	<br>
+    	<br>
         <div id="lineChart" style="height: 600px"></div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
@@ -51,18 +54,20 @@
                 yData: []
             };
             // 获取LINE 数据了
+            var arCompany = data.arCompany[0];
+            var Tcode = arCompany.Tcode;
+            var Tname = arCompany.Tname;
             var arFetchData = data.AR_FETCH_DATA;
-            // for (item in arFetchData) {
-            //     lineData.xData.unshift(arFetchData[item].ReportDate)
-            //     lineData.yData.unshift(arFetchData[item][Name])
-            // }
+
             $.each(arFetchData, function(index, el) {
                 lineData.xData.unshift(arFetchData[index].ReportDate);
                 lineData.yData.unshift(arFetchData[index][Name]);
             });
+            var midText = DisplayName;
+            titleText = Tcode + ' &nbsp; ' + Tname + ' &nbsp; ' + DisplayName;
 
-            // function getDataAndDrawLine(drawDomId, titleText, Base, xData, yData) {}
-            getDataAndDrawLine('lineChart', DisplayName, Base, lineData.xData, lineData.yData);
+            // function getDataAndDrawLine(drawDomId, titleText, midText, Base, xData, yData) {}
+            getDataAndDrawLine('lineChart', titleText, midText, Base, lineData.xData, lineData.yData);
         })
     </script>
 </body>

@@ -171,7 +171,7 @@ function getAllDataAndDrawTable() {
                     var Company = newData.Company;
                     var tempArr;
                     var item, metaItem;
-                    var eachCompanyId;
+                    // var eachCompanyId;
                     var NickName;
                     // var needFixed = ['价格', '每股收益', '每股净资产', '市盈率', '市净率', '市销率' '总市值', '流通市值', 'ROE%', '营业成本率%', '销售净利率%', '资产周转倍数', '资产净利率%', '权益乘数']
                     var needFixed = ['ClosePrice', 'PerShare', 'PerAsset', 'PeRatio', 'BookValue', 'PriceSalesRatio', 'TotalPrice', 'FreePrice', 'ROE', 'CostRate', 'ProfitRatio', 'TurnoverRatio', 'ProfitRate', 'EquityMultiplier'];
@@ -179,7 +179,7 @@ function getAllDataAndDrawTable() {
                     // 在具体数据获取的时候，就按 属性名 去获取
                     for (item in Company) {
                         tempArr = [];
-                        eachCompanyId = Company[item].CompanyId;
+                        // eachCompanyId = Company[item].CompanyId;
                         eachTcode = Company[item].Tcode;
                         // 获取每个公司的 CompanyId，用来做链接的
                         for (metaItem in allData.thData) {
@@ -198,12 +198,14 @@ function getAllDataAndDrawTable() {
                         }
                         // Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=202 地址在这里
                         // 这里第二个就是名称，给名称加链接
-                        var url = window.location.href;
-                        var aHref = url.substring(0, url.indexOf('cc-echart/'));
+                        // var url = window.location.href;
+                        // var aHref = url.substring(0, url.indexOf('cc-echart/'));
 
                         // 保证最后一项总计不加链接
+
                         if (eachTcode !== '999999') {
-                            tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
+                            // tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
+                            tempArr[1] = 'http://www.mituyun.com/AccountMgr/cc-echart/companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
                         } else {
                             tempArr[1] = tempArr[1]
                         }
