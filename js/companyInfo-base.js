@@ -72,8 +72,8 @@ function getSinaBaseDataAndShow(Tcode) {
         }
     });
 
-    // 从后台获取主要财务指标数据
-    var mainSingleDataUrl = 'http://www.mituyun.com/AccountMgr/Library' + '/query_FetchDataKData.c?TCode=' + Tcode.substring(2);
+    // 从后台获取主要财务指标数据，这个是固定了url了，实际要用URI获取host
+    var mainSingleDataUrl = 'http://www.mituyun.com/AccountMgr/query_FetchDataKData.c?TCode=' + Tcode.substring(2);
     $.ajax({
         url: mainSingleDataUrl,
         dataType: 'jsonp',
