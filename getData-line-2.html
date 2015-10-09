@@ -54,7 +54,7 @@
                 yData: []
             };
             // 获取LINE 数据了
-            var arCompany = data.arCompany[0];
+            var arCompany = data.AR_COMPANY[0];
             var Tcode = arCompany.Tcode;
             var Tname = arCompany.Tname;
             var arFetchData = data.AR_FETCH_DATA;
@@ -64,7 +64,7 @@
                 lineData.yData.unshift(arFetchData[index][Name]);
             });
             var midText = DisplayName;
-            titleText = Tcode + ' &nbsp; ' + Tname + ' &nbsp; ' + DisplayName;
+            titleText = Tcode + ' ' + Tname + ' ' + DisplayName;
 
             // function getDataAndDrawLine(drawDomId, titleText, midText, Base, xData, yData) {}
             getDataAndDrawLine('lineChart', titleText, midText, Base, lineData.xData, lineData.yData);

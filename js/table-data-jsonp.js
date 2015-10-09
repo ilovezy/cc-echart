@@ -205,7 +205,7 @@ function getAllDataAndDrawTable() {
 
                         if (eachTcode !== '999999') {
                             // tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
-                            tempArr[1] = 'http://www.mituyun.com/AccountMgr/cc-echart/companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
+                            tempArr[1] = '<a href="' + 'http://www.mituyun.com/AccountMgr/cc-echart/companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
                         } else {
                             tempArr[1] = tempArr[1]
                         }
