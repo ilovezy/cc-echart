@@ -264,6 +264,8 @@ $('#btn-companyInfo-search').click(function() {
         $('#mainSingleTable tbody').empty();
         $('#mainSingleTable thead').hide();
     } else if(newTcodeVal.length !== 6) {
+        alert('股票id长度不等于6了')
+        $('#sinaData, #showPershareTable, #sina-K-show, #showAllError').addClass('hide')
         $('#showAllError').removeClass('hide');
     } else {
         $('#showAllError').addClass('hide');
