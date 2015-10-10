@@ -109,7 +109,8 @@ function getSinaBaseDataAndShow(Tcode) {
     });
 
     // 从后台获取主要财务指标数据，这个是固定了url了，实际要用URI获取host
-    var mainSingleDataUrl = 'http://localhost/AccountMgr/query_FetchDataKData.c?TCode=' + Tcode.substring(2);
+    // var mainSingleDataUrl = 'http://www.mituyun/AccountMgr/query_FetchDataKData.c?TCode=' + Tcode.substring(2);
+    var mainSingleDataUrl = '../query_FetchDataKData.c?TCode=' + Tcode.substring(2);
     $.ajax({
         url: mainSingleDataUrl,
         dataType: 'jsonp',
@@ -150,8 +151,6 @@ function getSinaBaseDataAndShow(Tcode) {
             // console.log(uniqueYearArr.length)
             // 这里如果后台返回没有年数的话就不执行后面的了，不然由于ajax缓存问题会导致之前的每股利润还是存在
             if (uniqueYearArr.length > 0) {
-
-
                 var finalEmptyArr = []
                 for (var i = 0; i < uniqueYearArr.length; i++) {
                     var k = 3;
@@ -208,8 +207,8 @@ function getSinaBaseDataAndShow(Tcode) {
 
                 var $table = $('#mainSingleTable tbody')
                 var trStr = ''
-                    // console.log(uniqueYearArr)
-                    // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
+                // console.log(uniqueYearArr)
+                // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
                 for (var i = 0; i < finalArr.length; i++) {
                     finalArr[i].unshift(uniqueYearArr[i])
                 }

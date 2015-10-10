@@ -23,7 +23,6 @@
                 </div>
                 <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item">个股基本情况</a>
                 <a href="companyInfo-main.html" id="companyInof-main" class="list-group-item active">主要财务指标</a>
-                <!-- <a href="" id="mainCJYpage" class="list-group-item active">主要财务指标</a> -->
             </div>
         </sidebar>
         <!-- 右半边显式数据 -->
@@ -80,8 +79,8 @@
 
     function changeIframeUrl(TcodeShort) {
         // 测试用
-        // var newIframeTableUrl = 'http://localhost/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
-        var newIframeTableUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
+        // var newIframeTableUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
+        var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
         $('#IframeTable').attr('src', newIframeTableUrl)
     }
 
