@@ -17,8 +17,8 @@ if (TcodeVal) {
         var newHref = oldHref + '?Tcode=' + TcodeVal;
         $(this).attr('href', newHref);
     });
-    $('#Tcode').val(TcodeVal)
-    getSinaBaseDataAndShow(TcodeVal)
+    $('#Tcode').val(TcodeVal);
+    getSinaBaseDataAndShow(TcodeVal);
 }
 
 // 通过 Tcode来获取新浪的数据和 k线图
@@ -101,7 +101,6 @@ function getSinaBaseDataAndShow(Tcode) {
                     $('#amount').text((TcodeArr[9] / 100000000).toFixed(2) + ' 亿元') // 成交金额
                 }
 
-
                 var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><param name="flashvars" value="symbol=' + Tcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>'
 
                 $('#sina-K-show').empty().html(sinaKStr);
@@ -115,119 +114,128 @@ function getSinaBaseDataAndShow(Tcode) {
         url: mainSingleDataUrl,
         dataType: 'jsonp',
         async: false,
+        cache: false,
         jsonpCallback: "jsonpcallback"
     })
     // 成功之后的操作
     .done(function(data) {
         if (data) {
             // 先把股票名和 id 给上
-            // console.log(data)
             var AR_COMPANY = data.AR_COMPANY[0];
             $('#stockName').text(AR_COMPANY.Tname);
             $("#stockId").text(Tcode); // 这里不用后台传来的 Tcode，后台的是简短版本的
 
-            var AR_FETCH_DATA = data.AR_FETCH_DATA;
-
+            var AR_FETCH_DATA = data.AR_FETCH_DATA || [];
             var tempCollection = [];
-	        var uniqueYearArr = []
-	        $.each(AR_FETCH_DATA, function(index, val) {
-	            var tempObj = {};
-	            var ReportDate = val.ReportDate
-	            var year = ReportDate.substring(0, 4)
-	            tempObj.ReportDate = ReportDate;
-	            tempObj.year = year
-	            tempObj.month = ReportDate.substring(4)
-	            tempObj.PerShare = val.PerShare
-	            tempCollection.push(tempObj)
-	            if (uniqueYearArr.length == 0) {
-	                uniqueYearArr.push(year)
-	            } else {
-	                if (!($.inArray(year, uniqueYearArr) > -1)) {
-	                    uniqueYearArr.push(year)
-	                }
-	            }
-	        });
+            var uniqueYearArr = []
+            $.each(AR_FETCH_DATA, function(index, val) {
+                var tempObj = {};
+                var ReportDate = val.ReportDate;
+                var year = ReportDate.substring(0, 4);
+                tempObj.ReportDate = ReportDate;
+                tempObj.year = year;
+                tempObj.month = ReportDate.substring(4);
+                tempObj.PerShare = val.PerShare;
+                tempCollection.push(tempObj);
+                if (uniqueYearArr.length == 0) {
+                    uniqueYearArr.push(year)
+                } else {
+                    if (!($.inArray(year, uniqueYearArr) > -1)) {
+                        uniqueYearArr.push(year)
+                    }
+                }
+            });
 
-	        // console.log(uniqueYearArr)
-	        // console.log(uniqueYearArr.length)
-
-	        var finalEmptyArr = []
-	        for (var i = 0; i < uniqueYearArr.length; i++) {
-	            var k = 3;
-	            for (var j = 0; j < 4; j++) {
-	                if (j < 3) {
-	                    finalEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k)
-	                } else {
-	                    finalEmptyArr.push(('' + uniqueYearArr[i]) + k)
-	                }
-	                k = k + 3;
-	            }
-	        }
-
-	        // 获取了空的数组了，只有日期的
-	        // console.log(finalEmptyArr)
-	        // console.log(tempCollection)
-
-	        // 剩下的就是一一匹配了
-	        $.each(tempCollection, function(index, val) {
-	            console.log(val.ReportDate + val.PerShare)
-	            if ($.inArray(val.ReportDate, finalEmptyArr) > -1) {
-	                finalEmptyArr[$.inArray(val.ReportDate, finalEmptyArr)] = val.PerShare
-	            }
-	        });
-
-	        // console.log(finalEmptyArr)
-	        // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
-	        $.each(finalEmptyArr, function(index, val) {
-	            if (val > 1000) {
-	                finalEmptyArr[index] = ''
-	            }
-	        })
-
-	        // console.log(finalEmptyArr)
-	        // console.log(finalEmptyArr.length)
-
-	        var finalArr = []
-	        for (var i = 0, count = 0, tempArr = []; i < finalEmptyArr.length; i++) {
-	            if (count < 3) {
-	                tempArr.push(finalEmptyArr[i])
-	                count++
-	            } else {
-	                // 注意这里的超级大坑，如果 count等于四的时候，依然要把第四个放到 tempArr里面去的，不然每组总是会少一个元素的
-	                tempArr.push(finalEmptyArr[i])
-	                finalArr.push(tempArr)
-	                count = 0
-	                tempArr = []
-	            }
-	        }
-	        // console.log(finalArr)
-	        // console.log(finalArr.length) // 11
+            // console.log(uniqueYearArr)
+            // console.log(uniqueYearArr.length)
+            // 这里如果后台返回没有年数的话就不执行后面的了，不然由于ajax缓存问题会导致之前的每股利润还是存在
+            if (uniqueYearArr.length > 0) {
 
 
-	        var $table = $('#mainSingleTable tbody')
-	        var trStr = ''
-	        console.log(uniqueYearArr)
-	        for(var i = 0; i < finalArr.length; i++) {
-	            finalArr[i].unshift(uniqueYearArr[i])
-	        }
-	        $.each(finalArr, function(index, PerShareArr) {
-	            // 再把 uniqueYearArr 里的年数，放到对应的数组中去
+                var finalEmptyArr = []
+                for (var i = 0; i < uniqueYearArr.length; i++) {
+                    var k = 3;
+                    for (var j = 0; j < 4; j++) {
+                        if (j < 3) {
+                            finalEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k)
+                        } else {
+                            finalEmptyArr.push(('' + uniqueYearArr[i]) + k)
+                        }
+                        k = k + 3;
+                    }
+                }
 
-	            var tdStr = ''
-	            $.each(PerShareArr, function(index, PerShare) {
-	                if(PerShare !== '' && PerShare < 1000) {
-	                    tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>'
-	                }else {
-	                    tdStr += "<td>" + PerShare + '</td>'
-	                }
-	            });
-	            trStr += '<tr>' + tdStr + '</tr>'
-	        });
-	        $table.append(trStr)
+                // 获取了空的数组了，只有日期的
+                // console.log(finalEmptyArr)
+                // console.log(tempCollection)
+
+                // 剩下的就是一一匹配了
+                $.each(tempCollection, function(index, val) {
+                    // console.log(val.ReportDate + val.PerShare)
+                    var pos = $.inArray(val.ReportDate, finalEmptyArr);
+                    if (pos > -1) {
+                        finalEmptyArr[pos] = val.PerShare
+                    }
+                });
+
+                // console.log(finalEmptyArr)
+                // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
+                $.each(finalEmptyArr, function(index, val) {
+                    if (val > 1000) {
+                        finalEmptyArr[index] = ''
+                    }
+                })
+
+                // console.log(finalEmptyArr)
+                // console.log(finalEmptyArr.length)
+
+                var finalArr = []
+                for (var i = 0, count = 0, tempArr = []; i < finalEmptyArr.length; i++) {
+                    if (count < 3) {
+                        tempArr.push(finalEmptyArr[i])
+                        count++
+                    } else {
+                        // 注意这里的超级大坑，如果 count等于四的时候，依然要把第四个放到 tempArr里面去的，不然每组总是会少一个元素的
+                        tempArr.push(finalEmptyArr[i])
+                        finalArr.push(tempArr)
+                        count = 0
+                        tempArr = []
+                    }
+                }
+                // console.log(finalArr)
+                // console.log(finalArr.length) // 11
+
+
+                var $table = $('#mainSingleTable tbody')
+                var trStr = ''
+                    // console.log(uniqueYearArr)
+                    // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
+                for (var i = 0; i < finalArr.length; i++) {
+                    finalArr[i].unshift(uniqueYearArr[i])
+                }
+                $.each(finalArr, function(index, PerShareArr) {
+                    var tdStr = ''
+                    $.each(PerShareArr, function(index, PerShare) {
+                        if (PerShare !== '' && PerShare < 1000) {
+                            tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>'
+                        } else {
+                            tdStr += "<td>" + PerShare + '</td>'
+                        }
+                    });
+                    trStr += '<tr>' + tdStr + '</tr>'
+                });
+                $table.append(trStr)
+
+            } else {
+                $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的资料</div>');
+                $('#mainSingleTable tbody').empty();
+            }
+
         }
     })
     .fail(function() {
-        $('#showError').empty().append('<div class="alert alert-warning">没有该公司的资料</div>')
+        $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的资料</div>');
+        $('#mainSingleTable tbody').empty()
     })
 }
 

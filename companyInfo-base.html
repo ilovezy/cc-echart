@@ -13,7 +13,6 @@
     <div class="row">
         <!-- 左半边导航栏 -->
         <sidebar class="affix hidden-xs">
-
             <br>
             <div class="list-group" id="sidebarLinks">
                 <div class="list-group-item form-inline">
@@ -31,8 +30,6 @@
             <br>
             <div style="margin-top: 0;" class="h2">
                 <div style="padding-left: 50px">
-
-
                     <span id="stockName"></span> <span id="stockId"></span>
                 </div>
             </div>
@@ -69,17 +66,25 @@
                 </object> -->
             </div>
             <hr>
-            <div id="showError"></div>
-            <h3>季度报表 </h3>
-            <table id="mainSingleTable" class="table table-striped table-hover">
-                <tbody>
-                	<td>日期</td>
-		            <td>03</td>
-		            <td>06</td>
-		            <td>09</td>
-		            <td>12</td>
-                </tbody>
-            </table>
+            <div style="padding-left: 50px">
+                <h3>每股利润</h3>
+                <table id="mainSingleTable" class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <td>日期</td>
+                            <td>03</td>
+                            <td>06</td>
+                            <td>09</td>
+                            <td>12</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <div id="showError"></div>
+            </div>
         </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>

@@ -6,19 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>主要财务指标</title>
     <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.7/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.7/extensions/FixedHeader/css/dataTables.fixedHeader.min.css">
-    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.7/extensions/FixedColumns/css/dataTables.fixedColumns.min.css">
-    <link rel="stylesheet" type="text/css" href="../DataTables-1.10.7/extensions/TableTools/css/dataTables.tableTools.min.css">
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
 </head>
 
 <body class="container-fluid">
     <div class="row">
-
         <!-- 左半边导航栏 -->
         <sidebar class="affix hidden-xs">
-            <br><br>
+            <br>
             <div class="list-group" id="sidebarLinks">
                 <div class="list-group-item form-inline">
                     <div class="form-group">
@@ -26,8 +21,8 @@
                     </div>
                     <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
                 </div>
-                <a href="companyInfo-base.html" class="list-group-item">个股基本情况</a>
-                <a href="companyInfo-main.html" class="list-group-item active">主要财务指标</a>
+                <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item">个股基本情况</a>
+                <a href="companyInfo-main.html" id="companyInof-main" class="list-group-item active">主要财务指标</a>
                 <!-- <a href="" id="mainCJYpage" class="list-group-item active">主要财务指标</a> -->
             </div>
         </sidebar>
@@ -35,7 +30,7 @@
         <div class="col-sm-10 showContent col-xs-12">
             <!-- 没有数据的时候的处理 -->
             <div id="showError"></div>
-            <iframe id="IframeTable" frameborder="0" style="width: 100%; height: 900px "></iframe>
+            <iframe id="IframeTable" frameborder="0" style="width: 100%; height: 850px "></iframe>
         </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
@@ -44,7 +39,6 @@
     <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.page.js"></script>
     <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.data.js?v=5"></script>
     <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.ui.js"></script>
-
     <!-- 正常的方法 -->
     <!-- // <script id="sinaData" type="text/javascript" src="http://hq.sinajs.cn/list=sz000002" charset="gb2312"></script> -->
     <script src="js/URI.min.js"></script>
@@ -68,20 +62,8 @@
             var newHref = oldHref + '?Tcode=' + TcodeVal;
             $(this).attr('href', newHref);
         });
-        $('#Tcode').val(TcodeVal.substring(2))
-        changeIframeUrl(TcodeVal.substring(2));
-    }
-
-    // 这里要处理一下 sz 和 sh 的问题
-    // 6开头是 sh, 其他的 sz, Tcode 只有 6位的
-    function getTcodeAndTransform() {
-        var TcodeVal = $('#Tcode').val();
-        if (TcodeVal.charAt(0) === 6) {
-            TcodeVal = 'sh' + TcodeVal;
-        } else {
-            TcodeVal = 'sz' + TcodeVal;
-        }
-        window.Tcode = TcodeVal;
+        $('#Tcode').val(TcodeVal)
+        changeIframeUrl(TcodeVal);
     }
 
     // Tcode改变时的操作
@@ -89,22 +71,11 @@
     $("#Tcode").on('change', function() {
         var thisTcode = $(this).val();
 
-        if (thisTcode.charAt(0) === 6) {
-            thisTcode = 'sh' + thisTcode;
-        } else {
-            thisTcode = 'sz' + thisTcode;
-        }
-
         $('#sidebarLinks').find('a').each(function(index, el) {
             var oldHref = $(this).attr('href');
-            var newHref = URI(oldHref).removeSearch('Tcode').addSearch('Tcode', TcodeVal);
+            var newHref = URI(oldHref).removeSearch('Tcode').addSearch('Tcode', thisTcode);
             $(this).attr('href', newHref)
         });
-
-        var Tcode = getUrlParam('Tcode') || '';
-        if (Tcode !== '') {
-            var Tcode = getUrlParam('Tcode') || '';
-        }
     });
 
     function changeIframeUrl(TcodeShort) {
@@ -116,20 +87,8 @@
 
     $('#btn-companyInfo-search').click(function() {
         var TcodeVal = $('#Tcode').val();
-        if (TcodeVal.charAt(0) === 6) {
-            TcodeVal = 'sh' + TcodeVal;
-        } else {
-            TcodeVal = 'sz' + TcodeVal;
-        }
-
-        $('#sidebarLinks').find('a').each(function(index, el) {
-            var oldHref = $(this).attr('href');
-            var newHref = URI(oldHref).removeSearch('Tcode').addSearch('Tcode', TcodeVal);
-            $(this).attr('href', newHref)
-        });
-
         // 点击的时候 iframe链接改成Tcode的那个，使页面跳转
-        changeIframeUrl(TcodeVal.substring(2));
+        changeIframeUrl(TcodeVal);
     });
     </script>
 </body>
