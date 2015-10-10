@@ -109,9 +109,8 @@ function getSinaBaseDataAndShow(Tcode) {
     });
 
     // 从后台获取主要财务指标数据，这个是固定了url了，实际要用URI获取host
-    // var mainSingleDataUrl = 'http://www.mituyun.com/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
-    var mainSingleDataUrl = 'http://localhost/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
-    // var mainSingleDataUrl = '../query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
+    // var mainSingleDataUrl = 'http://localhost/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
+    var mainSingleDataUrl = '../query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
     $.ajax({
         url: mainSingleDataUrl,
         dataType: 'jsonp',
@@ -226,14 +225,14 @@ function getSinaBaseDataAndShow(Tcode) {
                 $('#mainSingleTable tbody').empty().append(trStr)
 
             } else {
-                $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的资料</div>');
+                $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的每股收益</div>');
                 $('#mainSingleTable tbody').empty();
             }
 
         }
     })
     .fail(function() {
-        $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的资料</div>');
+        $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的每股收益</div>');
         $('#mainSingleTable tbody').empty()
     })
 }
