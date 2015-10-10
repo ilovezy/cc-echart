@@ -109,6 +109,7 @@ function getSinaBaseDataAndShow(Tcode) {
     });
 
     // 从后台获取主要财务指标数据，这个是固定了url了，实际要用URI获取host
+    // var mainSingleDataUrl = 'http://www.mituyun.com/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
     var mainSingleDataUrl = 'http://localhost/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
     // var mainSingleDataUrl = '../query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
     $.ajax({
@@ -128,7 +129,7 @@ function getSinaBaseDataAndShow(Tcode) {
 
             var AR_FETCH_DATA = data.AR_FETCH_DATA || [];
             var tempCollection = [];
-            var uniqueYearArr = []
+            var uniqueYearArr = [];
             $.each(AR_FETCH_DATA, function(index, val) {
                 var tempObj = {};
                 var ReportDate = val.ReportDate;
@@ -147,8 +148,8 @@ function getSinaBaseDataAndShow(Tcode) {
                 }
             });
 
-            console.log(uniqueYearArr)
-            console.log(uniqueYearArr.length)
+            // console.log(uniqueYearArr)
+            // console.log(uniqueYearArr.length)
             // 这里如果后台返回没有年数的话就不执行后面的了，不然由于ajax缓存问题会导致之前的每股利润还是存在
             if (uniqueYearArr.length > 0) {
                 var finalEmptyArr = []
@@ -204,7 +205,6 @@ function getSinaBaseDataAndShow(Tcode) {
                 // console.log(finalArr)
                 // console.log(finalArr.length) // 11
 
-                var $table = $('#mainSingleTable tbody')
                 var trStr = ''
                 // console.log(uniqueYearArr)
                 // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
@@ -222,7 +222,8 @@ function getSinaBaseDataAndShow(Tcode) {
                     });
                     trStr += '<tr>' + tdStr + '</tr>'
                 });
-                $table.append(trStr)
+                // 这里要先清空原有的数据
+                $('#mainSingleTable tbody').empty().append(trStr)
 
             } else {
                 $('#showError').empty().append('<div class="alert alert-danger">没有查询到该公司的资料</div>');
