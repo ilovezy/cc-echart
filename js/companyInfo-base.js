@@ -34,7 +34,6 @@ $("#Tcode").on('change', function() {
 
 // 通过 Tcode来获取新浪的数据和 k线图，注意给定的参数没有前缀的
 function getSinaBaseDataAndShow(Tcode) {
-
     // 但是后台不一定有数据, 后台没有数据就不去从新浪获取数据了
     // 从后台获取主要财务指标数据，这个是固定了url了，实际要用URI获取host
     // var mainSingleDataUrl = 'http://localhost/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
@@ -144,14 +143,51 @@ function getSinaBaseDataAndShow(Tcode) {
                 });
                 $('#mainSingleTable tbody').empty().append(singleTrStr); // 先清空原有的数据
 
-                // 累计收益表格
-                var countArr = finalArr;
+                // 累计收益表格，注意大坑 array是引用类型，所以需要重新赋值的
+                var countArr = [];
+                for (var i = 0, count = 0, tempArr = []; i < finalEmptyArr.length; i++) {
+                    if (count < 3) {
+                        tempArr.push(finalEmptyArr[i])
+                        count++
+                    } else {
+                        tempArr.push(finalEmptyArr[i])
+                        countArr.push(tempArr)
+                        count = 0
+                        tempArr = []
+                    }
+                }
+                // console.log(countArr)
+
                 // 处理下这个 countArr
                 $.each(countArr, function(index, item) {
+                    // 这里的 icon做个标记，元素第一次为 ‘’ 的元素的位置
+                    var icon;
                     $.each(item, function(index, val) {
-                        console.log(val)
+                        if(val == '') {
+                            icon = index
+                        }
                     });
+
+                    if(icon >= 0) {
+                        // 把icon之后的都改成空
+                        for(var i = icon; i < item.length; i++) {
+                            item[icon] = ''
+                            icon++
+                        }
+                    }
+
+                    $.each(item, function(index, val) {
+                        if(val !== '' && index > 0) {
+                            item[index] = (+item[index]) + (+item[index - 1])
+                        }
+                    });
+                    console.log(item);
                 });
+
+                // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
+                for (var i = 0; i < countArr.length; i++) {
+                    countArr[i].unshift(uniqueYearArr[i])
+                }
 
                 var countTrStr = ''
                 $.each(countArr, function(index, PerShareArr) {
