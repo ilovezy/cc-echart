@@ -176,12 +176,13 @@ function getSinaBaseDataAndShow(Tcode) {
                         }
                     }
 
+                    // 进行累加
                     $.each(item, function(index, val) {
                         if(val !== '' && index > 0) {
                             item[index] = (+item[index]) + (+item[index - 1])
                         }
                     });
-                    console.log(item);
+                    // console.log(item);
                 });
 
                 // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去

@@ -12,7 +12,7 @@
 <body class="container-fluid">
     <div class="row">
         <!-- 左半边导航栏 -->
-        <sidebar class="affix hidden-xs">
+        <sidebar class="affix">
             <br>
             <div class="list-group" id="sidebarLinks">
                 <div class="list-group-item form-inline">
@@ -29,30 +29,27 @@
         <div class="col-sm-10 showContent col-xs-12">
             <br>
             <!-- 用来在股票代码格式不对的时候显示错误 -->
-            <div id="showErrorMessage" class="hide" style="padding-left: 50px; padding-right: 20%">
+            <div id="showErrorMessage" class="hide" style="padding-right: 20%">
                 <div class="alert alert-danger">没有查询到该公司的数据,是不是你的股票代码输入有误啊</div>
             </div>
             <!-- 新浪采集来的头部的数据 -->
             <div id="sinaData" class="hide">
-                <div style="margin-top: 0;" class="h2">
-                    <div style="padding-left: 50px">
-                        <span id="stockName"></span> <span id="stockId"></span>
-                    </div>
+                <div class="h2 cc-h2 col-sm-12 col-sm-offset-0 col-xs-6 col-xs-offset-6">
+                    <span id="stockName"></span> <span id="stockId"></span>
                 </div>
-                <br>
-                <div class="row" style="padding-left: 50px">
-                    <div class="col-sm-3 col-xs-12">
+                <div class="row">
+                    <div class="col-sm-3 col-sm-offset-0 col-xs-6 col-xs-offset-6">
                         <h1 id="nowPrice" style="margin-top: 0; line-height: 50px"></h1>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 col-sm-offset-0 col-xs-6 col-xs-offset-6">
                         <div class="pb10">今开：<span id="todayOpen"></span></div>
                         <div>昨收：<span id="yestodayClose"></span></div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 col-sm-offset-0 col-xs-6 col-xs-offset-6">
                         <div class="pb10">最高：<span id="highestPrice"></span></div>
                         <div>最低：<span id="lowestPrice"></span></div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 col-sm-offset-0 col-xs-6 col-xs-offset-6">
                         <div class="pb10">
                             成交量：<span id="volume"></span>
                         </div>
@@ -64,7 +61,7 @@
             </div>
             <br>
             <!-- 每股收益表格 -->
-            <div style="padding-left: 50px; padding-right: 20%" class="hide" id="showPershareTable">
+            <div class="hide showPershareTable" id="showPershareTable">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#singleTable" data-toggle="tab">每股收益</a></li>
                     <li><a href="#countTable" data-toggle="tab">累计每股收益</a></li>
@@ -107,7 +104,7 @@
             </div>
             <br>
             <!-- 新浪k线图 -->
-            <div id="sina-K-show" class="hide" style="padding-left: 35px">
+            <div id="sina-K-show" class="hide">
                 <!-- <object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;">
                     <param name="allowFullScreen" value="true">
                     <param name="allowScriptAccess" value="always">
@@ -120,6 +117,8 @@
             <br>
         </div>
     </div>
+
+
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
     <script src="js/URI.min.js"></script>
