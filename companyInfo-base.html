@@ -28,7 +28,10 @@
         <!-- 右半边显式数据 -->
         <div class="col-sm-10 showContent col-xs-12">
             <br>
-
+            <!-- 用来在股票代码格式不对的时候显示错误 -->
+            <div id="showErrorMessage" class="hide" style="padding-left: 50px; padding-right: 20%">
+                <div class="alert alert-danger">没有查询到该公司的数据,是不是你的股票代码输入有误啊</div>
+            </div>
             <!-- 新浪采集来的头部的数据 -->
             <div id="sinaData" class="hide">
                 <div style="margin-top: 0;" class="h2">
@@ -36,9 +39,7 @@
                         <span id="stockName"></span> <span id="stockId"></span>
                     </div>
                 </div>
-
                 <br>
-
                 <div class="row" style="padding-left: 50px">
                     <div class="col-sm-3 col-xs-12">
                         <h1 id="nowPrice" style="margin-top: 0; line-height: 50px"></h1>
@@ -61,46 +62,64 @@
                     </div>
                 </div>
             </div>
-
             <br>
-
             <!-- 每股收益表格 -->
             <div style="padding-left: 50px; padding-right: 20%" class="hide" id="showPershareTable">
-                <table id="mainSingleTable" class="table table-striped table-hover table-bordered text-center hide">
-                    <thead>
-                        <tr>
-                            <td>EPS</td>
-                            <td>一季度</td>
-                            <td>二季度</td>
-                            <td>三季度</td>
-                            <td>四季度</td>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">每股收益</a></li>
+                        <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">累计每股收益</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- 每股收益 -->
+                        <div class="tab-pane active" id="home">
+                            <table id="mainSingleTable" class="table table-striped table-hover table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <td>EPS</td>
+                                        <td>一季度</td>
+                                        <td>二季度</td>
+                                        <td>三季度</td>
+                                        <td>四季度</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                    </tbody>
-                </table>
+                                </tbody>
+                            </table>
+                        </div>
 
-                <div id="showError" class="hide">
-                    <div class="alert alert-danger">没有查询到该公司的每股收益数据</div>
+                        <!-- 累计收益 -->
+                        <div class="tab-pane" id="profile">
+                            <table id="mainCountTable" class="table table-striped table-hover table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <td>EPS</td>
+                                        <td>一季度</td>
+                                        <td>二季度</td>
+                                        <td>三季度</td>
+                                        <td>四季度</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <br>
-
             <!-- 新浪k线图 -->
-            <div id="sina-K-show" class="hide" style="height: 500px; padding-left: 35px">
+            <div id="sina-K-show" class="hide" style="padding-left: 35px">
                 <!-- <object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;">
                     <param name="allowFullScreen" value="true">
                     <param name="allowScriptAccess" value="always">
                     <param name="wmode" value="transparent">
                     <param name="flashvars" value="symbol=sz000002&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3">
                 </object> -->
-            </div>
-
-            <!-- 用来在股票代码格式不对的时候显示错误 -->
-            <div id="showAllError" class="hide" style="padding-left: 50px; padding-right: 20%">
-                <div class="alert alert-danger">没有查询到该公司的数据,是不是你的股票代码输入有误啊</div>
             </div>
             <br>
             <br>
@@ -112,7 +131,7 @@
     <script src="js/URI.min.js"></script>
     <!-- 正常的方法 -->
     <!-- // <script id="sinaData" type="text/javascript" src="http://hq.sinajs.cn/list=sz000002" charset="gb2312"></script> -->
-    <script src="js/companyInfo-base.js"></script>
+    <script src="js/companyInfo-base.js?timeStamp='+new Date().getTime();'"></script>
 </body>
 
 </html>
