@@ -53,6 +53,7 @@ function getSinaBaseDataAndShow(Tcode) {
         if (data) {
             // 先把股票名和 id 给上
             var AR_COMPANY = data.AR_COMPANY[0];
+
             $('#stockName').text(AR_COMPANY.Tname);
             $("#stockId").text(Tcode); // 这里不用后台传来的 Tcode，后台的是简短版本的
 
@@ -121,16 +122,15 @@ function getSinaBaseDataAndShow(Tcode) {
                     }
                 }
 
-                var trStr = ''
                 // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
                 for (var i = 0; i < finalArr.length; i++) {
                     finalArr[i].unshift(uniqueYearArr[i])
                 }
 
-                // 到这里为止已经获取了 finalArr了，根据需求需要做两个不同的表格
-                // 一个是标准的，一个是累计的
+                // 到这里为止已经获取了 finalArr了，根据需求需要做两个不同的表格, 一个是标准的，一个是累计的
 
-                // 标准版表格
+                // 每股收益表格
+                var singleTrStr = ''
                 $.each(finalArr, function(index, PerShareArr) {
                     var tdStr = ''
                     $.each(PerShareArr, function(index, PerShare) {
@@ -140,11 +140,35 @@ function getSinaBaseDataAndShow(Tcode) {
                             tdStr += "<td>" + PerShare + '</td>'
                         }
                     });
-                    trStr += '<tr>' + tdStr + '</tr>'
+                    singleTrStr += '<tr>' + tdStr + '</tr>'
                 });
-                // 这里要先清空原有的数据
+                $('#mainSingleTable tbody').empty().append(singleTrStr); // 先清空原有的数据
+
+                // 累计收益表格
+                var countArr = finalArr;
+                // 处理下这个 countArr
+                $.each(countArr, function(index, item) {
+                    $.each(item, function(index, val) {
+                        console.log(val)
+                    });
+                });
+
+                var countTrStr = ''
+                $.each(countArr, function(index, PerShareArr) {
+                    var tdStr = ''
+                    $.each(PerShareArr, function(index, PerShare) {
+                        if (PerShare !== '' && PerShare < 1000) {
+                            tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>'
+                        } else {
+                            tdStr += "<td>" + PerShare + '</td>'
+                        }
+                    });
+                    countTrStr += '<tr>' + tdStr + '</tr>'
+                });
+                $('#mainCountTable tbody').empty().append(countTrStr); // 先清空原有的数据
+
+                // 需要把table显示，因为默认是隐藏的
                 $("#showPershareTable").removeClass('hide');
-                $('#mainSingleTable tbody').empty().append(trStr);
 
                 // 后台已经返回了正确的数据，可以去查询新浪数据了
                 BackEndHasData = true;

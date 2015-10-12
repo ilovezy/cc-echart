@@ -1,6 +1,26 @@
 // 工具栏的板块选项，jsonp获取
 // 地址 Account/Library/WebModuleContentPage.tkx?Source=Accounting/PlateData
 
+// 获取IndexId
+var IndexIdUrl = '../Library/WebModuleContentPage.tkx?Source=Accounting/PlateData&Data=Index';
+$.ajax({
+    url: IndexIdUrl,
+    dataType: 'jsonp',
+    async: false,
+    jsonpCallback: "jsonpcallback"
+})
+.done(function(data) {
+    if( $.isArray(data.Index) ) {
+        var IndexIdArr = data.Index,
+            IndexIdOptionsStr = '';
+
+        $.each(IndexIdArr, function(index, val) {
+            IndexIdOptionsStr += '<option value="' + IndexIdArr[index].IndexId + '">' + IndexIdArr[index].Name + '</option>';
+        });
+        $('#IndexId').append(IndexIdOptionsStr);
+    }
+});
+
 // var plateIdUrl = 'http://192.168.1.13/Account/Library/WebModuleContentPage.tkx?Source=Accounting/PlateData'
 var plateIdUrl = '../Library/WebModuleContentPage.tkx?Source=Accounting/PlateData';
 $.ajax({
@@ -10,13 +30,15 @@ $.ajax({
     jsonpCallback: "jsonpcallback"
 })
 .done(function(data) {
-    var plateIdArr = data.Plate,
-        PlateIdOptionsStr = '';
+    if( $.isArray(data.Plate) ) {
+        var plateIdArr = data.Plate,
+            PlateIdOptionsStr = '';
 
-    $.each(plateIdArr, function(index, val) {
-        PlateIdOptionsStr += '<option value="' + plateIdArr[index].PlateId + '">' + plateIdArr[index].Name + '</option>';
-    });
-    $('#PlateId').append(PlateIdOptionsStr);
+        $.each(plateIdArr, function(index, val) {
+            PlateIdOptionsStr += '<option value="' + plateIdArr[index].PlateId + '">' + plateIdArr[index].Name + '</option>';
+        });
+        $('#PlateId').append(PlateIdOptionsStr);
+    }
 });
 
 // 工具栏的细分行业选项，jsonp获取
@@ -29,13 +51,15 @@ $.ajax({
     jsonpCallback: "jsonpcallback"
 })
 .done(function(data) {
-    var TradeArr = data.CD_TRADE,
-        TradeOptionsStr = '';
+    if( $.isArray(data.CD_TRADE) ) {
+        var TradeArr = data.CD_TRADE,
+            TradeOptionsStr = '';
 
-    $.each(TradeArr, function(index, val) {
-        TradeOptionsStr += '<option value="' + TradeArr[index].Value + '">' + (TradeArr[index].Value + ' - ' + TradeArr[index].Name) + '</option>';
-    });
-    $('#Trade').append(TradeOptionsStr);
+        $.each(TradeArr, function(index, val) {
+            TradeOptionsStr += '<option value="' + TradeArr[index].Value + '">' + (TradeArr[index].Value + ' - ' + TradeArr[index].Name) + '</option>';
+        });
+        $('#Trade').append(TradeOptionsStr);
+    }
 })
 
 // 设置 select的当前年倒退20年的option
@@ -87,6 +111,7 @@ $('#searchData').click(function(event) {
     // {"AnalysisReportCondition":{"DetailTrade":"全国地产","PriceDate":"2015-09-02","ReportDate":"201503"}}
     var toBackJson = {
         AnalysisReportCondition: {
+            IndexId: '',
             PlateId: '',
             Trade: '',
             DataType: '',
@@ -96,12 +121,13 @@ $('#searchData').click(function(event) {
         }
     };
     var tbAnasCondition = toBackJson.AnalysisReportCondition;
-    tbAnasCondition.PlateId = formDataArr[0];
-    tbAnasCondition.Trade = formDataArr[1];
-    tbAnasCondition.DetailTrade = formDataArr[2];
-    tbAnasCondition.PriceDate = formDataArr[3];
-    tbAnasCondition.ReportDate = formDataArr[4] + formDataArr[5];
-    tbAnasCondition.DataType = formDataArr[6];
+    tbAnasCondition.IndexId = formDataArr[0]
+    tbAnasCondition.PlateId = formDataArr[1];
+    tbAnasCondition.Trade = formDataArr[2];
+    tbAnasCondition.DetailTrade = formDataArr[3];
+    tbAnasCondition.PriceDate = formDataArr[4];
+    tbAnasCondition.ReportDate = formDataArr[5] + formDataArr[6];
+    tbAnasCondition.DataType = formDataArr[7];
 
     toBackJson = JSON.stringify(toBackJson);
     // 已经出来了需要的字符串

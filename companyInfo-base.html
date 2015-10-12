@@ -65,49 +65,43 @@
             <br>
             <!-- 每股收益表格 -->
             <div style="padding-left: 50px; padding-right: 20%" class="hide" id="showPershareTable">
-                <div>
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">每股收益</a></li>
-                        <li><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">累计每股收益</a></li>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <!-- 每股收益 -->
-                        <div class="tab-pane active" id="home">
-                            <table id="mainSingleTable" class="table table-striped table-hover table-bordered text-center">
-                                <thead>
-                                    <tr>
-                                        <td>EPS</td>
-                                        <td>一季度</td>
-                                        <td>二季度</td>
-                                        <td>三季度</td>
-                                        <td>四季度</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- 累计收益 -->
-                        <div class="tab-pane" id="profile">
-                            <table id="mainCountTable" class="table table-striped table-hover table-bordered text-center">
-                                <thead>
-                                    <tr>
-                                        <td>EPS</td>
-                                        <td>一季度</td>
-                                        <td>二季度</td>
-                                        <td>三季度</td>
-                                        <td>四季度</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#singleTable" data-toggle="tab">每股收益</a></li>
+                    <li><a href="#countTable" data-toggle="tab">累计每股收益</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- 每股收益 -->
+                    <div class="tab-pane active" id="singleTable">
+                        <table id="mainSingleTable" class="table table-striped table-hover table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <td>EPS</td>
+                                    <td>一季度</td>
+                                    <td>二季度</td>
+                                    <td>三季度</td>
+                                    <td>四季度</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 累计收益 -->
+                    <div class="tab-pane" id="countTable">
+                        <table id="mainCountTable" class="table table-striped table-hover table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <td>EPS</td>
+                                    <td>一季度</td>
+                                    <td>二季度</td>
+                                    <td>三季度</td>
+                                    <td>四季度</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
