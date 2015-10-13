@@ -42,45 +42,38 @@ table.table-nowrap td {
 sidebar {
     left: 15px;
     z-index: 1000;
+    width: 210px
 }
 
 input.input-companyInfo-search {
     display: inline;
-    max-width: 130px;
+    max-width: 110px;
 }
-
-.showContent {
-    margin-left: 16%;
-    padding-left: 50px;
+#btn-companyInfo-search {
+    display: inline-block;
+    margin-bottom: 3px;
 }
 .cc-h2 {
+    font-size: 30px;
     padding-left: 0;
     margin-top: 0;
 }
-.showPershareTable {
-    padding-right: 20%;
-}
-@media (max-width:1300px) {
-    .showPershareTable {
-        padding-right: 10%;
-    }
+.rightSide {
+    margin-left: 250px;
+    padding-right: 15px;
 }
 
-@media (max-width:767px) {
-    .cc-h2 {
-        padding-left: 15px;
+.rightSide .showContent {
+    width: 1080px;
+}
+
+.rightSide .showPershareTable {
+    width: 920px;
+}
+
+@media(min-width: 1300px) {
+    .rightSide .showContent {
+        margin: 0 auto;
     }
-    sidebar {
-        position: fixed;
-        width: 180px;
-        z-index: 1000;
-        display: block;
-    }
-    .showContent {
-        margin-left: 0%;
-        padding-left: 15px;
-    }
-    .showPershareTable {
-        padding-right: 0;
-    }
+
 }

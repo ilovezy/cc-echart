@@ -12,13 +12,11 @@
 <body class="container-fluid">
     <div class="row">
         <!-- 左半边导航栏 -->
-        <sidebar class="affix hidden-xs">
+        <sidebar class="affix">
             <br>
             <div class="list-group" id="sidebarLinks">
-                <div class="list-group-item form-inline">
-                    <div class="form-group">
-                        <input type="text" id="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
-                    </div>
+                <div class="list-group-item form-group">
+                    <input type="text" id="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
                     <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
                 </div>
                 <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item">个股基本情况</a>
@@ -26,10 +24,12 @@
             </div>
         </sidebar>
         <!-- 右半边显式数据 -->
-        <div class="col-sm-10 showContent col-xs-12">
-            <!-- 没有数据的时候的处理 -->
-            <div id="showError"></div>
-            <iframe id="IframeTable" frameborder="0" style="width: 100%; height: 850px "></iframe>
+        <div class="rightSide">
+            <div class="showIframeTable">
+                <!-- 没有数据的时候的处理 -->
+                <div id="showError"></div>
+                <iframe id="IframeTable" frameborder="0" style="width: 100%; height: 850px "></iframe>
+            </div>
         </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
@@ -49,7 +49,6 @@
         if (r != null) return unescape(r[2]);
         return null;
     }
-
 
     var url = window.location.href;
     var TcodeVal = getUrlParam('Tcode');
@@ -80,8 +79,8 @@
 
     function changeIframeUrl(TcodeShort) {
         // 测试用
-        // var newIframeTableUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
-        var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
+        var newIframeTableUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
+            // var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
         $('#IframeTable').attr('src', newIframeTableUrl)
     }
 

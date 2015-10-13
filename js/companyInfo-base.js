@@ -213,7 +213,7 @@ function getSinaBaseDataAndShow(Tcode) {
                 if(BackEndHasData) {
                     var SinaTcode = '';
 
-                    if (Tcode.charAt(0) === '6') {
+                    if (Tcode.charAt(0) == '6') {
                         SinaTcode = 'sh' + Tcode;
                     } else {
                         SinaTcode = 'sz' + Tcode;
@@ -231,7 +231,6 @@ function getSinaBaseDataAndShow(Tcode) {
                             var tempStr = 'hq_str_' + SinaTcode;
                             if (window[tempStr] || window[tempStr] !== '') {
                                 // console.log(window[tempStr])
-
                                 var TcodeArr = window[tempStr].split(",");
                                 $('#sinaData').removeClass('hide'); // 先把头部显示
                                 $("#sina-K-show").removeClass('hide');
@@ -295,7 +294,7 @@ function getSinaBaseDataAndShow(Tcode) {
                                 // 用完就清空
                                 window[tempStr] = '';
 
-                                var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><param name="flashvars" value="symbol=' + SinaTcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>'
+                                var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><2param name="flashvars" value="symbol=' + SinaTcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>'
 
                                 $('#sina-K-show').html(sinaKStr).removeClass('hide');
                             }
