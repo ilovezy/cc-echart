@@ -110,35 +110,71 @@ function getSinaBaseDataAndShow(Tcode) {
                 var finalArr = []
                 for (var i = 0, count = 0, tempArr = []; i < finalEmptyArr.length; i++) {
                     if (count < 3) {
-                        tempArr.push(finalEmptyArr[i])
-                        count++
+                        tempArr.push(finalEmptyArr[i]);
+                        count++;
                     } else {
                         // 注意这里的超级大坑，如果 count等于四的时候，依然要把第四个放到 tempArr里面去的，不然每组总是会少一个元素的
-                        tempArr.push(finalEmptyArr[i])
-                        finalArr.push(tempArr)
-                        count = 0
-                        tempArr = []
+                        tempArr.push(finalEmptyArr[i]);
+                        finalArr.push(tempArr);
+                        count = 0;
+                        tempArr = [];
                     }
                 }
 
                 // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
                 for (var i = 0; i < finalArr.length; i++) {
-                    finalArr[i].unshift(uniqueYearArr[i])
+                    finalArr[i].unshift(uniqueYearArr[i]);
                 }
 
-                // 到这里为止已经获取了 finalArr了，根据需求需要做两个不同的表格, 一个是标准的，一个是累计的
+                // console.log(finalArr) 这里再处理一次，求出同比增长率
+                var singleUpRateArr = []
+                $.each(finalArr, function(index, val) {
+                    var tempArr = [];
+                    tempArr[0] = val[0];
+                    $.each(val, function(monthIndex, thisYearMonthVal) {
+                        if(monthIndex > 0) {
+                            thisYearMonthVal = (+thisYearMonthVal)
+                            if(thisYearMonthVal !== ''
+                                && thisYearMonthVal !== 0
+                                && finalArr[index+1]
+                                && finalArr[index+1][monthIndex] !== ''
+                                && +(finalArr[index+1][monthIndex]) !== 0) {
+
+                                var lastYearMonthVal = finalArr[index+1][monthIndex]
+                                var upRate = ((thisYearMonthVal - lastYearMonthVal) / lastYearMonthVal * 100).toFixed(1)
+                                tempArr.push(upRate)
+                            } else {
+                                tempArr.push('');
+                            }
+                        }
+                    });
+                    singleUpRateArr.push(tempArr)
+                });
+
+                // 到这里为止已经获取了 finalArr和 singleUpRateArr了，根据需求需要做两个不同的表格, 一个是标准的，一个是累计的
 
                 // 每股收益表格
                 var singleTrStr = ''
                 $.each(finalArr, function(index, PerShareArr) {
                     var tdStr = ''
-                    $.each(PerShareArr, function(index, PerShare) {
-                        if (PerShare !== '' && PerShare < 1000) {
-                            tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>'
-                        } else {
+                    var thisYearUpRateArr = singleUpRateArr[index]
+                    $.each(PerShareArr, function(j, PerShare) {
+                        if(j == 0) { // 第一列是年数就不用求了
                             tdStr += "<td>" + PerShare + '</td>'
+                        } else if (PerShare !== '') {
+                            var thisMonthUpRateArr = thisYearUpRateArr[j];
+                            if(thisMonthUpRateArr !== '' && thisMonthUpRateArr > 0) {
+                                tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>' + '<td class="text-danger"><i>' + thisMonthUpRateArr + '%</i></td>';
+                            } else if(thisMonthUpRateArr !== '' && thisMonthUpRateArr < 0) {
+                                tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>' + '<td class="text-success"><i>' + thisMonthUpRateArr + '%</i></td>';
+                            } else {
+                                tdStr += "<td>" + PerShare + '</td>' + '<td></td>';
+                            }
+                        } else {
+                            tdStr += "<td>" + PerShare + '</td>' + '<td></td>';
                         }
                     });
+
                     singleTrStr += '<tr>' + tdStr + '</tr>'
                 });
                 $('#mainSingleTable tbody').empty().append(singleTrStr); // 先清空原有的数据
@@ -156,7 +192,6 @@ function getSinaBaseDataAndShow(Tcode) {
                         tempArr = []
                     }
                 }
-                // console.log(countArr)
 
                 // 处理下这个 countArr
                 $.each(countArr, function(index, item) {
@@ -182,7 +217,6 @@ function getSinaBaseDataAndShow(Tcode) {
                             item[index] = (+item[index]) + (+item[index - 1])
                         }
                     });
-                    // console.log(item);
                 });
 
                 // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
@@ -190,18 +224,56 @@ function getSinaBaseDataAndShow(Tcode) {
                     countArr[i].unshift(uniqueYearArr[i])
                 }
 
+                // console.log(countArr) 这里再处理一次，求出同比增长率
+                var countUpRateArr = []
+                $.each(countArr, function(index, val) {
+                    var tempArr = [];
+                    tempArr[0] = val[0];
+                    $.each(val, function(monthIndex, thisYearMonthVal) {
+                        if(monthIndex > 0) {
+                            thisYearMonthVal = (+thisYearMonthVal)
+                            if(thisYearMonthVal !== ''
+                                && thisYearMonthVal !== 0
+                                && countArr[index+1]
+                                && countArr[index+1][monthIndex] !== ''
+                                && +(countArr[index+1][monthIndex]) !== 0) {
+
+                                var lastYearMonthVal = countArr[index+1][monthIndex]
+                                var upRate = ((thisYearMonthVal - lastYearMonthVal) / lastYearMonthVal * 100).toFixed(1)
+                                tempArr.push(upRate)
+                            } else {
+                                tempArr.push('');
+                            }
+                        }
+                    });
+                    countUpRateArr.push(tempArr)
+                });
+                // 拼接字符串 countTrStr
                 var countTrStr = ''
                 $.each(countArr, function(index, PerShareArr) {
                     var tdStr = ''
-                    $.each(PerShareArr, function(index, PerShare) {
-                        if (PerShare !== '' && PerShare < 1000) {
-                            tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>'
-                        } else {
+                    var thisYearUpRateArr = countUpRateArr[index]
+                    $.each(PerShareArr, function(j, PerShare) {
+                        if(j == 0) {
                             tdStr += "<td>" + PerShare + '</td>'
+                        } else if (PerShare !== '') {
+                            var thisMonthUpRateArr = thisYearUpRateArr[j]
+                            if(thisMonthUpRateArr !== '' && thisMonthUpRateArr > 0) {
+                                tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>' + '<td class="text-danger"><i>' + thisMonthUpRateArr + '%</i></td>';
+                            } else if(thisMonthUpRateArr !== '' && thisMonthUpRateArr < 0) {
+                                tdStr += "<td>" + (+PerShare).toFixed(3) + '</td>' + '<td class="text-success"><i>' + thisMonthUpRateArr + '%</i></td>';
+                            } else {
+                                tdStr += "<td>" + PerShare + '</td>' + '<td></td>';
+                            }
+                        } else {
+                            tdStr += "<td>" + PerShare + '</td>' + '<td></td>';
                         }
                     });
+
                     countTrStr += '<tr>' + tdStr + '</tr>'
                 });
+
+
                 $('#mainCountTable tbody').empty().append(countTrStr); // 先清空原有的数据
 
                 // 需要把table显示，因为默认是隐藏的
