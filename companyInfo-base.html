@@ -38,7 +38,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-3 nowPrice">
-                            <h1 id="nowPrice" style="margin-top: 0; margin-bottom: 0; line-height: 50px" ></h1>
+                            <h1 id="nowPrice" style="margin-top: 0; margin-bottom: 0; line-height: 50px"></h1>
                         </div>
                         <div class="col-xs-2">
                             <div class="pb10">今开：<span id="todayOpen"></span></div>
@@ -57,6 +57,42 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <br>
+                <!-- 后台的详细数据小表格 -->
+                <div id="showBackTable" style="width: 920px" class="hide">
+                    <table class="table table-hover table-striped text-center table-bordered">
+                        <tr>
+                            <td>市盈率(ttm)</td>
+                            <td id="PERatio"></td>
+                            <td>市净率</td>
+                            <td id="PBRatio"></td>
+                        </tr>
+                        <tr>
+                            <td>市销率(ttm)</td>
+                            <td id="PriceToSalesRatio"></td>
+                            <td>每股收益(ttm)</td>
+                            <td id="EPS"></td>
+                        </tr>
+                        <tr>
+                            <td>每股净资产</td>
+                            <td id="BookVal"></td>
+                            <td>每股销售(ttm)</td>
+                            <td id="SalesPerShare"></td>
+                        </tr>
+                        <tr>
+                            <td>流通市值（亿）</td>
+                            <td id="CirculationMarketValue"></td>
+                            <td>总市值（亿）</td>
+                            <td id="TotalStock"></td>
+                        </tr>
+                        <tr>
+                            <td>注册地</td>
+                            <td id="AreaName"></td>
+                            <td>所属行业</td>
+                            <td id="DetailTrade"></td>
+                        </tr>
+                    </table>
                 </div>
                 <br>
                 <!-- 每股收益表格 -->
@@ -111,7 +147,6 @@
                 </div>
                 <br>
                 <!-- 新浪k线图 -->
-
                 <div id="sina-K-show" class="hide">
                     <!-- <object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;">
                             <param name="allowFullScreen" value="true">
@@ -120,7 +155,6 @@
                             <param name="flashvars" value="symbol=sz000002&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3">
                         </object> -->
                 </div>
-                <br>
                 <br>
                 <br>
             </div>

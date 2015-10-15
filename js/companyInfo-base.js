@@ -32,11 +32,71 @@ $("#Tcode").on('change', function() {
     });
 });
 
+// 区后台获取一个小的表格数据
+function getCompanyInfoAndCalculate(Tcode, nowPrice) {
+    $.ajax({
+        url: '../accounting_platedata.c?Data=Company&Tcode=' + Tcode,
+        dataType: 'jsonp',
+        async: false,
+        cache: false,
+        jsonpCallback: "jsonpcallback"
+    })
+    // 成功之后的操作
+    .done(function(data) {
+        if(data.AR_COMPANY[0] && nowPrice) {
+            if(nowPrice) {
+                nowPrice = (+nowPrice);
+            }
+
+            var AR_COMPANY = data.AR_COMPANY[0];
+
+            var LR15 = AR_COMPANY.LR15
+            if(LR15 <= 0) {
+                $("#PERatio").text('--');
+            } else {
+                $("#PERatio").text( ( nowPrice / (+LR15) ).toFixed(2) );
+            }
+
+            var ZC23 = AR_COMPANY.ZC23;
+            if(ZC23 <= 0) {
+                $("#PBRatio").text('--')
+            } else {
+                $("#PBRatio").text( ( nowPrice / (+ZC23) ).toFixed(2) )
+            }
+
+            var LR01 = AR_COMPANY.LR01;
+            if(LR01 <= 0) {
+                $("#PriceToSalesRatio").text('--')
+            } else {
+                $("#PriceToSalesRatio").text( ( nowPrice / (LR01) ).toFixed(2) )
+            }
+
+            if(AR_COMPANY.FreeStock) {
+                $("#CirculationMarketValue").text( ( nowPrice * (+AR_COMPANY.FreeStock) ).toFixed(2) )
+            } else {
+                $("#CirculationMarketValue").text('--')
+            }
+
+            var TotalStock ;
+            if(AR_COMPANY.TotalStock) {
+                $("#TotalStock").text( ( nowPrice * (+AR_COMPANY.TotalStock) ).toFixed(2) )
+            } else {
+                $("#TotalStock").text('--')
+            }
+
+            $('#EPS').text((+AR_COMPANY.LR15).toFixed(3));
+            $("#BookVal").text((+AR_COMPANY.ZC23).toFixed(3));
+            $("#SalesPerShare").text((+AR_COMPANY.LR01).toFixed(3));
+            $("#AreaName").text(AR_COMPANY.Area_Name);
+            $("#DetailTrade").text(AR_COMPANY.DetailTrade);
+
+        }
+    });
+}
+
 // 通过 Tcode来获取新浪的数据和 k线图，注意给定的参数没有前缀的
 function getSinaBaseDataAndShow(Tcode) {
     // 但是后台不一定有数据, 后台没有数据就不去从新浪获取数据了
-    // 从后台获取主要财务指标数据，这个是固定了url了，实际要用URI获取host
-    // var mainSingleDataUrl = 'http://localhost/AccountMgr/query_FetchDataKData.c?Tcode=' + Tcode.substring(2);
     var BackEndHasData = false;
     var mainSingleDataUrl = '../query_FetchDataKData.c?Tcode=' + Tcode;
     $.ajax({
@@ -273,7 +333,6 @@ function getSinaBaseDataAndShow(Tcode) {
                     countTrStr += '<tr>' + tdStr + '</tr>'
                 });
 
-
                 $('#mainCountTable tbody').empty().append(countTrStr); // 先清空原有的数据
 
                 // 需要把table显示，因为默认是隐藏的
@@ -317,7 +376,6 @@ function getSinaBaseDataAndShow(Tcode) {
                                     $('#nowPrice').addClass('text-danger').text('停牌')
                                 } else {
                                     $('#todayOpen').text(TcodeArr[1]); // 今日开盘价
-                                    // $('#nowPrice').text(TcodeArr[3]); // 当前价格
 
                                     var changeCount = (TcodeArr[3] - TcodeArr[2]).toFixed(2); // 变化量
                                     var changeRate = ((changeCount / TcodeArr[2]) * 100).toFixed(2) + '%'; // 变化率
@@ -331,6 +389,11 @@ function getSinaBaseDataAndShow(Tcode) {
                                             TcodeArr[3] + '<span class="glyphicon glyphicon-arrow-down" style="font-size: 28px"></span>' + '<span style="overflow: hidden; font-size: 11px"><span style="position: absolute; top: -8px; padding-left: 3px">' + changeCount + '</span><span"> ' + changeRate + '</span>'
                                         )
                                     }
+                                    var nowPrice = TcodeArr[3];
+                                    // 去绘制那个小表格
+
+                                    getCompanyInfoAndCalculate(Tcode, nowPrice);
+                                    $("#showBackTable").removeClass('hide')
                                 }
 
                                 // 这里如果数据是 0 的话 就显示 --，类似新浪显示方法
@@ -365,8 +428,7 @@ function getSinaBaseDataAndShow(Tcode) {
 
                                 // 用完就清空
                                 window[tempStr] = '';
-
-                                var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="600" height="500" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><2param name="flashvars" value="symbol=' + SinaTcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>'
+                                var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="920" height="920" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><param name="flashvars" value="symbol=' + SinaTcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>';
 
                                 $('#sina-K-show').html(sinaKStr).removeClass('hide');
                             }
@@ -394,7 +456,7 @@ $('#btn-companyInfo-search').click(function() {
     var newTcodeVal = $('#Tcode').val();
 
     // 清空所有已有的数据,不需要处理 sinaData的详细内容，因为后面有数据的话就会重新填充了
-    $("#sinaData, #showPershareTable, #sina-K-show").addClass('hide')
+    $("#sinaData, #showPershareTable, #showBackTable, #sina-K-show").addClass('hide')
     $('#mainSingleTable tbody').empty()
 
     if (newTcodeVal.length == 0) {

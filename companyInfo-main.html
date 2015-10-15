@@ -78,9 +78,7 @@
     });
 
     function changeIframeUrl(TcodeShort) {
-        // 测试用
-        var newIframeTableUrl = 'http://www.mituyun.com/AccountMgr/Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
-            // var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
+        var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
         $('#IframeTable').attr('src', newIframeTableUrl)
     }
 
