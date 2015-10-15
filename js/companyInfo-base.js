@@ -49,6 +49,7 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
             }
 
             var AR_COMPANY = data.AR_COMPANY[0];
+            console.log(AR_COMPANY)
 
             var LR15 = AR_COMPANY.LR15
             if(LR15 <= 0) {
@@ -90,6 +91,8 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
             $("#AreaName").text(AR_COMPANY.Area_Name);
             $("#DetailTrade").text(AR_COMPANY.DetailTrade);
 
+            // 把表格显示出来
+            $("#showBackTable").removeClass('hide')
         }
     });
 }
@@ -337,6 +340,7 @@ function getSinaBaseDataAndShow(Tcode) {
 
                 // 需要把table显示，因为默认是隐藏的
                 $("#showPershareTable").removeClass('hide');
+                $("#showBackTable").removeClass('hide')
 
                 // 后台已经返回了正确的数据，可以去查询新浪数据了
                 BackEndHasData = true;
@@ -396,10 +400,6 @@ function getSinaBaseDataAndShow(Tcode) {
                                         )
                                     }
                                     var nowPrice = TcodeArr[3];
-                                    // 去绘制那个小表格
-
-                                    getCompanyInfoAndCalculate(Tcode, nowPrice);
-                                    $("#showBackTable").removeClass('hide')
                                 }
 
                                 // 这里如果数据是 0 的话 就显示 --，类似新浪显示方法
@@ -437,6 +437,10 @@ function getSinaBaseDataAndShow(Tcode) {
                                 var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="920" height="920" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><param name="flashvars" value="symbol=' + SinaTcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>';
 
                                 $('#sina-K-show').html(sinaKStr).removeClass('hide');
+
+                                // 去绘制那个小表格,需要用到新浪的当前价格的
+                                getCompanyInfoAndCalculate(Tcode, nowPrice);
+                                $("#showBackTable").removeClass('hide')
                             }
                         }
                     });
