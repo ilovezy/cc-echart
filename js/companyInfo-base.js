@@ -370,10 +370,16 @@ function getSinaBaseDataAndShow(Tcode) {
                                 $('#stockId').text(Tcode); // 股票id 不需要前缀
 
                                 // 这里需要做修改的等找到规律了的话
-                                // 今日开盘价为 0 的话 ，当前价格这里就显示停牌
+                                // 今日开盘价为 0 的话 ，就显示昨日收盘价，
+                                // 如果没有昨日收盘价，当前价格这里就显示停牌
                                 if (TcodeArr[1] == 0 || TcodeArr[1] == '' || !TcodeArr[1]) {
                                     $("#todayOpen").text('--')
-                                    $('#nowPrice').addClass('text-danger').text('停牌')
+
+                                    if(TcodeArr[2] == 0 || TcodeArr[2] == '' || !TcodeArr[2]) {
+                                        $('#nowPrice').addClass('text-danger').text('停牌')
+                                    } else {
+                                        $("#nowPrice").text(TcodeArr[2])
+                                    }
                                 } else {
                                     $('#todayOpen').text(TcodeArr[1]); // 今日开盘价
 
