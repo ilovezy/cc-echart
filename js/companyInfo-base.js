@@ -48,24 +48,23 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                 if (nowPrice) {
                     nowPrice = (+nowPrice);
                 }
-
                 var AR_COMPANY = data.AR_COMPANY[0];
 
-                var LR15 = AR_COMPANY.LR15
+                var LR15 = (+AR_COMPANY.LR15);
                 if (LR15 <= 0) {
                     $("#PERatio").text('--');
                 } else {
                     $("#PERatio").text((nowPrice / (+LR15)).toFixed(2));
                 }
 
-                var ZC23 = AR_COMPANY.ZC23;
+                var ZC23 = (+AR_COMPANY.ZC23);
                 if (ZC23 <= 0) {
                     $("#PBRatio").text('--')
                 } else {
                     $("#PBRatio").text((nowPrice / (+ZC23)).toFixed(2))
                 }
 
-                var LR01 = AR_COMPANY.LR01;
+                var LR01 = (+AR_COMPANY.LR01);
                 if (LR01 <= 0) {
                     $("#PriceToSalesRatio").text('--')
                 } else {
@@ -78,7 +77,6 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                     $("#CirculationMarketValue").text('--')
                 }
 
-                var TotalStock;
                 if (AR_COMPANY.TotalStock) {
                     $("#TotalStock").text(((nowPrice * (+AR_COMPANY.TotalStock)) / 10000).toFixed(2) + ' 亿元')
                 } else {
@@ -236,7 +234,7 @@ function getSinaBaseDataAndShow(Tcode) {
                         // 进行累加
                         $.each(item, function(index, val) {
                             if (val !== '' && index > 0) {
-                                item[index] = (+item[index]) + (+item[index - 1])
+                                item[index] = ((+item[index]) + (+item[index - 1]))
                             }
                         });
                     });
@@ -438,7 +436,7 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
         var tdStr = ''
         var thisYearUpRateArr = upRateArr[index]
         $.each(PerShareArr, function(j, PerShare) {
-            if (j == 0) {
+            if (j == 0) { // 这里的第一位是年份，不用 toFixed(3)
                 tdStr += '<td>' + PerShare + '</td>'
             } else if (PerShare !== '') {
                 var thisMonthUpRateArr = thisYearUpRateArr[j];
