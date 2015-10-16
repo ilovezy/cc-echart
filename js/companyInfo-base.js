@@ -243,62 +243,63 @@ function getBackDataRunGetSina(Tcode) {
                                     }
                                 });
 
+                                // console.log(uniqueYearArr);
+
                                 // 是DataType=1
                                 var AR_FETCH_DATA = data.AR_FETCH_DATA;
-                                $.each(AR_FETCH_DATA, function(index, val) {
-                                    // console.log(val.ReportDate + ' ' + val.PerShare)
 
-                                    var countEmptyArr = []
-                                    for (var i = 0; i < uniqueYearArr.length; i++) {
-                                        var k = 3;
-                                        for (var j = 0; j < 4; j++) {
-                                            if (j < 3) {
-                                                countEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k)
-                                            } else {
-                                                countEmptyArr.push(('' + uniqueYearArr[i]) + k)
-                                            }
-                                            k = k + 3;
-                                        }
-                                    }
-
-                                    // 获取了空的数组了，只有日期的,剩下的就是一一匹配了
-                                    $.each(tempCollection, function(index, val) {
-                                        var pos = $.inArray(val.ReportDate, countEmptyArr);
-                                        if (pos > -1) {
-                                            countEmptyArr[pos] = val.PerShare
-                                        }
-                                    });
-
-                                    // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
-                                    $.each(countEmptyArr, function(index, val) {
-                                        if (val > 1000) {
-                                            countEmptyArr[index] = ''
-                                        }
-                                    })
-
-                                    var countArr = []
-                                    for (var i = 0, count = 0, tempArr = []; i < countEmptyArr.length; i++) {
-                                        if (count < 3) {
-                                            tempArr.push(countEmptyArr[i]);
-                                            count++;
+                                var countEmptyArr = []
+                                    // 填充每年季度
+                                for (var i = 0; i < uniqueYearArr.length; i++) {
+                                    var k = 3;
+                                    for (var j = 0; j < 4; j++) {
+                                        if (j < 3) {
+                                            countEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k)
                                         } else {
-                                            tempArr.push(countEmptyArr[i]);
-                                            countArr.push(tempArr);
-                                            count = 0;
-                                            tempArr = [];
+                                            countEmptyArr.push(('' + uniqueYearArr[i]) + k)
                                         }
+                                        k = k + 3;
                                     }
+                                }
 
-                                    // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
-                                    for (var i = 0; i < countArr.length; i++) {
-                                        countArr[i].unshift(uniqueYearArr[i]);
+                                // 获取了空的数组了，只有日期的,剩下的就是一一匹配了
+
+                                $.each(tempCollection, function(index, val) {
+                                    // console.log(val) 到这里也有
+                                    var pos = $.inArray(val.ReportDate, countEmptyArr);
+                                    if (pos > -1) {
+                                        countEmptyArr[pos] = val.PerShare
                                     }
-
-                                    // console.log(countArr) 这里再处理一次，求出同比增长率
-                                    var countUpRateArr = []
-                                    calculateUpRate(countUpRateArr, countArr);
-                                    concatStrAndFillTable(countArr, countUpRateArr, $('#mainCountTable tbody'));
                                 });
+
+                                // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
+                                $.each(countEmptyArr, function(index, val) {
+                                    if (val > 1000) {
+                                        countEmptyArr[index] = ''
+                                    }
+                                })
+
+                                var countArr = []
+                                for (var i = 0, count = 0, tempArr = []; i < countEmptyArr.length; i++) {
+                                    if (count < 3) {
+                                        tempArr.push(countEmptyArr[i]);
+                                        count++;
+                                    } else {
+                                        tempArr.push(countEmptyArr[i]);
+                                        countArr.push(tempArr);
+                                        count = 0;
+                                        tempArr = [];
+                                    }
+                                }
+
+                                // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
+                                for (var i = 0; i < countArr.length; i++) {
+                                    countArr[i].unshift(uniqueYearArr[i]);
+                                }
+                                // 这里再处理一次，求出同比增长率
+                                var countUpRateArr = []
+                                calculateUpRate(countUpRateArr, countArr);
+                                concatStrAndFillTable(countArr, countUpRateArr, $('#mainCountTable tbody'));
                             }
                         })
 
