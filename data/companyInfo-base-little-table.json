@@ -1,0 +1,65 @@
+jsonpcallback({
+    "AR_COMPANY": [{
+        "CompanyId": "202",
+        "Tcode": "000001",
+        "Tname": "平安银行",
+        "FullName": "平安银行股份有限公司",
+        "Trade": "J66",
+        "DetailTrade": "银行",
+        "Area": "440300",
+        "TotalStock": "1430867.6300",
+        "FreeStock": "1180405.5000",
+        "Board": "SZ",
+        "ListDate": "1991-04-03 00:00:00",
+        "CreateId": "1",
+        "UpdateId": "1",
+        "UpdateDate": "2015-08-18 10:49:48",
+        "Trade_Name": "J66 - 货币金融服务",
+        "Area_Name": "广东省深圳市",
+        "Board_Name": "深圳证券交易所",
+        "CreateId_Name": "sa",
+        "UpdateId_Name": "sa",
+        "ZC23": "9.1517",
+        "LR01": "5.1302",
+        "LR15": "1.3839"
+    }],
+    "FETCH_DATA": [{
+        "ZC23": "130949000000.0000",
+        "LR01": "73407000000.0000",
+        "LR15": "19802000000.0000"
+    }]
+})
+
+
+jsonpcallback({
+    "AR_COMPANY": [{
+        "CompanyId": "202",
+        "Tcode": "000001",
+        "Tname": "平安银行",
+        "FullName": "平安银行股份有限公司",
+        "Trade": "J66",
+        "DetailTrade": "银行",
+        "Area": "440300",
+        "TotalStock": "1430867.6300",
+        "FreeStock": "1180405.5000",
+        "Board": "01",
+        "ListDate": "1991-04-03 00:00:00",
+        "CreateId": "1",
+        "CreateDate": "2015-08-03 11:32:50",
+        "UpdateId": "1",
+        "UpdateDate": "2015-09-29 13:41:46",
+        "Trade_Name": "J66 - 货币金融服务",
+        "Area_Name": "广东省深圳市",
+        "Board_Name": "新三板",
+        "CreateId_Name": "sa",
+        "UpdateId_Name": "sa",
+        "ZC23": "0",
+        "LR01": "0",
+        "LR15": "0.7823"
+    }],
+    "FETCH_DATA": [{
+        "ZC23": "0.0000",
+        "LR01": "123123.0000",
+        "LR15": "11194000000.0000"
+    }]
+})

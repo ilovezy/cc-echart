@@ -1,0 +1,12 @@
+jsonpcallback({
+    "Index": [{
+        "IndexId": "1",
+        "Name": "上证指数"
+    }, {
+        "IndexId": "2",
+        "Name": "Ａ股指数"
+    }],
+    "ActionResult": [{
+        "Result": "Success"
+    }]
+})
