@@ -44,41 +44,40 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
         })
         // 成功之后的操作
         .done(function(data) {
-            if (data.AR_COMPANY[0] && nowPrice !== '') {
-                if (nowPrice) {
-                    nowPrice = (+nowPrice);
-                }
+            if (data.AR_COMPANY[0] && nowPrice !== '' && $.isNumeric((+nowPrice))) {
+                nowPrice = (+nowPrice);
+
                 var AR_COMPANY = data.AR_COMPANY[0];
 
-                var LR15 = (+AR_COMPANY.LR15);
-                if (LR15 <= 0) {
-                    $("#PERatio").text('--');
+                var LR15 = (+(AR_COMPANY.LR15));
+                if (LR15 <= 0 && $.isNumeric(nowPrice)) {
+                    $("#PERatio").text('--')
                 } else {
-                    $("#PERatio").text((nowPrice / (+LR15)).toFixed(2));
+                    $("#PERatio").text((nowPrice / LR15).toFixed(2))
                 }
 
-                var ZC23 = (+AR_COMPANY.ZC23);
-                if (ZC23 <= 0) {
+                var ZC23 = (+(AR_COMPANY.ZC23));
+                if (ZC23 <= 0 && $.isNumeric(nowPrice)) {
                     $("#PBRatio").text('--')
                 } else {
-                    $("#PBRatio").text((nowPrice / (+ZC23)).toFixed(2))
+                    $("#PBRatio").text((nowPrice / ZC23).toFixed(2))
                 }
 
-                var LR01 = (+AR_COMPANY.LR01);
-                if (LR01 <= 0) {
+                var LR01 = (+(AR_COMPANY.LR01));
+                if (LR01 <= 0 && $.isNumeric(nowPrice)) {
                     $("#PriceToSalesRatio").text('--')
                 } else {
-                    $("#PriceToSalesRatio").text((nowPrice / (LR01)).toFixed(2))
+                    $("#PriceToSalesRatio").text((nowPrice / LR01).toFixed(2))
                 }
 
-                if (AR_COMPANY.FreeStock) {
+                if (AR_COMPANY.FreeStock && $.isNumeric(nowPrice)) {
                     $("#CirculationMarketValue").text(((nowPrice * (+AR_COMPANY.FreeStock)) / 10000).toFixed(2) + ' 亿元')
                 } else {
                     $("#CirculationMarketValue").text('--')
                 }
 
-                if (AR_COMPANY.TotalStock) {
-                    $("#TotalStock").text(((nowPrice * (+AR_COMPANY.TotalStock)) / 10000).toFixed(2) + ' 亿元')
+                if (AR_COMPANY.TotalStock && $.isNumeric(nowPrice)) {
+                    $("#TotalStock").text(((nowPrice * (+(AR_COMPANY.TotalStock))) / 10000).toFixed(2) + ' 亿元')
                 } else {
                     $("#TotalStock").text('--')
                 }
@@ -86,11 +85,9 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                 $('#EPS').text((+AR_COMPANY.LR15).toFixed(3) + ' 元');
                 $("#BookVal").text((+AR_COMPANY.ZC23).toFixed(3) + ' 元');
                 $("#SalesPerShare").text((+AR_COMPANY.LR01).toFixed(3) + ' 元');
+                $("#FullName").text(AR_COMPANY.FullName);
                 $("#AreaName").text(AR_COMPANY.Area_Name);
                 $("#DetailTrade").text(AR_COMPANY.DetailTrade);
-
-                // 公司全称
-                $("#FullName").text(AR_COMPANY.FullName)
 
                 // 把表格显示出来
                 $("#showBackTable").removeClass('hide')
@@ -377,6 +374,7 @@ function getSinaBaseDataAndShow(Tcode) {
             cleanPershareTable();
             showErrorMessage('没有找到该公司数据')
         })
+
 }
 
 // 点击查询新浪数据, 每次点击的时候都把数据清空一次
@@ -418,10 +416,14 @@ function calculateUpRate(emptyUpRateArr, dataArr) {
                 if (thisYearMonthVal !== '' && thisYearMonthVal !== 0 && dataArr[index + 1] && dataArr[index + 1][monthIndex] !== '' && +(dataArr[index + 1][monthIndex]) !== 0) {
 
                     var lastYearMonthVal = dataArr[index + 1][monthIndex]
-                    var upRate = ((thisYearMonthVal - lastYearMonthVal) / lastYearMonthVal * 100).toFixed(1)
-                    tempArr.push(upRate)
+                    if (lastYearMonthVal <= 0) { // 如果去年的基数小于等于0就不用算了直接为空
+                        tempArr.push('')
+                    } else {
+                        var upRate = ((thisYearMonthVal - lastYearMonthVal) / lastYearMonthVal * 100).toFixed(1);
+                        tempArr.push(upRate);
+                    }
                 } else {
-                    tempArr.push('');
+                    tempArr.push('')
                 }
             }
         });
