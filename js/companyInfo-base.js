@@ -37,6 +37,8 @@ $("#Tcode").on('change', function() {
 $('#btn-companyInfo-search').click(function() {
     var newTcodeVal = $('#Tcode').val();
 
+    // 清空原有的公司资料数据
+    $("#EPS,#BookVal,#SalesPerShare,#FullName,#AreaName,#DetailTrade, #PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue, #TotalStock").text('--');
     // 清空所有已有的数据,不需要处理 sinaData的详细内容，因为后面有数据的话就会重新填充了
     $("#sinaData, #showPershareTable, #showBackTable, #sina-K-show").addClass('hide')
     cleanPershareTable();
@@ -62,44 +64,9 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
         })
         // 成功之后的操作
         .done(function(data) {
-            if (data.AR_COMPANY[0] && nowPrice !== '' && $.isNumeric((+nowPrice))) {
-                nowPrice = (+nowPrice);
-
-                var AR_COMPANY = data.AR_COMPANY[0];
-
-                var LR15 = (+(AR_COMPANY.LR15));
-                if (LR15 <= 0 && $.isNumeric(nowPrice)) {
-                    $("#PERatio").text('--')
-                } else {
-                    $("#PERatio").text((nowPrice / LR15).toFixed(2))
-                }
-
-                var ZC23 = (+(AR_COMPANY.ZC23));
-                if (ZC23 <= 0 && $.isNumeric(nowPrice)) {
-                    $("#PBRatio").text('--')
-                } else {
-                    $("#PBRatio").text((nowPrice / ZC23).toFixed(2))
-                }
-
-                var LR01 = (+(AR_COMPANY.LR01));
-                if (LR01 <= 0 && $.isNumeric(nowPrice)) {
-                    $("#PriceToSalesRatio").text('--')
-                } else {
-                    $("#PriceToSalesRatio").text((nowPrice / LR01).toFixed(2))
-                }
-
-                if (AR_COMPANY.FreeStock && $.isNumeric(nowPrice)) {
-                    $("#CirculationMarketValue").text(((nowPrice * (+AR_COMPANY.FreeStock)) / 10000).toFixed(2) + ' 亿元')
-                } else {
-                    $("#CirculationMarketValue").text('--')
-                }
-
-                if (AR_COMPANY.TotalStock && $.isNumeric(nowPrice)) {
-                    $("#TotalStock").text(((nowPrice * (+(AR_COMPANY.TotalStock))) / 10000).toFixed(2) + ' 亿元')
-                } else {
-                    $("#TotalStock").text('--')
-                }
-
+            if (data.AR_COMPANY[0]) {
+                AR_COMPANY = data.AR_COMPANY[0];
+                // 先把跟 NowPrice 无关的数据填写进去再说
                 $('#EPS').text((+AR_COMPANY.LR15).toFixed(3) + ' 元');
                 $("#BookVal").text((+AR_COMPANY.ZC23).toFixed(3) + ' 元');
                 $("#SalesPerShare").text((+AR_COMPANY.LR01).toFixed(3) + ' 元');
@@ -107,8 +74,50 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                 $("#AreaName").text(AR_COMPANY.Area_Name);
                 $("#DetailTrade").text(AR_COMPANY.DetailTrade);
 
-                // 把表格显示出来
-                $("#showBackTable").removeClass('hide')
+                // 然后再判断是否有 NowPrice 参数传进来
+                if (nowPrice !== '' && $.isNumeric(+nowPrice)) {
+                    nowPrice = (+nowPrice);
+                    var AR_COMPANY = data.AR_COMPANY[0];
+
+                    var LR15 = (+(AR_COMPANY.LR15));
+                    if (LR15 <= 0 && $.isNumeric(nowPrice)) {
+                        $("#PERatio").text('--')
+                    } else {
+                        $("#PERatio").text((nowPrice / LR15).toFixed(2))
+                    }
+
+                    var ZC23 = (+(AR_COMPANY.ZC23));
+                    if (ZC23 <= 0 && $.isNumeric(nowPrice)) {
+                        $("#PBRatio").text('--')
+                    } else {
+                        $("#PBRatio").text((nowPrice / ZC23).toFixed(2))
+                    }
+
+                    var LR01 = (+(AR_COMPANY.LR01));
+                    if (LR01 <= 0 && $.isNumeric(nowPrice)) {
+                        $("#PriceToSalesRatio").text('--')
+                    } else {
+                        $("#PriceToSalesRatio").text((nowPrice / LR01).toFixed(2))
+                    }
+
+                    if (AR_COMPANY.FreeStock && $.isNumeric(nowPrice)) {
+                        $("#CirculationMarketValue").text(((nowPrice * (+AR_COMPANY.FreeStock)) / 10000).toFixed(2) + ' 亿元')
+                    } else {
+                        $("#CirculationMarketValue").text('--')
+                    }
+
+                    if (AR_COMPANY.TotalStock && $.isNumeric(nowPrice)) {
+                        $("#TotalStock").text(((nowPrice * (+(AR_COMPANY.TotalStock))) / 10000).toFixed(2) + ' 亿元')
+                    } else {
+                        $("#TotalStock").text('--')
+                    }
+                    // 把表格显示出来
+                    $("#showBackTable").removeClass('hide')
+                } else {
+                    $("#PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue,#TotalStock").text('--');
+                }
+            } else {
+                $("#EPS,#BookVal,#SalesPerShare,#FullName,#AreaName,#DetailTrade, #PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue, #TotalStock").text('--');
             }
         });
 }
@@ -337,7 +346,7 @@ function getSinaDataAndShowK(Tcode) {
     } else {
         SinaTcode = 'sz' + Tcode;
     }
-
+    // console.log(SinaTcode)
     // 601727  停牌了 返回值最后一位是 03, 600000 没停牌 最后一位是 00
     // 从新浪获取数据和 K线,注意新浪是一定有数据的
     $.ajax({
@@ -418,6 +427,7 @@ function getSinaDataAndShowK(Tcode) {
                     $('#amount').text((TcodeArr[9] / 100000000).toFixed(2) + ' 亿元') // 成交金额
                 }
 
+                // console.log(window[tempStr])
                 // 用完就清空
                 window[tempStr] = '';
                 var sinaKStr = '<object type="application/x-shockwave-flash" data="http://finance.sina.com.cn/flash/cn.swf?" width="920" height="920" id="flash" style="visibility: visible;"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="wmode" value="transparent"><param name="flashvars" value="symbol=' + SinaTcode + '&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3"></object>';
@@ -425,10 +435,12 @@ function getSinaDataAndShowK(Tcode) {
                 $('#sina-K-show').html(sinaKStr).removeClass('hide');
 
                 // 之前没有去新浪获取数据的时候已经执行了一次了，这里再执行一次,需要用到新浪的当前价格的
-                if (nowPrice == '') {
+                if (nowPrice && nowPrice !== '') {
+                    getCompanyInfoAndCalculate(Tcode, nowPrice)
+                } else if (TcodeArr[2] && TcodeArr[2] !== '') {
                     getCompanyInfoAndCalculate(Tcode, TcodeArr[2])
                 } else {
-                    getCompanyInfoAndCalculate(Tcode, nowPrice)
+                    getCompanyInfoAndCalculate(Tcode, '')
                 }
 
                 $("#showBackTable").removeClass('hide')
