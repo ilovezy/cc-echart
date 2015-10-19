@@ -40,7 +40,7 @@ $('#btn-companyInfo-search').click(function() {
     // 清空原有的公司资料数据
     $("#EPS,#BookVal,#SalesPerShare,#FullName,#AreaName,#DetailTrade, #PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue, #TotalStock").text('--');
     // 清空所有已有的数据,不需要处理 sinaData的详细内容，因为后面有数据的话就会重新填充了
-    $("#sinaData, #showPershareTable, #showBackTable, #sina-K-show").addClass('hide')
+    $("#sinaData, #showPershareTable, #StockPlateData, #showBackTable, #sina-K-show").addClass('hide')
     cleanPershareTable();
 
     if (newTcodeVal.length == 0) {
@@ -120,6 +120,46 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                 $("#EPS,#BookVal,#SalesPerShare,#FullName,#AreaName,#DetailTrade, #PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue, #TotalStock").text('--');
             }
         });
+
+    getStockPlateAndShow(Tcode);
+}
+
+// 后台获取股票指数
+function getStockPlateAndShow(Tcode) {
+    $.ajax({
+            url: '../accounting_platedata.c?Data=CompanyIndex&Tcode=' + Tcode,
+            dataType: 'jsonp',
+            async: false,
+            cache: false,
+            jsonpCallback: "jsonpcallback"
+        })
+        // 成功之后的操作
+        .done(function(data) {
+            if (data.Index) {
+                // 开始加工 data.Index
+                var dataIndex = data.Index;
+                var dataIndexStr = '';
+                $.each(dataIndex, function(index, val) {
+                    var item = val.Code.toString() + '（' + val.Name + '）';
+                    dataIndexStr += '<div class="col-md-4" style="height: 34px;line-height: 34px;border-bottom: 1px solid #ddd; border-right: 1px solid #ddd; text-align: left; padding-left: 4em;">' + item + '</div>';
+                });
+
+                insertStringAndShow(dataIndexStr);
+            } else {
+                insertStringAndShow("<div>--</div>")
+            }
+        })
+        .fail(function() {
+            insertStringAndShow("<div>--</div>")
+        });
+
+    $("#StockPlateData").removeClass('hide');
+
+    // 插入字符串并且显示
+    function insertStringAndShow(str) {
+        $("#StockPlateTable").html(str);
+        $('#StockPlateData').removeClass('hide')
+    }
 }
 
 // 通过 Tcode 去后台获取数据，同时如果后台有数据就再去新浪取K线图和公司基本数据
@@ -213,11 +253,12 @@ function getBackDataRunGetSina(Tcode) {
 
                     // console.log(singleArr) 这里再处理一次，求出同比增长率
                     var singleUpRateArr = []
+
                     calculateUpRate(singleUpRateArr, singleArr)
 
                     // 到这里为止已经获取了 singleArr和 singleUpRateArr了，根据需求需要做两个不同的表格, 一个是标准的，一个是累计的
 
-                    // 每股收益表格
+                    // console.log('singleUpRateArr 是' + singleUpRateArr);
                     concatStrAndFillTable(singleArr, singleUpRateArr, $('#mainSingleTable tbody'));
 
                     // 上面是自己计算 countArr的，现在只需要直接去后台获取
@@ -357,10 +398,8 @@ function getSinaDataAndShowK(Tcode) {
             dataType: "script"
         })
         .done(function() {
-
             var tempStr = 'hq_str_' + SinaTcode;
             if (window[tempStr] || window[tempStr] !== '') {
-                // console.log(window[tempStr]);
 
                 var TcodeArr = window[tempStr].split(",");
                 $('#sinaData').removeClass('hide'); // 先把头部显示
@@ -444,6 +483,7 @@ function getSinaDataAndShowK(Tcode) {
                 }
 
                 $("#showBackTable").removeClass('hide')
+                $("#showPershareTable, #sina-K-show").removeClass('hide')
             }
         })
 }
@@ -511,6 +551,5 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
 
         TrStr += '<tr>' + tdStr + '</tr>'
     });
-
-    tbodyElem.empty().append(TrStr); // 先清空原有的数据
+    tbodyElem.empty().html(TrStr); // 先清空原有的数据
 }
