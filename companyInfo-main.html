@@ -15,10 +15,12 @@
         <sidebar class="affix">
             <br>
             <div class="list-group" id="sidebarLinks">
-                <div class="list-group-item form-group">
-                    <input type="text" id="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
-                    <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
-                </div>
+                <form id="searchData">
+                    <div class="list-group-item form-group">
+                        <input type="text" id="Tcode" name="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
+                        <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
+                    </div>
+                </form>
                 <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item">个股基本情况</a>
                 <a href="companyInfo-main.html" id="companyInof-main" class="list-group-item active">主要财务指标</a>
             </div>
@@ -87,6 +89,15 @@
         // 点击的时候 iframe链接改成Tcode的那个，使页面跳转
         changeIframeUrl(TcodeVal);
     });
+
+    $("#searchData").on('submit', function (event) {
+        event.preventDefault();
+        $('#btn-companyInfo-search').trigger('click');
+    })
+
+    $(window).on('load', function() {
+        $("input#Tcode").focus()
+    })
     </script>
 </body>
 

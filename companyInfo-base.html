@@ -15,10 +15,12 @@
         <sidebar class="affix">
             <br>
             <div class="list-group" id="sidebarLinks">
-                <div class="list-group-item form-group">
-                    <input type="text" id="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
-                    <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
-                </div>
+                <form id="searchData">
+                    <div class="list-group-item form-group">
+                        <input type="text" id="Tcode" name="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
+                        <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
+                    </div>
+                </form>
                 <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item active">个股基本情况</a>
                 <a href="companyInfo-main.html" id="companyInfo-main" class="list-group-item">主要财务指标</a>
             </div>
@@ -92,15 +94,15 @@
                         </tr>
 
                         <tr>
-                            <td>公司名称</td>
-                            <td colspan="3" class="text-left" style="padding-left: 6em" id="FullName"></td>
-                        </tr>
-
-                        <tr>
                             <td>注册地</td>
                             <td id="AreaName"></td>
                             <td>所属行业</td>
                             <td id="DetailTrade"></td>
+                        </tr>
+
+                        <tr>
+                            <td>公司名称</td>
+                            <td colspan="3" class="text-left" style="padding-left: 6em" id="FullName"></td>
                         </tr>
                     </table>
                 </div>
@@ -137,11 +139,11 @@
                                         <td>年度</td>
                                         <td>一季度</td>
                                         <td>同比</td>
-                                        <td>二季度</td>
+                                        <td>上半年</td>
                                         <td>同比</td>
-                                        <td>三季度</td>
+                                        <td>前三季</td>
                                         <td>同比</td>
-                                        <td>四季度</td>
+                                        <td>全年</td>
                                         <td>同比</td>
                                     </tr>
                                 </thead>
@@ -169,7 +171,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
                 <br>
@@ -182,8 +183,6 @@
                             <param name="flashvars " value="symbol=sz000002&amp;code=iddg64geja6fea4eafh9jbj7c5j4ie5d&amp;s=3 ">
                         </object> -->
                 </div>
-                <br>
-                <br>
             </div>
         </div>
     </div>

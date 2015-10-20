@@ -33,6 +33,15 @@ $("#Tcode").on('change', function() {
     });
 });
 
+$("#searchData").on('submit', function (event) {
+    event.preventDefault();
+    $('#btn-companyInfo-search').trigger('click');
+})
+
+$(window).on('load', function() {
+    $("input#Tcode").focus()
+})
+
 // 点击查询新浪数据, 每次点击的时候都把数据清空一次
 $('#btn-companyInfo-search').click(function() {
     var newTcodeVal = $('#Tcode').val();
@@ -142,7 +151,7 @@ function getStockPlateAndShow(Tcode) {
                 var dataIndexStr = '';
                 $.each(dataIndex, function(index, val) {
                     var item = val.Code.toString() + '（' + val.Name + '）';
-                    dataIndexStr += '<div class="col-md-4" style="height: 36px;line-height: 36px; border-left: 0; border-top:1px solid white; border-bottom: 1px solid #white; border-right: 1px solid #ddd; text-align: left; padding-left: 4em;">' + item + '</div>';
+                    dataIndexStr += '<div class="col-md-4" style="height: 36px;line-height: 36px; border-left: 0; border-bottom: 1px solid #white; text-align: left; padding-left: 5em;">' + item + '</div>';
                 });
 
                 insertStringAndShow(dataIndexStr);
@@ -150,16 +159,6 @@ function getStockPlateAndShow(Tcode) {
             } else {
                 insertStringAndShow("<div>--</div>")
             }
-
-            // // 蛋疼的表格式做法 数据放到 #StockPlateTable 里
-            // if(data.Index) {
-            //     // 这是外层的表格
-
-            //     $("#showBackTable>table").append(outterTr);
-
-            // } else {
-            //     insertStringAndShow("<div>--</div>")
-            // }
         })
         .fail(function() {
             insertStringAndShow("<div>--</div>")
@@ -304,8 +303,6 @@ function getBackDataRunGetSina(Tcode) {
                                         }
                                     }
                                 });
-
-                                // console.log(uniqueYearArr);
 
                                 // 是DataType=1
                                 var AR_FETCH_DATA = data.AR_FETCH_DATA;
