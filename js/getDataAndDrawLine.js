@@ -1,20 +1,20 @@
 // cc-line-chart.js at 2015-8-20
 
-this.src=this.src+'?time='+Math.random() // 给地址加一串随机数
+this.src = this.src + '?time=' + Math.random() // 给地址加一串随机数
 
 function getDataAndDrawLine(drawDomId, titleText, midText, Base, xData, yData) {
     // 这段对应单位
-    var danwei = ''
+    // var danwei = ''
 
-    if (Base == 1) {
-        danwei = "元"
-    } else if (Base == 1000) {
-        danwei = "千元"
-    } else if (Base == 10000) {
-        danwei = "万元"
-    } else if (Base == 1000000) {
-        danwei = "百万元"
-    }
+    // if (Base == 1) {
+    //     danwei = "元"
+    // } else if (Base == 1000) {
+    //     danwei = "千元"
+    // } else if (Base == 10000) {
+    //     danwei = "万元"
+    // } else if (Base == 1000000) {
+    //     danwei = "百万元"
+    // }
 
     // console.log(danwei)
 
@@ -27,7 +27,7 @@ function getDataAndDrawLine(drawDomId, titleText, midText, Base, xData, yData) {
         var option = {
             // 左上角的标题
             title: {
-                text: titleText + '(单位：'+ danwei +')',
+                text: titleText, // + '(单位：'+ danwei +')',
             },
 
             // 水泡提示框
@@ -86,7 +86,7 @@ function getDataAndDrawLine(drawDomId, titleText, midText, Base, xData, yData) {
                 // smooth: true, // 加了这两个就有填充效果了日
                 // itemStyle: {normal: {areaStyle: {type: 'default'}}},
                 data: yData // 这里是对应的y坐标值，即具体数据
-           }]
+            }]
         }
         var myChart = ec.init(document.getElementById(drawDomId), 'macarons')
         myChart.setOption(option)
