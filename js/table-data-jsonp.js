@@ -10,7 +10,7 @@ $.ajax({
         jsonpCallback: "jsonpcallback"
     })
     .done(function(data) {
-        if($.isArray(data.Index)) {
+        if ($.isArray(data.Index)) {
             var IndexIdArr = data.Index,
                 IndexIdOptionsStr = '';
 
@@ -30,7 +30,7 @@ $.ajax({
         jsonpCallback: "jsonpcallback"
     })
     .done(function(data) {
-        if($.isArray(data.Plate)) {
+        if ($.isArray(data.Plate)) {
             var plateIdArr = data.Plate,
                 PlateIdOptionsStr = '';
 
@@ -51,7 +51,7 @@ $.ajax({
         jsonpCallback: "jsonpcallback"
     })
     .done(function(data) {
-        if($.isArray(data.CD_TRADE)) {
+        if ($.isArray(data.CD_TRADE)) {
             var TradeArr = data.CD_TRADE,
                 TradeOptionsStr = '';
 
@@ -66,7 +66,7 @@ $.ajax({
 var thisYear = (new Date).getFullYear();
 var optionsStr = '';
 var optionVal;
-for(var i = 0; i < 20; i++) {
+for (var i = 0; i < 20; i++) {
     optionVal = thisYear - i;
     optionsStr += '<option value="' + optionVal + '">' + optionVal + '</option>';
 }
@@ -80,19 +80,19 @@ var month = today.getMonth() + 1;
 var $ReportDateYear = $("#ReportDateYear")
 var $ReportDateMonth = $("#ReportDateMonth")
 
-if(month <= 3) { // 3月以内，年用去年，月用 12月
+if (month <= 3) { // 3月以内，年用去年，月用 12月
     var lastYear = year - 1;
     $ReportDateYear.children('option:selected').removeAttr('selected')
     $ReportDateYear.children('option[value=' + lastYear + ']').attr('selected', 'selected');
     $ReportDateMonth.children('option[value=12]').attr('selected', 'selected');
 
-} else if(month > 3 && month <= 6) {
+} else if (month > 3 && month <= 6) {
     $ReportDateYear.children('option[value=' + year + ']').attr('selected', 'selected');
     $ReportDateMonth.children('option[value=03]').attr('selected', 'selected');
-} else if(month > 6 && month <= 9) {
+} else if (month > 6 && month <= 9) {
     $ReportDateYear.children('option[value=' + year + ']').attr('selected', 'selected');
     $ReportDateMonth.children('option[value=06]').attr('selected', 'selected');
-} else if(month > 9 && month <= 12) {
+} else if (month > 9 && month <= 12) {
     $ReportDateYear.children('option[value=' + year + ']').attr('selected', 'selected');
     $ReportDateMonth.children('option[value="09"]').attr('selected', 'selected');
 }
@@ -104,7 +104,7 @@ var thisMonth = addZero(today.getMonth() + 1); // js存月份的时候按数组�
 var thisDay = addZero(today.getDate());
 
 function addZero(num) {
-    if(num < 10) {
+    if (num < 10) {
         num = '0' + num;
     }
     return num;
@@ -193,7 +193,7 @@ function getAllDataAndDrawTable() {
         url: allDataUrl + '&_toolkit=meta', // 获取meta数据
         type: 'GET',
         success: function(data) {
-                if(data.Table) {
+                if (data.Table) {
                     var ListField = data.Table.List.Field;
                     var tempObj;
 
@@ -212,7 +212,7 @@ function getAllDataAndDrawTable() {
     }).done(function() {
         $('#loadingAnimate').fadeOut(1000);
         // 这里用全局的 alreadyGetMeta来判断是否获取到了 meta
-        if(alreadyGetMeta) {
+        if (alreadyGetMeta) {
             $.ajax({
                     url: allDataUrl + '&_toolkit=jsonp',
                     type: 'GET'
@@ -224,21 +224,21 @@ function getAllDataAndDrawTable() {
                     var item, metaItem;
                     // var eachCompanyId;
                     var NickName;
-                    // var needFixed = ['价格', '每股收益', '每股净资产', '市盈率', '市净率', '市销率' '总市值', '流通市值', 'ROE%', '营业成本率%', '销售净利率%', '资产周转倍数', '资产净利率%', '权益乘数']
-                    var needFixed = ['ClosePrice', 'PerShare', 'PerAsset', 'PeRatio', 'BookValue', 'PriceSalesRatio', 'TotalPrice', 'FreePrice', 'ROE', 'CostRate', 'ProfitRatio', 'TurnoverRatio', 'ProfitRate', 'EquityMultiplier'];
+                    // var needFixed = ['价格', '每股收益', '同比%', 'PCF' '每股净资产', '市盈率', '市净率', '市销率' '总市值', '流通市值', 'ROE%', '营业成本率%', '销售净利率%', '资产周转倍数', '资产净利率%', '权益乘数']
+                    var needFixed = ['ClosePrice', 'PerShare', 'PctLR15', 'PCF', 'PerAsset', 'PeRatio', 'BookValue', 'PriceSalesRatio', 'TotalPrice', 'FreePrice', 'ROE', 'CostRate', 'ProfitRatio', 'TurnoverRatio', 'ProfitRate', 'EquityMultiplier'];
                     // console.log(allData.thData) 这是上一个 ajax获取来的 th数据，所有的 th 都是有的
                     // 在具体数据获取的时候，就按 属性名 去获取
-                    for(item in Company) {
+                    for (item in Company) {
                         tempArr = [];
                         // eachCompanyId = Company[item].CompanyId;
                         eachTcode = Company[item].Tcode;
                         // 获取每个公司的 CompanyId，用来做链接的
-                        for(metaItem in allData.thData) {
+                        for (metaItem in allData.thData) {
                             NickName = allData.thData[metaItem].NickName || '';
                             // var CompanyId = allData.thData[metaItem].CompanyId
                             // 这里包含的话就需要处理一下数据
-                            if(needFixed.indexOf(NickName) > -1 && Company[item][NickName]) {
-                                if(NickName == 'PerShare') {
+                            if (needFixed.indexOf(NickName) > -1 && Company[item][NickName]) {
+                                if (NickName == 'PerShare') {
                                     tempArr.push((+Company[item][NickName]).toFixed(3));
                                 } else {
                                     tempArr.push((+Company[item][NickName]).toFixed(2));
@@ -254,7 +254,7 @@ function getAllDataAndDrawTable() {
 
                         // 保证最后一项总计不加链接
 
-                        if(eachTcode !== '999999') {
+                        if (eachTcode !== '999999') {
                             // tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
                             tempArr[1] = '<a href="' + 'http://www.mituyun.com/AccountMgr/cc-echart/companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
                         } else {
