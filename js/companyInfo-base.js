@@ -545,17 +545,17 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
             if (j == 0) { // 这里的第一位是年份，不用 toFixed(3)
                 tdStr += '<td>' + PerShare + '</td>'
             } else if (PerShare !== '') {
-                var thisMonthUpRateArr = thisYearUpRateArr[j];
+                var thisMonthUpRateArr = (+thisYearUpRateArr[j]);
                 var PerShare = (+PerShare).toFixed(3);
 
                 if (thisMonthUpRateArr !== '' && thisMonthUpRateArr > 0) {
-                    tdStr += '<td>' + PerShare + '</td>' + '<td class="text-danger"><i>' + thisMonthUpRateArr + '%</i></td>';
-                } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr = 0) {
-                    tdStr += '<td>' + PerShare + '</td>' + '<td><i>' + thisMonthUpRateArr + '%</i></td>';
+                    tdStr += '<td>' + PerShare + '</td><td class="text-danger"><i>' + thisMonthUpRateArr + '%</i></td>';
+                } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr == 0) {
+                    tdStr += '<td>' + PerShare + '</td><td><i>' + thisMonthUpRateArr + '%</i></td>';
                 } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr < 0) {
-                    tdStr += '<td>' + PerShare + '</td>' + '<td class="text-success"><i>' + thisMonthUpRateArr + '%</i></td>';
+                    tdStr += '<td>' + PerShare + '</td><td class="text-success"><i>' + thisMonthUpRateArr + '%</i></td>';
                 } else {
-                    tdStr += '<td>' + PerShare + '</td>' + '<td></td>';
+                    tdStr += '<td>' + PerShare + '</td><td></td>';
                 }
             } else {
                 tdStr += '<td></td><td></td>';
