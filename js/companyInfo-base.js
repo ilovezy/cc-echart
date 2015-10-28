@@ -550,9 +550,9 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
                     var PerShare = (+PerShare).toFixed(3);
 
                     if (thisMonthUpRate !== '' && thisMonthUpRate >= 0) {
-                        tdStr += '<td>' + PerShare + '</td><td class="text-danger"><i>' + thisMonthUpRate + '%</i></td>';
+                        tdStr += '<td>' + PerShare + '</td><td class="text-danger"><i>' + thisMonthUpRate.toFixed(1) + '%</i></td>';
                     } else if (thisMonthUpRate !== '' && thisMonthUpRate < 0) {
-                        tdStr += '<td>' + PerShare + '</td><td class="text-success"><i>' + thisMonthUpRate + '%</i></td>';
+                        tdStr += '<td>' + PerShare + '</td><td class="text-success"><i>' + thisMonthUpRate.toFixed(1) + '%</i></td>';
                     } else {
                         tdStr += '<td>' + PerShare + '</td><td></td>';
                     }
