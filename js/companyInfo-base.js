@@ -507,8 +507,7 @@ function cleanPershareTable() {
     $('#mainSingleTable tbody, #mainCountTable tbody').empty()
 }
 
-// 两个 upRateArr，计算同比增涨率,
-// 看 600666，如果增长率为0，也要显示
+// 两个 upRateArr，计算同比增涨率, 看 600666，如果增长率为0，也要显示
 function calculateUpRate(emptyUpRateArr, dataArr) {
     $.each(dataArr, function(index, val) {
         var tempArr = [];
@@ -536,6 +535,7 @@ function calculateUpRate(emptyUpRateArr, dataArr) {
 }
 
 // 给定数组拼接字符串并且添加到对应的表格中去
+// 注意 js 大坑 a = +'' alert(a)为0
 function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
     var TrStr = ''
     $.each(arr, function(index, PerShareArr) {
@@ -545,16 +545,19 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
             if (j == 0) { // 这里的第一位是年份，不用 toFixed(3)
                 tdStr += '<td>' + PerShare + '</td>'
             } else if (PerShare !== '') {
-                var thisMonthUpRateArr = (+thisYearUpRateArr[j]);
-                var PerShare = (+PerShare).toFixed(3);
+                if (thisYearUpRateArr[j] != '') {
+                    var thisMonthUpRate = (+thisYearUpRateArr[j]);
+                    var PerShare = (+PerShare).toFixed(3);
 
-                if (thisMonthUpRateArr !== '' && thisMonthUpRateArr > 0) {
-                    tdStr += '<td>' + PerShare + '</td><td class="text-danger"><i>' + thisMonthUpRateArr + '%</i></td>';
-                } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr == 0) {
-                    tdStr += '<td>' + PerShare + '</td><td><i>' + thisMonthUpRateArr + '%</i></td>';
-                } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr < 0) {
-                    tdStr += '<td>' + PerShare + '</td><td class="text-success"><i>' + thisMonthUpRateArr + '%</i></td>';
+                    if (thisMonthUpRate !== '' && thisMonthUpRate >= 0) {
+                        tdStr += '<td>' + PerShare + '</td><td class="text-danger"><i>' + thisMonthUpRate + '%</i></td>';
+                    } else if (thisMonthUpRate !== '' && thisMonthUpRate < 0) {
+                        tdStr += '<td>' + PerShare + '</td><td class="text-success"><i>' + thisMonthUpRate + '%</i></td>';
+                    } else {
+                        tdStr += '<td>' + PerShare + '</td><td></td>';
+                    }
                 } else {
+                    // 如果去年没有的话就显示为空哦
                     tdStr += '<td>' + PerShare + '</td><td></td>';
                 }
             } else {
