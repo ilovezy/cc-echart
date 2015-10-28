@@ -151,7 +151,7 @@ function getStockPlateAndShow(Tcode) {
                 var dataIndexStr = '';
                 $.each(dataIndex, function(index, val) {
                     var item = val.Code.toString() + '（' + val.Name + '）';
-                    dataIndexStr += '<div class="col-md-4" style="height: 36px;line-height: 36px; border-left: 0; border-bottom: 1px solid #white; text-align: left; padding-left: 5em;">' + item + '</div>';
+                    dataIndexStr += '<div class="col-md-4" style="height: 36px;line-height: 36px; border-left: 0; border-bottom: 1px solid white; text-align: left; padding-left: 5em;">' + item + '</div>';
                 });
 
                 insertStringAndShow(dataIndexStr);
@@ -507,7 +507,8 @@ function cleanPershareTable() {
     $('#mainSingleTable tbody, #mainCountTable tbody').empty()
 }
 
-// 两个 upRateArr，计算同比增涨率
+// 两个 upRateArr，计算同比增涨率,
+// 看 600666，如果增长率为0，也要显示
 function calculateUpRate(emptyUpRateArr, dataArr) {
     $.each(dataArr, function(index, val) {
         var tempArr = [];
@@ -518,7 +519,8 @@ function calculateUpRate(emptyUpRateArr, dataArr) {
                 if (thisYearMonthVal !== '' && thisYearMonthVal !== 0 && dataArr[index + 1] && dataArr[index + 1][monthIndex] !== '' && +(dataArr[index + 1][monthIndex]) !== 0) {
 
                     var lastYearMonthVal = dataArr[index + 1][monthIndex];
-                    if (lastYearMonthVal <= 0) { // 如果去年的基数小于等于0就不用算了直接为空
+                    if (lastYearMonthVal <= 0) {
+                        // 如果去年的基数小于等于0就不用算了直接为空
                         tempArr.push('')
                     } else {
                         var upRate = ((thisYearMonthVal - lastYearMonthVal) / lastYearMonthVal * 100).toFixed(1);
@@ -548,6 +550,8 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
 
                 if (thisMonthUpRateArr !== '' && thisMonthUpRateArr > 0) {
                     tdStr += '<td>' + PerShare + '</td>' + '<td class="text-danger"><i>' + thisMonthUpRateArr + '%</i></td>';
+                } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr = 0) {
+                    tdStr += '<td>' + PerShare + '</td>' + '<td><i>' + thisMonthUpRateArr + '%</i></td>';
                 } else if (thisMonthUpRateArr !== '' && thisMonthUpRateArr < 0) {
                     tdStr += '<td>' + PerShare + '</td>' + '<td class="text-success"><i>' + thisMonthUpRateArr + '%</i></td>';
                 } else {
