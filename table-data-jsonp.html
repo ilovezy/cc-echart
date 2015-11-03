@@ -29,6 +29,10 @@
         text-align: center;
     }*/
     /* 有需要的 */
+    
+    .input-width-control {
+        width: 110px!important;
+    }
     </style>
 </head>
 
@@ -38,28 +42,31 @@
     <div class="container-fluid">
         <form class="form-inline" id="hiddenToolbar" style="position: absolute; z-index: 1000">
             <label>
-                <select id="IndexId" name="IndexId" class="form-control mr20">
+                指数
+                <select id="IndexId" name="IndexId" class="form-control mr20 input-width-control">
                     <option value=""></option>
                 </select>
             </label>
 
             <label>
-                <select id="PlateId" name="PlateId" class="form-control mr20">
+                板块
+                <select id="PlateId" name="PlateId" class="form-control mr20 input-width-control">
                     <option value=""></option>
                 </select>
             </label>
             <label>
-                <select id="Trade" name="Trade" class="form-control mr20" style="width: 110px">
+                行业
+                <select id="Trade" name="Trade" class="form-control mr20 input-width-control">
                     <option value=""></option>
                 </select>
             </label>
 
             <label>
-                细分行业
-                <input type="text" name="DetailTrade" class="form-control mr20" style="width: 110px">
+                细分
+                <input type="text" name="DetailTrade" class="form-control mr20 input-width-control">
             </label>
             <label>
-                <input type="text" id="PriceDate" name="PriceDate" class="form-control mr20" style="width: 110px">
+                <input type="text" id="PriceDate" name="PriceDate" class="form-control mr20 input-width-control">
             </label>
 
             <label>
@@ -75,7 +82,7 @@
             </label>
 
             <label>
-                <select id="DataType" name="DataType" class="form-control mr20" style="width: 110px">
+                <select id="DataType" name="DataType" class="form-control mr20 input-width-control">
                     <option value="3" selected>滚动一年</option>
                     <option value="1">本年累计</option>
                     <option value="2">本期数</option>
