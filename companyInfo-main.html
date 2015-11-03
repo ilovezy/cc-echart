@@ -7,12 +7,13 @@
     <title>主要财务指标</title>
     <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+    <link rel="stylesheet" type="text/css" href="../toolkitcss/v5/commonM/style.css">
 </head>
 
 <body class="container-fluid">
     <div class="row">
         <!-- 左半边导航栏 -->
-        <sidebar class="affix">
+        <!-- <sidebar class="affix">
             <br>
             <div class="list-group" id="sidebarLinks">
                 <form id="searchData">
@@ -24,26 +25,58 @@
                 <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item">个股基本情况</a>
                 <a href="companyInfo-main.html" id="companyInof-main" class="list-group-item active">主要财务指标</a>
             </div>
-        </sidebar>
-        <!-- 右半边显式数据 -->
-        <div class="rightSide">
-            <div class="showIframeTable">
-                <!-- 没有数据的时候的处理 -->
-                <div id="showError"></div>
-                <iframe id="IframeTable" frameborder="0" style="width: 100%; height: 850px "></iframe>
+        </sidebar> -->
+        <sidebar class="affix">
+            <br>
+            <div class="list-group" id="sidebarLinks">
+                <form id="searchData">
+                    <!-- <div class="list-group-item form-group">
+                        <input type="text" id="Tcode" name="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
+                        <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
+                    </div> -->
+
+                    <!-- cjy -->
+                    <div class="form-group" style="margin-bottom: -3px;">
+                        <span class="tk-control">
+                            <div class="input-group" data-control="EasySearch" data-url="/AccountMgr/source/C/EasySearch.c">
+                                <input type="hidden" value id="hdTcode" name="hdTcode" />
+                                <input type="text" data-regName="CompanyCode" placeholder="代码" id="Tcode" name="Tcode" class="form-control" data-title="代码" data-selectedFunc="triggerSearch" value/>
+                                <span class="input-group-btn">
+                                    <button class="cc-btn cc-btn-default" id="btn-companyInfo-search" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                                </span>
+                    </div>
+                    </span>
             </div>
+
+            <!-- cjy end -->
+            </form>
+            <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item ">个股基本情况</a>
+            <a href="companyInfo-main.html" id="companyInfo-main" class="list-group-item active">主要财务指标</a>
+    </div>
+    </sidebar>
+
+    <!-- 右半边显式数据 -->
+    <div class="rightSide">
+        <div class="showIframeTable">
+            <!-- 没有数据的时候的处理 -->
+            <div id="showError"></div>
+            <iframe id="IframeTable" frameborder="0" style="width: 100%; height: 850px "></iframe>
         </div>
+    </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/toolkit.js"></script>
-    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.page.js"></script>
-    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.data.js?v=5"></script>
-    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.ui.js"></script>
+    <script type="text/javascript" src="../toolkitjs/v5/toolkit/toolkit.js"></script>
+    <script type="text/javascript" src="../toolkitjs/v5/toolkit/coreT/toolkit.page.js"></script>
+    <script type="text/javascript" src="../toolkitjs/v5/toolkit/coreT/toolkit.data.js?v=5"></script>
+    <script type="text/javascript" src="../toolkitjs/v5/toolkit/coreT/toolkit.ui.js"></script>
     <!-- 正常的方法 -->
     <!-- // <script id="sinaData" type="text/javascript" src="http://hq.sinajs.cn/list=sz000002" charset="gb2312"></script> -->
     <script src="js/URI.min.js"></script>
     <script>
+    var elm = $("div[data-control=EasySearch]");
+    elm.bindToolkitUI('easySearchControl');
+
     // 获取 url 里的参数,如果有的话就执行对于的函数，顺便把菜单链接的 a的 href 加上 ?Tcode=******;
     function getUrlParam(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -63,13 +96,13 @@
             var newHref = oldHref + '?Tcode=' + TcodeVal;
             $(this).attr('href', newHref);
         });
-        $('#Tcode').val(TcodeVal)
+        $('#Tcode, #hdTcode').val(TcodeVal)
         changeIframeUrl(TcodeVal);
     }
 
     // Tcode改变时的操作
     var Tcode = '';
-    $("#Tcode").on('change', function() {
+    $("#hdTcode").on('change', function() {
         var thisTcode = $(this).val();
 
         $('#sidebarLinks').find('a').each(function(index, el) {
@@ -85,12 +118,12 @@
     }
 
     $('#btn-companyInfo-search').click(function() {
-        var TcodeVal = $('#Tcode').val();
+        var TcodeVal = $('#hdTcode').val();
         // 点击的时候 iframe链接改成Tcode的那个，使页面跳转
         changeIframeUrl(TcodeVal);
     });
 
-    $("#searchData").on('submit', function (event) {
+    $("#searchData").on('submit', function(event) {
         event.preventDefault();
         $('#btn-companyInfo-search').trigger('click');
     })

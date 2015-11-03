@@ -19,11 +19,11 @@ if (TcodeVal) {
         var newHref = oldHref + '?Tcode=' + TcodeVal;
         $(this).attr('href', newHref);
     });
-    $('#Tcode').val(TcodeVal);
+    $('#Tcode, #hdTcode').val(TcodeVal);
     getBackDataRunGetSina(TcodeVal);
 }
 
-$("#Tcode").on('change', function() {
+$("#hdTcode").on('change', function() {
     var thisTcode = $(this).val();
 
     $('#sidebarLinks').find('a').each(function(index, el) {
@@ -31,12 +31,31 @@ $("#Tcode").on('change', function() {
         var newHref = URI(oldHref).removeSearch('Tcode').addSearch('Tcode', thisTcode);
         $(this).attr('href', newHref)
     });
+
+    // $('#btn-companyInfo-search').trigger('click');
+    // console.log($("#input#Tcode").val());
 });
+
+function triggerSearch() {
+    $('#btn-companyInfo-search').trigger('click');
+    console.log($("#input#Tcode").val());
+}
 
 $("#searchData").on('submit', function(event) {
     event.preventDefault();
     $('#btn-companyInfo-search').trigger('click');
+    console.log($("#input#Tcode").val());
 })
+
+// $("#hdTcode").on('change', function() {
+//     $('#btn-companyInfo-search').trigger('click');
+// });
+
+// $(document).keydown(function(event) {
+//     if (event.keyCode == 13) {
+//         $('#btn-companyInfo-search').trigger('click');
+//     }
+// });
 
 $(window).on('load', function() {
     $("input#Tcode").focus()
@@ -44,7 +63,8 @@ $(window).on('load', function() {
 
 // 点击查询新浪数据, 每次点击的时候都把数据清空一次
 $('#btn-companyInfo-search').click(function() {
-    var newTcodeVal = $('#Tcode').val();
+    // var newTcodeVal = $('#Tcode').val();
+    var newTcodeVal = $('#hdTcode').val();
 
     // 清空原有的公司资料数据
     $("#EPS,#BookVal,#SalesPerShare,#FullName,#AreaName,#DetailTrade, #PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue, #TotalStock").text('--');
