@@ -13,30 +13,12 @@
 <body class="container-fluid">
     <div class="row">
         <!-- 左半边导航栏 -->
-        <!-- <sidebar class="affix">
-            <br>
-            <div class="list-group" id="sidebarLinks">
-                <form id="searchData">
-                    <div class="list-group-item form-group">
-                        <input type="text" id="Tcode" name="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
-                        <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
-                    </div>
-                </form>
-                <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item">个股基本情况</a>
-                <a href="companyInfo-main.html" id="companyInof-main" class="list-group-item active">主要财务指标</a>
-            </div>
-        </sidebar> -->
         <sidebar class="affix">
             <br>
             <div class="list-group" id="sidebarLinks">
                 <form id="searchData">
-                    <!-- <div class="list-group-item form-group">
-                        <input type="text" id="Tcode" name="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
-                        <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
-                    </div> -->
-
                     <!-- cjy -->
-                    <div class="form-group" style="margin-bottom: -3px;">
+                    <div class="form-group" style="margin-bottom: -4px;">
                         <span class="tk-control">
                             <div class="input-group" data-control="EasySearch" data-url="/AccountMgr/source/C/EasySearch.c">
                                 <input type="hidden" value id="hdTcode" name="hdTcode" />
@@ -74,8 +56,7 @@
     <!-- // <script id="sinaData" type="text/javascript" src="http://hq.sinajs.cn/list=sz000002" charset="gb2312"></script> -->
     <script src="js/URI.min.js"></script>
     <script>
-    var elm = $("div[data-control=EasySearch]");
-    elm.bindToolkitUI('easySearchControl');
+    $("div[data-control=EasySearch]").bindToolkitUI('easySearchControl');
 
     // 获取 url 里的参数,如果有的话就执行对于的函数，顺便把菜单链接的 a的 href 加上 ?Tcode=******;
     function getUrlParam(name) {
@@ -85,10 +66,9 @@
         return null;
     }
 
-    var url = window.location.href;
     var TcodeVal = getUrlParam('Tcode');
     if (TcodeVal) {
-        $('#sidebarLinks').find('a').each(function(index, el) {
+        $('#sidebarLinks a').each(function(index, el) {
             var oldHref = $(this).attr('href');
             if (URI(oldHref).search()) {
                 oldHref = URI(oldHref).removeSearch('Tcode')
@@ -100,21 +80,28 @@
         changeIframeUrl(TcodeVal);
     }
 
-    // Tcode改变时的操作
-    var Tcode = '';
+    function changeIframeUrl(TcodeShort) {
+        var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
+        $('#IframeTable').attr('src', newIframeTableUrl)
+    }
+
+    // 新的股票代码输入框
+    $("#Tcode").on('change', function() {
+        $("#hdTcode").val($('#Tcode').val())
+    });
+
     $("#hdTcode").on('change', function() {
         var thisTcode = $(this).val();
 
         $('#sidebarLinks').find('a').each(function(index, el) {
-            var oldHref = $(this).attr('href');
-            var newHref = URI(oldHref).removeSearch('Tcode').addSearch('Tcode', thisTcode);
-            $(this).attr('href', newHref)
+            $(this).attr('href', URI($(this).attr('href')).removeSearch('Tcode').addSearch('Tcode', thisTcode))
         });
+        $("#showErrorMessage").addClass('hide');
     });
 
-    function changeIframeUrl(TcodeShort) {
-        var newIframeTableUrl = '../Library/WebDetailXmlPage.tkx?Source=Query/FetchData&Tcode=' + TcodeShort
-        $('#IframeTable').attr('src', newIframeTableUrl)
+    function triggerSearch() {
+        $("#showErrorMessage").addClass('hide');
+        $('#btn-companyInfo-search').trigger('click');
     }
 
     $('#btn-companyInfo-search').click(function() {
@@ -125,7 +112,6 @@
 
     $("#searchData").on('submit', function(event) {
         event.preventDefault();
-        $('#btn-companyInfo-search').trigger('click');
     })
 
     $(window).on('load', function() {

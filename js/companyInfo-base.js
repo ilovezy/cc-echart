@@ -9,7 +9,6 @@ function getUrlParam(name) {
 // // 如果链接中存在 Tcode 就执行一次 getBackDataRunGetSina
 var url = window.location.href;
 var TcodeVal = getUrlParam('Tcode');
-// var TcodeVal = URI(url).search('Tcode')
 if (TcodeVal) {
     $('#sidebarLinks').find('a').each(function(index, el) {
         var oldHref = $(this).attr('href');
@@ -23,39 +22,30 @@ if (TcodeVal) {
     getBackDataRunGetSina(TcodeVal);
 }
 
+// 新的股票代码输入框
+$("#Tcode").on('change', function() {
+    $("#hdTcode").val($('#Tcode').val())
+});
+
 $("#hdTcode").on('change', function() {
     var thisTcode = $(this).val();
 
     $('#sidebarLinks').find('a').each(function(index, el) {
-        var oldHref = $(this).attr('href');
-        var newHref = URI(oldHref).removeSearch('Tcode').addSearch('Tcode', thisTcode);
-        $(this).attr('href', newHref)
+        $(this).attr('href', URI($(this).attr('href')).removeSearch('Tcode').addSearch('Tcode', thisTcode))
     });
-
-    // $('#btn-companyInfo-search').trigger('click');
-    // console.log($("#input#Tcode").val());
+    $("#showErrorMessage").addClass('hide');
 });
 
 function triggerSearch() {
+    $("#showErrorMessage").addClass('hide');
     $('#btn-companyInfo-search').trigger('click');
-    console.log($("#input#Tcode").val());
 }
 
 $("#searchData").on('submit', function(event) {
     event.preventDefault();
-    $('#btn-companyInfo-search').trigger('click');
-    console.log($("#input#Tcode").val());
+    $("#showErrorMessage").addClass('hide');
+    // $('#btn-companyInfo-search').trigger('click');
 })
-
-// $("#hdTcode").on('change', function() {
-//     $('#btn-companyInfo-search').trigger('click');
-// });
-
-// $(document).keydown(function(event) {
-//     if (event.keyCode == 13) {
-//         $('#btn-companyInfo-search').trigger('click');
-//     }
-// });
 
 $(window).on('load', function() {
     $("input#Tcode").focus()
@@ -63,23 +53,16 @@ $(window).on('load', function() {
 
 // 点击查询新浪数据, 每次点击的时候都把数据清空一次
 $('#btn-companyInfo-search').click(function() {
-    // var newTcodeVal = $('#Tcode').val();
     var newTcodeVal = $('#hdTcode').val();
 
     // 清空原有的公司资料数据
     $("#EPS,#BookVal,#SalesPerShare,#FullName,#AreaName,#DetailTrade, #PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue, #TotalStock").text('--');
     // 清空所有已有的数据,不需要处理 sinaData的详细内容，因为后面有数据的话就会重新填充了
-    $("#sinaData, #showPershareTable, #StockPlateData, #showBackTable, #sina-K-show").addClass('hide')
+    $("#sinaData, #showPershareTable, #StockPlateData, #showBackTable, #sina-K-show").addClass('hide');
     cleanPershareTable();
 
-    if (newTcodeVal.length == 0) {
-        showErrorMessage('股票id长度不能为0')
-    } else if (newTcodeVal.length !== 6) {
-        showErrorMessage('股票id长度不等于6了')
-    } else {
-        $("#showErrorMessage").addClass('hide');
-        getBackDataRunGetSina(newTcodeVal);
-    }
+    $("#showErrorMessage").addClass('hide');
+    getBackDataRunGetSina(newTcodeVal);
 });
 
 // 区后台获取一个小的表格数据
@@ -212,13 +195,17 @@ function getBackDataRunGetSina(Tcode) {
                 $('#stockName').text(data.AR_COMPANY[0].Tname);
                 $("#stockId").text(Tcode); // 这里不用后台传来的 Tcode，后台的是简短版本的
 
-                var AR_FETCH_DATA = data.AR_FETCH_DATA || [];
-                var tempCollection = [];
-                var uniqueYearArr = [];
+                var AR_FETCH_DATA = data.AR_FETCH_DATA || [],
+                    tempCollection = [],
+                    uniqueYearArr = [],
+                    tempObj = {},
+                    ReportDate, year;
+
                 $.each(AR_FETCH_DATA, function(index, val) {
-                    var tempObj = {};
-                    var ReportDate = val.ReportDate;
-                    var year = ReportDate.substring(0, 4);
+                    tempObj = {};
+                    ReportDate = val.ReportDate;
+                    year = ReportDate.substring(0, 4);
+
                     tempObj.ReportDate = ReportDate;
                     tempObj.year = year;
                     tempObj.month = ReportDate.substring(4);
@@ -391,12 +378,10 @@ function getBackDataRunGetSina(Tcode) {
                     getSinaDataAndShowK(Tcode);
                 } else {
                     cleanPershareTable();
-                    // alert('错误1, 没有 uniqueYearArr，即后台返回的数据没有需要的内容')
                     showErrorMessage('没有找到该公司数据')
                 }
             } else {
                 cleanPershareTable();
-                // alert('错误2， 后台根本没有返回数据')
                 showErrorMessage('没有找到该公司数据')
             }
         })

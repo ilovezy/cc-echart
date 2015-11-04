@@ -238,10 +238,20 @@ function getAllDataAndDrawTable() {
                             // var CompanyId = allData.thData[metaItem].CompanyId
                             // 这里包含的话就需要处理一下数据
                             if (needFixed.indexOf(NickName) > -1 && Company[item][NickName]) {
+                                var tempVal = (+Company[item][NickName]);
+
                                 if (NickName == 'PerShare') {
-                                    tempArr.push((+Company[item][NickName]).toFixed(3));
+                                    tempArr.push(tempVal.toFixed(3));
+                                } else if (NickName == 'PctLR15') { // 这里的 同比 % 需要红绿处理
+                                    if (tempVal.toFixed(2) > 0) {
+                                        tempArr.push('<span style="color:green">' + tempVal.toFixed(2) + '</span>')
+                                    } else if (tempVal.toFixed(2) == 0) {
+                                        tempArr.push(tempVal.toFixed(2));
+                                    } else {
+                                        tempArr.push('<span style="color:red">' + tempVal.toFixed(2) + '</span>')
+                                    }
                                 } else {
-                                    tempArr.push((+Company[item][NickName]).toFixed(2));
+                                    tempArr.push(tempVal.toFixed(2));
                                 }
                             } else {
                                 tempArr.push(Company[item][NickName] || '');
@@ -256,13 +266,15 @@ function getAllDataAndDrawTable() {
 
                         if (eachTcode !== '999999') {
                             // tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
-                            tempArr[1] = '<a href="' + 'http://www.mituyun.com/AccountMgr/cc-echart/companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
+                            tempArr[1] = '<a href="' + './companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
                         } else {
                             tempArr[1] = tempArr[1]
                         }
 
                         allData.tdData.push(tempArr);
                     }
+
+                    // console.log(allData.tdData)
 
                     // alert(allData.tdData.length) // IE 兼容问题就在 allData.tdData这里，IE打开控制台后 length会变，不打开就不会变
 
@@ -310,6 +322,28 @@ function getAllDataAndDrawTable() {
                     new $.fn.dataTable.FixedColumns(ccTable, {
                         leftColumns: 2
                     });
+
+                    // 要不红绿色在这里搞得了, 这里直接用 red和green可以看得清楚一点，这个是可以的但是太死板了
+                    $('#ccTable td').each(function() {
+                        var thisVal = $(this).text();
+                        if ($.isNumeric(thisVal)) {
+                            if (+thisVal < 0) { // +thisVal是 js里字符串数字转数字的一种特殊写法而已
+                                $(this).css('color', 'red') // 如果数据小于0就显示红色,由于日期一定大于0所以不需要处理了
+                            }
+                        }
+                    })
+
+                    // // 接下来处理 同比%，同比% 的那一列，数据大于0就要显示为绿色
+                    // $('#ccTable tr').each(function() {
+                    //     $(this).children('td:eq(4)').each(function() {
+                    //         var thisVal = $(this).text();
+                    //         if ($.isNumeric(thisVal)) {
+                    //             if (+thisVal > 0) {
+                    //                 $(this).css('color', 'green')
+                    //             }
+                    //         }
+                    //     })
+                    // })
                 })
         } else {
             $('#showTable').empty().append('<div class="alert alert-warning" style="margin-top: 100px">没有找到您输入的条件所对应的数据，请修改您的搜索条件</div>')

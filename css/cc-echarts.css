@@ -42,12 +42,13 @@ table.table-nowrap td {
 sidebar {
     left: 15px;
     z-index: 1000;
-    width: 180px
+    width: 220px
 }
 
 .easysearch-checked,
 #Tcode {
-    width: 140px!important;
+    width: 180px!important;
+    border-bottom: 2px solid #ddd;
 }
 
 input.input-companyInfo-search {
