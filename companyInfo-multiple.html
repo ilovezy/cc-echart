@@ -19,7 +19,8 @@
             <tr>
                 <th class="text-center">代码</th>
                 <th class="text-center">简称</th>
-                <th class="text-center">当天涨跌幅</th>
+                <th class="text-center">涨跌量</th>
+                <th class="text-center">涨跌幅</th>
             </tr>
         </thead>
         <tbody>
@@ -38,10 +39,11 @@
 
     <script type="text/javascript">
     // 这是后台取来的json数据格式
-    var MultipleTcodeArr = ['000001', '000001', '000001', '000002', '000003', '000004', '000005', '000009', '000011'];
+    var MultipleTcodeArr = ['000001', '000002', '000003', '000004', '000005', '000009', '000011'];
     getMultipleCompanyInfo(MultipleTcodeArr);
 
-    setInterval("getMultipleCompanyInfo(MultipleTcodeArr)", 2000);
+    // 新浪数据 6秒刷一次
+    setInterval("getMultipleCompanyInfo(MultipleTcodeArr)", 6000);
 
     function getMultipleCompanyInfo(MultipleTcodeArr) {
         $.each(MultipleTcodeArr, function(index, val) {
@@ -78,17 +80,17 @@
 
             var trStr = '';
             $.each(MultiplecompanyInfoArr, function(index, val) {
-                trStr += '<tr><td>' + (val[0].substring(4) || '&nbsp;') + '</td><td>' + (val[1] || '&nbsp;') + '</td><td>';
-                if (val[3]) {
-                    if (val[3] > 0) {
-                        trStr += '<span style="color: red">' + (val[3] || '&nbsp;') + '</span></td></tr>';
-                    } else if (val[3] < 0) {
-                        trStr += '<span style="color: green">' + (val[3] || '&nbsp;') + '</span></td></tr>';
+                trStr += '<tr><td>' + (val[0].substring(4) || '--') + '</td><td>' + (val[1] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
+                if (val[4]) {
+                    if (val[4] > 0) {
+                        trStr += '<td style="color: red">' + val[4] + '%</td></tr>';
+                    } else if (val[4] < 0) {
+                        trStr += '<td style="color: green">' + val[4] + '%</td></tr>';
                     } else {
-                        trStr += (val[3] || '&nbsp;') + '</td></tr>';
+                        trStr += '<td>' + val[4] + '%</td></tr>';
                     }
                 } else {
-                    trStr += '&nbsp;</td></tr>';
+                    trStr += '<td>--</td></tr>';
                 }
             });
 
