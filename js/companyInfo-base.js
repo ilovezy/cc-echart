@@ -78,6 +78,38 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
         .done(function(data) {
             if (data.AR_COMPANY[0]) {
                 AR_COMPANY = data.AR_COMPANY[0];
+                var CompanyId = AR_COMPANY.CompanyId;
+                // 新增了一些数据作为收藏的标记 这里来进行optional的判断，确定是否被收藏
+                // collectedStar-active { color: orange }
+                if (AR_COMPANY.Optional == '1') {
+                    $('#collectedStar').addClass('collectedStar-active');
+                }
+                // 点击星星来toggle是否收藏咯
+                // 总之这里需要先解绑一下在绑定，不然会多次绑定的奇葩问题
+                $("#collectedStar").off('click').on('click', function() {
+                    // ~/CAdd/accounting_optionaldata.c?CompanyId=202
+                    // ~/CDelete/accounting_optionaldata.c?CompanyId=202
+                    if ($(this).hasClass('collectedStar-active')) {
+                        $(this).removeClass('collectedStar-active');
+                        $.ajax({
+                                url: '../CDelete/accounting_optionaldata.c?CompanyId=' + CompanyId,
+                                type: 'GET',
+                                async: false,
+                                cache: false
+                            })
+                            .done(function() {});
+                    } else {
+                        $(this).addClass('collectedStar-active');
+                        $.ajax({
+                                url: '../CAdd/accounting_optionaldata.c?CompanyId=' + CompanyId,
+                                type: 'GET',
+                                async: false,
+                                cache: false
+                            })
+                            .done(function() {});
+                    }
+                });
+
                 // 先把跟 NowPrice 无关的数据填写进去再说
                 $('#EPS').text((+AR_COMPANY.LR15).toFixed(3) + ' 元');
                 $("#BookVal").text((+AR_COMPANY.ZC23).toFixed(3) + ' 元');
