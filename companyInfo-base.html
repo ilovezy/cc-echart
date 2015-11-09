@@ -17,13 +17,8 @@
             <br>
             <div class="list-group" id="sidebarLinks">
                 <form id="searchData">
-                    <!-- <div class="list-group-item form-group">
-                        <input type="text" id="Tcode" name="Tcode" class="form-control input-companyInfo-search" placeholder="公司代码">
-                        <button type="button" id="btn-companyInfo-search" class="btn btn-default">查询</button>
-                    </div> -->
-
                     <!-- cjy -->
-                    <div class="form-group" style="margin-bottom: 15px;">
+                    <div class="form-group" style="margin-bottom: -4px;">
                         <span class="tk-control">
                             <div class="input-group" data-control="EasySearch" data-url="/AccountMgr/source/C/EasySearch.c">
                                 <input type="hidden" value id="hdTcode" name="hdTcode" />
@@ -34,7 +29,6 @@
                     </div>
                     </span>
             </div>
-
             <!-- cjy end -->
             </form>
             <a href="companyInfo-base.html" id="companyInfo-base" class="list-group-item active">个股基本情况</a>
@@ -52,8 +46,34 @@
 
             <!-- 新浪采集来的头部的数据 -->
             <div id="sinaData" class="hide">
+
                 <div class="cc-h2 col-sm-12" style="margin-bottom: 20px">
                     <span id="stockName"></span> <span id="stockId"></span>
+
+                    <!-- data-toggle="modal" data-target="#confirmModal" -->
+                    <!-- 增加一段是否被收藏的信息 -->
+                    <div style="display: inline-block;" id="stockCollected">
+                        <span class="glyphicon glyphicon-star" id="collectedStar" style="cursor: pointer;" title="是否收藏"></span>
+                        <span id="PositionNum" style="margin-left: 30px;">PositionNum</span>
+                        <span id="PositionPrice">PositionPrice</span>
+                        <span id="PositionTotal">PositionTotal</span>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="confirmModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        你确定要取消收藏吗？
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="confirmBtn">是的</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">算了</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-xs-3 nowPrice">
