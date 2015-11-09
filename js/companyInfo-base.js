@@ -2,7 +2,7 @@
 function getUrlParam(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]);
+    if (r !== null) return unescape(r[2]);
     return null;
 }
 
@@ -13,7 +13,7 @@ if (TcodeVal) {
     $('#sidebarLinks').find('a').each(function(index, el) {
         var oldHref = $(this).attr('href');
         if (URI(oldHref).search()) {
-            oldHref = URI(oldHref).removeSearch('Tcode')
+            oldHref = URI(oldHref).removeSearch('Tcode');
         }
         var newHref = oldHref + '?Tcode=' + TcodeVal;
         $(this).attr('href', newHref);
@@ -24,14 +24,14 @@ if (TcodeVal) {
 
 // 新的股票代码输入框
 $("#Tcode").on('change', function() {
-    $("#hdTcode").val($('#Tcode').val())
+    $("#hdTcode").val($('#Tcode').val());
 });
 
 $("#hdTcode").on('change', function() {
     var thisTcode = $(this).val();
 
     $('#sidebarLinks').find('a').each(function(index, el) {
-        $(this).attr('href', URI($(this).attr('href')).removeSearch('Tcode').addSearch('Tcode', thisTcode))
+        $(this).attr('href', URI($(this).attr('href')).removeSearch('Tcode').addSearch('Tcode', thisTcode));
     });
     $("#showErrorMessage").addClass('hide');
 });
@@ -45,11 +45,11 @@ $("#searchData").on('submit', function(event) {
     event.preventDefault();
     $("#showErrorMessage").addClass('hide');
     // $('#btn-companyInfo-search').trigger('click');
-})
+});
 
 $(window).on('load', function() {
-    $("input#Tcode").focus()
-})
+    $("input#Tcode").focus();
+});
 
 // 点击查询新浪数据, 每次点击的时候都把数据清空一次
 $('#btn-companyInfo-search').click(function() {
@@ -66,8 +66,8 @@ $('#btn-companyInfo-search').click(function() {
 });
 
 $("#confirmBtn").click(function() {
-    $('#confirmModal').modal('hide')
-})
+    $('#confirmModal').modal('hide');
+});
 
 // 区后台获取一个小的表格数据
 function getCompanyInfoAndCalculate(Tcode, nowPrice) {
@@ -109,8 +109,8 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                                 cache: false
 
                             }).done(function() {});
-                        })
-                    })
+                        });
+                    });
                 } else {
                     $(this).addClass('collectedStar-active');
                     $.ajax({
@@ -138,38 +138,38 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
 
                 var LR15 = (+(AR_COMPANY.LR15));
                 if (LR15 <= 0 && $.isNumeric(nowPrice)) {
-                    $("#PERatio").text('--')
+                    $("#PERatio").text('--');
                 } else {
-                    $("#PERatio").text((nowPrice / LR15).toFixed(2))
+                    $("#PERatio").text((nowPrice / LR15).toFixed(2));
                 }
 
                 var ZC23 = (+(AR_COMPANY.ZC23));
                 if (ZC23 <= 0 && $.isNumeric(nowPrice)) {
-                    $("#PBRatio").text('--')
+                    $("#PBRatio").text('--');
                 } else {
-                    $("#PBRatio").text((nowPrice / ZC23).toFixed(2))
+                    $("#PBRatio").text((nowPrice / ZC23).toFixed(2));
                 }
 
                 var LR01 = (+(AR_COMPANY.LR01));
                 if (LR01 <= 0 && $.isNumeric(nowPrice)) {
-                    $("#PriceToSalesRatio").text('--')
+                    $("#PriceToSalesRatio").text('--');
                 } else {
-                    $("#PriceToSalesRatio").text((nowPrice / LR01).toFixed(2))
+                    $("#PriceToSalesRatio").text((nowPrice / LR01).toFixed(2));
                 }
 
                 if (AR_COMPANY.FreeStock && $.isNumeric(nowPrice)) {
-                    $("#CirculationMarketValue").text(((nowPrice * (+AR_COMPANY.FreeStock)) / 10000).toFixed(2) + ' 亿元')
+                    $("#CirculationMarketValue").text(((nowPrice * (+AR_COMPANY.FreeStock)) / 10000).toFixed(2) + ' 亿元');
                 } else {
-                    $("#CirculationMarketValue").text('--')
+                    $("#CirculationMarketValue").text('--');
                 }
 
                 if (AR_COMPANY.TotalStock && $.isNumeric(nowPrice)) {
-                    $("#TotalStock").text(((nowPrice * (+(AR_COMPANY.TotalStock))) / 10000).toFixed(2) + ' 亿元')
+                    $("#TotalStock").text(((nowPrice * (+(AR_COMPANY.TotalStock))) / 10000).toFixed(2) + ' 亿元');
                 } else {
-                    $("#TotalStock").text('--')
+                    $("#TotalStock").text('--');
                 }
                 // 把表格显示出来
-                $("#showBackTable").removeClass('hide')
+                $("#showBackTable").removeClass('hide');
             } else {
                 $("#PERatio, #PBRatio, #PriceToSalesRatio,#CirculationMarketValue,#TotalStock").text('--');
             }
@@ -205,11 +205,11 @@ function getStockPlateAndShow(Tcode) {
             insertStringAndShow(dataIndexStr);
 
         } else {
-            insertStringAndShow("<div>--</div>")
+            insertStringAndShow("<div>--</div>");
         }
 
     }).fail(function() {
-        insertStringAndShow("<div>--</div>")
+        insertStringAndShow("<div>--</div>");
     });
 
     $("#StockPlateData").removeClass('hide');
@@ -217,7 +217,7 @@ function getStockPlateAndShow(Tcode) {
     // 插入字符串并且显示
     function insertStringAndShow(str) {
         $("#StockPlateTable").html(str);
-        $('#StockPlateData').removeClass('hide')
+        $('#StockPlateData').removeClass('hide');
     }
 }
 
@@ -256,24 +256,24 @@ function getBackDataRunGetSina(Tcode) {
                 tempObj.PerShare = val.PerShare;
                 tempCollection.push(tempObj);
                 if (uniqueYearArr.length == 0) {
-                    uniqueYearArr.push(year)
+                    uniqueYearArr.push(year);
                 } else {
                     if (!($.inArray(year, uniqueYearArr) > -1)) {
-                        uniqueYearArr.push(year)
+                        uniqueYearArr.push(year);
                     }
                 }
             });
 
             // 这里如果后台返回没有年数的话就不执行后面的了，不然由于ajax缓存问题会导致之前的每股利润还是存在
             if (uniqueYearArr.length > 0) {
-                var finalEmptyArr = []
+                var finalEmptyArr = [];
                 for (var i = 0; i < uniqueYearArr.length; i++) {
                     var k = 3;
                     for (var j = 0; j < 4; j++) {
                         if (j < 3) {
-                            finalEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k)
+                            finalEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k);
                         } else {
-                            finalEmptyArr.push(('' + uniqueYearArr[i]) + k)
+                            finalEmptyArr.push(('' + uniqueYearArr[i]) + k);
                         }
                         k = k + 3;
                     }
@@ -283,19 +283,19 @@ function getBackDataRunGetSina(Tcode) {
                 $.each(tempCollection, function(index, val) {
                     var pos = $.inArray(val.ReportDate, finalEmptyArr);
                     if (pos > -1) {
-                        finalEmptyArr[pos] = val.PerShare
+                        finalEmptyArr[pos] = val.PerShare;
                     }
                 });
 
                 // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
                 $.each(finalEmptyArr, function(index, val) {
                     if (val > 1000) {
-                        finalEmptyArr[index] = ''
+                        finalEmptyArr[index] = '';
                     }
-                })
+                });
 
-                var singleArr = []
-                for (var i = 0, count = 0, tempArr = []; i < finalEmptyArr.length; i++) {
+                var singleArr = [];
+                for (i = 0, count = 0, tempArr = []; i < finalEmptyArr.length; i++) {
                     if (count < 3) {
                         tempArr.push(finalEmptyArr[i]);
                         count++;
@@ -309,14 +309,14 @@ function getBackDataRunGetSina(Tcode) {
                 }
 
                 // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
-                for (var i = 0; i < singleArr.length; i++) {
+                for (i = 0; i < singleArr.length; i++) {
                     singleArr[i].unshift(uniqueYearArr[i]);
                 }
 
                 // console.log(singleArr) 这里再处理一次，求出同比增长率
-                var singleUpRateArr = []
+                var singleUpRateArr = [];
 
-                calculateUpRate(singleUpRateArr, singleArr)
+                calculateUpRate(singleUpRateArr, singleArr);
 
                 // 到这里为止已经获取了 singleArr和 singleUpRateArr了，根据需求需要做两个不同的表格, 一个是标准的，一个是累计的
 
@@ -347,10 +347,10 @@ function getBackDataRunGetSina(Tcode) {
                                 tempObj.PerShare = val.PerShare;
                                 tempCollection.push(tempObj);
                                 if (uniqueYearArr.length == 0) {
-                                    uniqueYearArr.push(year)
+                                    uniqueYearArr.push(year);
                                 } else {
                                     if (!($.inArray(year, uniqueYearArr) > -1)) {
-                                        uniqueYearArr.push(year)
+                                        uniqueYearArr.push(year);
                                     }
                                 }
                             });
@@ -358,15 +358,15 @@ function getBackDataRunGetSina(Tcode) {
                             // 是DataType=1
                             var AR_FETCH_DATA = data.AR_FETCH_DATA;
 
-                            var countEmptyArr = []
-                                // 填充每年季度
+                            var countEmptyArr = [];
+                            // 填充每年季度
                             for (var i = 0; i < uniqueYearArr.length; i++) {
                                 var k = 3;
                                 for (var j = 0; j < 4; j++) {
                                     if (j < 3) {
-                                        countEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k)
+                                        countEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k);
                                     } else {
-                                        countEmptyArr.push(('' + uniqueYearArr[i]) + k)
+                                        countEmptyArr.push(('' + uniqueYearArr[i]) + k);
                                     }
                                     k = k + 3;
                                 }
@@ -378,19 +378,19 @@ function getBackDataRunGetSina(Tcode) {
                                 // console.log(val) 到这里也有
                                 var pos = $.inArray(val.ReportDate, countEmptyArr);
                                 if (pos > -1) {
-                                    countEmptyArr[pos] = val.PerShare
+                                    countEmptyArr[pos] = val.PerShare;
                                 }
                             });
 
                             // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
                             $.each(countEmptyArr, function(index, val) {
                                 if (val > 1000) {
-                                    countEmptyArr[index] = ''
+                                    countEmptyArr[index] = '';
                                 }
-                            })
+                            });
 
-                            var countArr = []
-                            for (var i = 0, count = 0, tempArr = []; i < countEmptyArr.length; i++) {
+                            var countArr = [];
+                            for (i = 0, count = 0, tempArr = []; i < countEmptyArr.length; i++) {
                                 if (count < 3) {
                                     tempArr.push(countEmptyArr[i]);
                                     count++;
@@ -403,7 +403,7 @@ function getBackDataRunGetSina(Tcode) {
                             }
 
                             // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
-                            for (var i = 0; i < countArr.length; i++) {
+                            for (i = 0; i < countArr.length; i++) {
                                 countArr[i].unshift(uniqueYearArr[i]);
                             }
                             // 这里再处理一次，求出同比增长率
@@ -411,7 +411,7 @@ function getBackDataRunGetSina(Tcode) {
                             calculateUpRate(countUpRateArr, countArr);
                             concatStrAndFillTable(countArr, countUpRateArr, $('#mainCountTable tbody'));
                         }
-                    })
+                    });
 
                 // 需要把table显示，因为默认是隐藏的
                 $("#showPershareTable, #showBackTable").removeClass('hide');
@@ -422,17 +422,17 @@ function getBackDataRunGetSina(Tcode) {
                 getSinaDataAndShowK(Tcode);
             } else {
                 cleanPershareTable();
-                showErrorMessage('没有找到该公司数据')
+                showErrorMessage('没有找到该公司数据');
             }
         } else {
             cleanPershareTable();
-            showErrorMessage('没有找到该公司数据')
+            showErrorMessage('没有找到该公司数据');
         }
 
     }).fail(function() {
         cleanPershareTable();
-        showErrorMessage('没有找到该公司数据')
-    })
+        showErrorMessage('没有找到该公司数据');
+    });
 
 }
 
@@ -469,12 +469,12 @@ function getSinaDataAndShowK(Tcode) {
             // 今日开盘价为 0 的话 ，就显示昨日收盘价，
             // 如果没有昨日收盘价，当前价格这里就显示停牌
             if (TcodeArr[1] == 0 || TcodeArr[1] == '' || !TcodeArr[1]) {
-                $("#todayOpen").text('--')
+                $("#todayOpen").text('--');
 
                 if (TcodeArr[2] == 0 || TcodeArr[2] == '' || !TcodeArr[2]) {
-                    $('#nowPrice').addClass('text-danger').text('停牌')
+                    $('#nowPrice').addClass('text-danger').text('停牌');
                 } else {
-                    $("#nowPrice").removeClass('text-danger').text(TcodeArr[2])
+                    $("#nowPrice").removeClass('text-danger').text(TcodeArr[2]);
                 }
             } else {
                 $('#todayOpen').text(TcodeArr[1]); // 今日开盘价
@@ -485,18 +485,18 @@ function getSinaDataAndShowK(Tcode) {
                 if (TcodeArr[3] >= TcodeArr[2]) {
                     $('#nowPrice').removeClass().addClass('text-danger').html(
                         TcodeArr[3] + '<span class="glyphicon glyphicon-arrow-up" style="font-size: 28px"></span>' + '<span style="overflow: hidden;font-size: 11px"><span style="position: absolute; top: -8px; padding-left: 3px"> +' + changeCount + '</span><span style=""> +' + changeRate + '</span>'
-                    )
+                    );
                 } else {
                     $('#nowPrice').removeClass().addClass('text-success').html(
                         TcodeArr[3] + '<span class="glyphicon glyphicon-arrow-down" style="font-size: 28px"></span>' + '<span style="overflow: hidden; font-size: 11px"><span style="position: absolute; top: -8px; padding-left: 3px">' + changeCount + '</span><span"> ' + changeRate + '</span>'
-                    )
+                    );
                 }
                 var nowPrice = TcodeArr[3];
             }
 
             // 这里如果数据是 0 的话 就显示 --，类似新浪显示方法
             if (TcodeArr[2] == 0 || TcodeArr[2] == '' || !TcodeArr[2]) {
-                $("#yestodayClose").text('--')
+                $("#yestodayClose").text('--');
             } else {
                 $('#yestodayClose').text(TcodeArr[2]); // 昨日收盘价
             }
@@ -514,14 +514,14 @@ function getSinaDataAndShowK(Tcode) {
             }
 
             if (TcodeArr[8] == 0 || TcodeArr[8] == '' || !TcodeArr[8]) {
-                $("#volume").text('--')
+                $("#volume").text('--');
             } else {
                 $('#volume').text((TcodeArr[8] / 1000000).toFixed(2) + ' 万手'); // 成交量
             }
             if (TcodeArr[9] == 0 || TcodeArr[9] == '' || !TcodeArr[9]) {
-                $("#amount").text('--')
+                $("#amount").text('--');
             } else {
-                $('#amount').text((TcodeArr[9] / 100000000).toFixed(2) + ' 亿元') // 成交金额
+                $('#amount').text((TcodeArr[9] / 100000000).toFixed(2) + ' 亿元'); // 成交金额
             }
 
             // console.log(window[tempStr])
@@ -533,27 +533,27 @@ function getSinaDataAndShowK(Tcode) {
 
             // 之前没有去新浪获取数据的时候已经执行了一次了，这里再执行一次,需要用到新浪的当前价格的
             if (nowPrice && nowPrice !== '') {
-                getCompanyInfoAndCalculate(Tcode, nowPrice)
+                getCompanyInfoAndCalculate(Tcode, nowPrice);
             } else if (TcodeArr[2] && TcodeArr[2] !== '') {
-                getCompanyInfoAndCalculate(Tcode, TcodeArr[2])
+                getCompanyInfoAndCalculate(Tcode, TcodeArr[2]);
             } else {
-                getCompanyInfoAndCalculate(Tcode, '')
+                getCompanyInfoAndCalculate(Tcode, '');
             }
 
-            $("#showBackTable").removeClass('hide')
-            $("#showPershareTable, #sina-K-show").removeClass('hide')
+            $("#showBackTable").removeClass('hide');
+            $("#showPershareTable, #sina-K-show").removeClass('hide');
         }
-    })
+    });
 }
 
 // 显示错误信息
 function showErrorMessage(str) {
-    $("#showErrorMessage").removeClass('hide').find('div').text(str)
+    $("#showErrorMessage").removeClass('hide').find('div').text(str);
 }
 
 // 清除 PershareTable原有的内容
 function cleanPershareTable() {
-    $('#mainSingleTable tbody, #mainCountTable tbody').empty()
+    $('#mainSingleTable tbody, #mainCountTable tbody').empty();
 }
 
 // 两个 upRateArr，计算同比增涨率, 看 600666，如果增长率为0，也要显示
@@ -563,40 +563,40 @@ function calculateUpRate(emptyUpRateArr, dataArr) {
         tempArr[0] = val[0];
         $.each(val, function(monthIndex, thisYearMonthVal) {
             if (monthIndex > 0) {
-                thisYearMonthVal = (+thisYearMonthVal)
+                thisYearMonthVal = (+thisYearMonthVal);
                 if (thisYearMonthVal !== '' && thisYearMonthVal !== 0 && dataArr[index + 1] && dataArr[index + 1][monthIndex] !== '' && +(dataArr[index + 1][monthIndex]) !== 0) {
 
                     var lastYearMonthVal = dataArr[index + 1][monthIndex];
                     if (lastYearMonthVal <= 0) {
                         // 如果去年的基数小于等于0就不用算了直接为空
-                        tempArr.push('')
+                        tempArr.push('');
                     } else {
                         var upRate = ((thisYearMonthVal - lastYearMonthVal) / lastYearMonthVal * 100).toFixed(1);
                         tempArr.push(upRate);
                     }
                 } else {
-                    tempArr.push('')
+                    tempArr.push('');
                 }
             }
         });
-        emptyUpRateArr.push(tempArr)
+        emptyUpRateArr.push(tempArr);
     });
 }
 
 // 给定数组拼接字符串并且添加到对应的表格中去
 // 注意 js 大坑 a = +'' alert(a)为0
 function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
-    var TrStr = ''
+    var TrStr = '';
     $.each(arr, function(index, PerShareArr) {
-        var tdStr = ''
-        var thisYearUpRateArr = upRateArr[index]
+        var tdStr = '';
+        var thisYearUpRateArr = upRateArr[index];
         $.each(PerShareArr, function(j, PerShare) {
             if (j == 0) { // 这里的第一位是年份，不用 toFixed(3)
-                tdStr += '<td>' + PerShare + '</td>'
+                tdStr += '<td>' + PerShare + '</td>';
             } else if (PerShare !== '') {
                 if (thisYearUpRateArr[j] != '') {
                     var thisMonthUpRate = (+thisYearUpRateArr[j]);
-                    var PerShare = (+PerShare).toFixed(3);
+                    PerShare = (+PerShare).toFixed(3);
 
                     if (thisMonthUpRate !== '' && thisMonthUpRate >= 0) {
                         tdStr += '<td>' + PerShare + '</td><td class="text-danger"><i>' + thisMonthUpRate.toFixed(1) + '%</i></td>';
@@ -614,7 +614,7 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
             }
         });
 
-        TrStr += '<tr>' + tdStr + '</tr>'
+        TrStr += '<tr>' + tdStr + '</tr>';
     });
     tbodyElem.empty().html(TrStr); // 先清空原有的数据
 }
