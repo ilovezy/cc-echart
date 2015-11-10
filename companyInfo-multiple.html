@@ -10,23 +10,33 @@
     <link rel="stylesheet" type="text/css" href="../toolkitcss/v5/commonM/style.css">
 </head>
 
-<body class="container">
+<body class="container-fluid">
 
-    <h1 class="text-center">多公司的新浪数据</h1>
+    <h1 class="text-center">自选股的新浪数据
+    <button type="" class="btn btn-success" id="getDataBtn">getData</button>
+    </h1>
 
-    <table id="multipleCompanyInfo" class="table table-hover table-striped text-center">
+    <table id="multipleCompanyInfo" class="table table-hover table-striped text-center table-bordered table-responsive">
         <thead>
             <tr>
                 <th class="text-center">代码</th>
                 <th class="text-center">简称</th>
+                <th class="text-center">当前价格</th>
                 <th class="text-center">涨跌量</th>
                 <th class="text-center">涨跌幅</th>
+                <th class="text-center">持仓数量</th>
+                <th class="text-center">持仓单价</th>
+                <th class="text-center">市值</th>
+                <th class="text-center">今日涨跌</th>
+                <th class="text-center">累计盈亏</th>
+                <th class="text-center">累计盈亏率</th>
             </tr>
         </thead>
         <tbody>
 
         </tbody>
     </table>
+
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
@@ -38,69 +48,128 @@
     <!-- // <script src="http://hq.sinajs.cn/list=s_sz000001,s_sz000002,s_sz000003,s_sz000004,s_sz000005"></script> -->
 
     <script type="text/javascript">
-    // 这是后台取来的json数据格式
-    var MultipleTcodeArr = ['000001', '000002', '000003', '000004', '000005', '000009', '000011'];
-    getMultipleCompanyInfo(MultipleTcodeArr);
+    $('#getDataBtn').click(function() {
+        $.ajax({
+            // 这是后台取来的json数据格式
+            url: '../list/accounting_optionalunit.c?_toolkit=json',
+            type: 'GET',
+            dataType: 'JSON'
 
-    // 新浪数据 6秒刷一次
-    setInterval("getMultipleCompanyInfo(MultipleTcodeArr)", 6000);
+        }).done(function(data) {
+            // console.log(data.AR_OPTIONAL_UNIT);
+            var AR_OPTIONAL_UNIT = data.AR_OPTIONAL_UNIT;
+            var MultipleTcodeArr = [];
 
-    function getMultipleCompanyInfo(MultipleTcodeArr) {
-        $.each(MultipleTcodeArr, function(index, val) {
-            if (val.charAt(0) == '6') {
-                MultipleTcodeArr[index] = 's_sh' + val;
-            } else {
-                MultipleTcodeArr[index] = 's_sz' + val
-            }
+            $.each(AR_OPTIONAL_UNIT, function(index, val) {
+                MultipleTcodeArr.push(val.Tcode);
+            });
+
+            $.each(MultipleTcodeArr, function(index, val) {
+                if (val.charAt(0) == '6') {
+                    MultipleTcodeArr[index] = 's_sh' + val;
+                } else {
+                    MultipleTcodeArr[index] = 's_sz' + val;
+                }
+            });
+
+            var searchString = MultipleTcodeArr.join(',');
+
+            // 去新浪获取一堆股票数据 （上证综合指数）
+            var multipleDataUrl = 'http://hq.sinajs.cn/list=' + searchString;
+            $.ajax({
+                cache: true, // 这里必须为 true 不能为false
+                url: multipleDataUrl,
+                type: "GET",
+                async: false,
+                dataType: "script"
+            }).done(function() {
+
+                var MultiplecompanyInfoArr = [];
+                var tempArr = [];
+
+                // 这是新浪的数据
+                $.each(MultipleTcodeArr, function(index, val) {
+                    if (window['hq_str_' + val]) {
+                        tempArr = window['hq_str_' + val].split(',');
+                    } else {
+                        tempArr = [];
+                    }
+
+                    tempArr.unshift(val);
+
+                    // 这里加入一堆后台数据
+
+                    var ArItem = AR_OPTIONAL_UNIT[index];
+                    var PositionNum = +ArItem.PositionNum || '--';
+                    var PositionPrice = +ArItem.PositionPrice || '--';
+                    var PositionTotal = +ArItem.PositionTotal || '--';
+
+                    tempArr.push(PositionNum || '--'); // 持仓数量
+                    tempArr.push(PositionPrice || '--'); // 持仓单价
+                    tempArr.push(PositionTotal || '--'); // 市值
+
+                    // 今日涨跌(涨跌率*持仓数量)
+                    var todayRate = (+tempArr[3]) * PositionNum;
+                    if ($.isNumeric(todayRate)) {
+                        tempArr.push(todayRate);
+                    } else {
+                        tempArr.push('--');
+                    }
+
+                    // 累计盈亏（现在市值 - 成本（持仓单价 * 持仓数量））
+                    var countEarn = PositionTotal - (PositionPrice * PositionNum);
+                    if ($.isNumeric(countEarn)) {
+                        tempArr.push(countEarn);
+                    } else {
+                        tempArr.push('--');
+                    }
+
+                    var countEarnRate = (PositionTotal - PositionPrice * PositionNum) / (PositionPrice * PositionNum);
+                    if ($.isNumeric(countEarnRate)) {
+                        tempArr.push(countEarnRate);
+                    } else {
+                        tempArr.push('--');
+                    }
+
+                    MultiplecompanyInfoArr.push(tempArr);
+                });
+
+                var trStr = '';
+                $.each(MultiplecompanyInfoArr, function(index, val) {
+
+                    console.log(val + ' ' + val.length);
+
+                    trStr += '<tr><td>' + (val[0].substring(4) || '--') + '</td><td>' + (val[1] || '--') + '</td><td>' + (val[2] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
+
+                    if (val[4]) {
+                        if (val[4] > 0) {
+                            trStr += '<td style="color: red">' + val[4] + '%</td>';
+                        } else if (val[4] < 0) {
+                            trStr += '<td style="color: green">' + val[4] + '%</td>';
+                        } else {
+                            trStr += '<td>' + val[4] + '%</td>';
+                        }
+                    } else {
+                        trStr += '<td>--</td>';
+                    }
+
+                    trStr += '<td>' + val[7] + '</td><td>' + val[8] + '</td><td>' + val[9] + '</td><td>' + val[10] + '</td><td>' + val[11] + '</td><td>' + val[12] + '</td>' + '</tr>';
+                });
+
+                $('#multipleCompanyInfo tbody').empty().append(trStr);
+
+                $.each(MultipleTcodeArr, function(index, val) {
+                    MultipleTcodeArr[index] = val.substring(4);
+                });
+            });
         });
 
-        var searchString = MultipleTcodeArr.join(',');
-        // 去新浪获取一堆股票数据 （上证综合指数）
-        var multipleDataUrl = 'http://hq.sinajs.cn/list=' + searchString;
-        $.ajax({
-            cache: true, // 这里必须为 true 不能为false
-            url: multipleDataUrl,
-            type: "GET",
-            async: false,
-            dataType: "script"
-        }).done(function() {
+    });
 
-            var MultiplecompanyInfoArr = [];
-            var tempArr = [];
-            $.each(MultipleTcodeArr, function(index, val) {
-                if (window['hq_str_' + val]) {
-                    tempArr = window['hq_str_' + val].split(',');
-                } else {
-                    tempArr = [];
-                }
-
-                tempArr.unshift(val);
-                MultiplecompanyInfoArr.push(tempArr);
-            });
-
-            var trStr = '';
-            $.each(MultiplecompanyInfoArr, function(index, val) {
-                trStr += '<tr><td>' + (val[0].substring(4) || '--') + '</td><td>' + (val[1] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
-                if (val[4]) {
-                    if (val[4] > 0) {
-                        trStr += '<td style="color: red">' + val[4] + '%</td></tr>';
-                    } else if (val[4] < 0) {
-                        trStr += '<td style="color: green">' + val[4] + '%</td></tr>';
-                    } else {
-                        trStr += '<td>' + val[4] + '%</td></tr>';
-                    }
-                } else {
-                    trStr += '<td>--</td></tr>';
-                }
-            });
-
-            $('#multipleCompanyInfo tbody').empty().append(trStr);
-
-            $.each(MultipleTcodeArr, function(index, val) {
-                MultipleTcodeArr[index] = val.substring(4)
-            });
-        })
-    }
+    // var MultipleTcodeArr = ['000001', '000002', '000003', '000004', '000005', '000009', '000011'];
+    // getMultipleCompanyInfo(MultipleTcodeArr);
+    // 新浪数据 6秒刷一次
+    // setInterval("getMultipleCompanyInfo(MultipleTcodeArr)", 6000);
     </script>
 </body>
 
