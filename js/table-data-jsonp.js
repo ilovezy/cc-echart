@@ -35,7 +35,7 @@ $.ajax({
                 PlateIdOptionsStr = '';
 
             $.each(plateIdArr, function(index, val) {
-                PlateIdOptionsStr += '<option value="' + plateIdArr[index].PlateId + '">' + plateIdArr[index].Name + '</option>';
+                PlateIdOptionsStr += '<option value="' + plateIdArr[index].Value + '">' + plateIdArr[index].Name + '</option>';
             });
             $('#PlateId').append(PlateIdOptionsStr);
         }
@@ -63,7 +63,7 @@ $.ajax({
     })
 
 // 设置 select的当前年倒退20年的option, 这里已经确定默认就是当前这一年了的
-var thisYear = (new Date()).getFullYear();
+var thisYear = (new Date).getFullYear();
 var optionsStr = '';
 var optionVal;
 for (var i = 0; i < 20; i++) {
