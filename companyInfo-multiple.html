@@ -7,11 +7,12 @@
     <title>主要财务指标</title>
     <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+    <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/extensions/RowReorder/css/rowReorder.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="../toolkitcss/v5/commonM/style.css">
 </head>
 
 <body class="container-fluid">
-
     <h1 class="text-center">自选股的新浪数据
     <button type="" class="btn btn-success" id="getDataBtn">getData</button>
     </h1>
@@ -40,7 +41,11 @@
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+    <script src="DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+    <script src="DataTables-1.10.10/extensions/RowReorder/js/dataTables.rowReorder.min.js"></script>
     <script src="js/URI.min.js"></script>
+
+
     <!-- 正常的方法 -->
     <!-- // <script id="sinaData " type="text/javascript " src="http://hq.sinajs.cn/list=sz000002 " charset="gb2312 "></script> -->
 
@@ -111,7 +116,7 @@
                     // 今日涨跌(涨跌率*持仓数量)
                     var todayRate = (+tempArr[3]) * PositionNum;
                     if ($.isNumeric(todayRate)) {
-                        tempArr.push(todayRate);
+                        tempArr.push(todayRate.toFixed(3));
                     } else {
                         tempArr.push('--');
                     }
@@ -119,14 +124,14 @@
                     // 累计盈亏（现在市值 - 成本（持仓单价 * 持仓数量））
                     var countEarn = PositionTotal - (PositionPrice * PositionNum);
                     if ($.isNumeric(countEarn)) {
-                        tempArr.push(countEarn);
+                        tempArr.push(countEarn.toFixed(3));
                     } else {
                         tempArr.push('--');
                     }
 
                     var countEarnRate = (PositionTotal - PositionPrice * PositionNum) / (PositionPrice * PositionNum);
                     if ($.isNumeric(countEarnRate)) {
-                        tempArr.push(countEarnRate);
+                        tempArr.push(countEarnRate.toFixed(3));
                     } else {
                         tempArr.push('--');
                     }
@@ -139,7 +144,7 @@
 
                     console.log(val + ' ' + val.length);
 
-                    trStr += '<tr><td>' + (val[0].substring(4) || '--') + '</td><td>' + (val[1] || '--') + '</td><td>' + (val[2] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
+                    trStr += '<tr><td>' + (val[0].substring(4) || '--') + '</td><td><a href="#">' + (val[1] || '--') + '</a></td><td>' + (val[2] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
 
                     if (val[4]) {
                         if (val[4] > 0) {
@@ -160,6 +165,15 @@
 
                 $.each(MultipleTcodeArr, function(index, val) {
                     MultipleTcodeArr[index] = val.substring(4);
+                });
+
+                // 调用 DataTable 这里 rowReorder 只有 1.10.8 以上才支持
+                // 我之前用的正好是 1.10.7 ...
+                $("#multipleCompanyInfo").dataTable({
+                    info: false,
+                    paging: false,
+                    searching: false,
+                    rowReorder: true
                 });
             });
         });
