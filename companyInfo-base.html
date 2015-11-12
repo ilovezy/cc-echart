@@ -50,13 +50,12 @@
                 <div class="cc-h2 col-sm-12" style="margin-bottom: 20px">
                     <span id="stockName"></span> <span id="stockId"></span>
 
-                    <!-- data-toggle="modal" data-target="#confirmModal" -->
                     <!-- 增加一段是否被收藏的信息 -->
                     <div style="display: inline-block;" id="stockCollected">
                         <span class="glyphicon glyphicon-star" id="collectedStar" style="cursor: pointer;" title="是否收藏"></span>
-                        <span id="PositionNum" style="margin-left: 30px;">PositionNum</span>
-                        <span id="PositionPrice">PositionPrice</span>
-                        <span id="PositionTotal">PositionTotal</span>
+                        <span style="margin-left: 30px; margin-right: 15px; font-size: 1.5rem">持仓数量 <span id="PositionNum"></span></span>
+                        <span style="margin-right: 15px;font-size: 1.5rem"> 持仓单价 <span id="PositionPrice"></span></span>
+                        <span style="font-size: 1.5rem"> 持仓总价 <span id="PositionTotal"></span></span>
 
                         <!-- Modal -->
                         <div class="modal fade" id="confirmModal">
@@ -66,8 +65,8 @@
                                         你确定要取消收藏吗？
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" id="confirmBtn">是的</button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">算了</button>
+                                        <button class="btn btn-primary" id="confirmBtn">是的</button>
+                                        <button class="btn btn-default" data-dismiss="modal">算了</button>
                                     </div>
                                 </div>
                             </div>
@@ -235,10 +234,7 @@
     <!-- // <script id="sinaData " type="text/javascript " src="http://hq.sinajs.cn/list=sz000002 " charset="gb2312 "></script> -->
     <script src="js/companyInfo-base.js?timeStamp='+new Date().getTime();'"></script>
     <script type="text/javascript">
-    var elm = $("div[data-control=EasySearch]");
-    elm.bindToolkitUI('easySearchControl');
-    // $("#Tcode").bindToolkitUI('easySearchControl');
-    // $(element).bindToolkitUI('easySearchControl');
+    $("div[data-control=EasySearch]").bindToolkitUI('easySearchControl');
     </script>
 </body>
 

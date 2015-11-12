@@ -91,6 +91,27 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                 $('#collectedStar').removeClass('collectedStar-active');
             }
 
+            // <span id="PositionNum" style="margin-left: 30px;">PositionNum</span>
+            // <span id="PositionPrice">PositionPrice</span>
+            // <span id="PositionTotal">PositionTotal</span>
+            // 这三个 span里也需要赋值
+
+            if (AR_COMPANY.PositionNum) {
+                $("#PositionNum").text(AR_COMPANY.PositionNum);
+            } else {
+                $("#PositionNum").text(' -- ');
+            }
+            if (AR_COMPANY.PositionPrice) {
+                $("#PositionPrice").text(AR_COMPANY.PositionPrice);
+            } else {
+                $("#PositionPrice").text(' -- ');
+            }
+            if (AR_COMPANY.PositionTotal) {
+                $("#PositionTotal").text(AR_COMPANY.PositionTotal);
+            } else {
+                $("#PositionTotal").text(' -- ');
+            }
+
             // 点击星星来toggle是否收藏咯
             // 总之这里需要先解绑一下在绑定，不然会多次绑定的奇葩问题
             $("#collectedStar").off('click').on('click', function() {
@@ -107,8 +128,7 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                                 type: 'GET',
                                 async: false,
                                 cache: false
-
-                            }).done(function() {});
+                            });
                         });
                     });
                 } else {
@@ -118,8 +138,7 @@ function getCompanyInfoAndCalculate(Tcode, nowPrice) {
                         type: 'GET',
                         async: false,
                         cache: false
-
-                    }).done(function() {});
+                    });
                 }
             });
 
