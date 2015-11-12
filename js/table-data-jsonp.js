@@ -293,35 +293,6 @@ function getAllDataAndDrawTable() {
                     var windowHeight = $(window).height() - 110;
 
                     $("#showTable").empty().append('<table id="ccTable" class="display table-nowrap"></table>');
-                    // var ccTable = $('#ccTable').DataTable({
-                    //     info: false,
-                    //     paging: false,
-                    //     searching: false,
-                    //     scrollY: windowHeight + 'px',
-                    //     scrollX: '100%',
-                    //     // 左边两列固定
-                    //     fixedColumns: true,
-                    //     // 头部一行固定
-                    //     fixedHeader: true,
-                    //     scrollCollapse: true,
-                    //     columns: columnsData, // 这里需要有列的名字, 即 th的名字
-                    //     data: allData.tdData,
-                    //     // "dom": 'T<"toolbar"><"clear">lfrtip',
-                    //     dom: 'T<"clear">lfrtip',
-                    //     tableTools: {
-                    //         "aButtons": [{
-                    //             "sExtends": "copy",
-                    //             "sButtonText": "复制"
-                    //         }, {
-                    //             "sExtends": "xls",
-                    //             "sButtonText": "导出"
-                    //         }],
-                    //         "sSwfPath": "../DataTables-1.10.7/extensions/TableTools/swf/copy_csv_xls.swf"
-                    //     }
-                    // });
-                    // new $.fn.dataTable.FixedColumns(ccTable, {
-                    //     leftColumns: 2
-                    // });
 
                     // 测试 1.10.10版本
                     var ccTable = $('#ccTable').DataTable({
@@ -341,7 +312,16 @@ function getAllDataAndDrawTable() {
 
                         //这两条确保有按钮出来
                         dom: 'Bfrtip',
-                        buttons: ['excel', 'pdf'],
+                        // 需要按钮 复制和导出， 注意我在 css里写了
+                        // .dt-buttons {   float: right!important; }
+                        // buttons: ['copy', 'pdf'],
+                        buttons: [{
+                            extend: 'copy',
+                            text: '复制'
+                        }, {
+                            extend: 'excel',
+                            text: '导出'
+                        }]
                     });
 
 
