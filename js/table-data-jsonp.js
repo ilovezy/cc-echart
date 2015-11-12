@@ -35,7 +35,7 @@ $.ajax({
                 PlateIdOptionsStr = '';
 
             $.each(plateIdArr, function(index, val) {
-                PlateIdOptionsStr += '<option value="' + plateIdArr[index].Value + '">' + plateIdArr[index].Name + '</option>';
+                PlateIdOptionsStr += '<option value="' + plateIdArr[index].PlateId + '">' + plateIdArr[index].Name + '</option>';
             });
             $('#PlateId').append(PlateIdOptionsStr);
         }
@@ -293,45 +293,67 @@ function getAllDataAndDrawTable() {
                     var windowHeight = $(window).height() - 110;
 
                     $("#showTable").empty().append('<table id="ccTable" class="display table-nowrap"></table>');
+                    // var ccTable = $('#ccTable').DataTable({
+                    //     info: false,
+                    //     paging: false,
+                    //     searching: false,
+                    //     scrollY: windowHeight + 'px',
+                    //     scrollX: '100%',
+                    //     // 左边两列固定
+                    //     fixedColumns: true,
+                    //     // 头部一行固定
+                    //     fixedHeader: true,
+                    //     scrollCollapse: true,
+                    //     columns: columnsData, // 这里需要有列的名字, 即 th的名字
+                    //     data: allData.tdData,
+                    //     // "dom": 'T<"toolbar"><"clear">lfrtip',
+                    //     dom: 'T<"clear">lfrtip',
+                    //     tableTools: {
+                    //         "aButtons": [{
+                    //             "sExtends": "copy",
+                    //             "sButtonText": "复制"
+                    //         }, {
+                    //             "sExtends": "xls",
+                    //             "sButtonText": "导出"
+                    //         }],
+                    //         "sSwfPath": "../DataTables-1.10.7/extensions/TableTools/swf/copy_csv_xls.swf"
+                    //     }
+                    // });
+                    // new $.fn.dataTable.FixedColumns(ccTable, {
+                    //     leftColumns: 2
+                    // });
+
+                    // 测试 1.10.10版本
                     var ccTable = $('#ccTable').DataTable({
                         info: false,
                         paging: false,
                         searching: false,
                         scrollY: windowHeight + 'px',
-                        scrollX: '100%',
-                        // 左边两列固定
-                        fixedColumns: true,
                         // 头部一行固定
-                        fixedHeader: true,
-                        scrollCollapse: true,
                         columns: columnsData, // 这里需要有列的名字, 即 th的名字
                         data: allData.tdData,
-                        // "dom": 'T<"toolbar"><"clear">lfrtip',
-                        dom: 'T<"clear">lfrtip',
-                        tableTools: {
-                            "aButtons": [{
-                                "sExtends": "copy",
-                                "sButtonText": "复制"
-                            }, {
-                                "sExtends": "xls",
-                                "sButtonText": "导出"
-                            }],
-                            "sSwfPath": "../DataTables-1.10.7/extensions/TableTools/swf/copy_csv_xls.swf"
-                        }
+
+                        // 这两条确保横向滚动固定2列
+                        fixedColumns: {
+                            leftColumns: 2
+                        },
+                        scrollX: '100%',
+
+                        //这两条确保有按钮出来
+                        dom: 'Bfrtip',
+                        buttons: ['excel', 'pdf'],
                     });
-                    new $.fn.dataTable.FixedColumns(ccTable, {
-                        leftColumns: 2
-                    });
+
 
                     // 要不红绿色在这里搞得了, 这里直接用 red和green可以看得清楚一点，这个是可以的但是太死板了
                     $('#ccTable td').each(function() {
                         var thisVal = $(this).text();
                         if ($.isNumeric(thisVal)) {
                             if (+thisVal < 0) { // +thisVal是 js里字符串数字转数字的一种特殊写法而已
-                                $(this).css('color', 'red') // 如果数据小于0就显示红色,由于日期一定大于0所以不需要处理了
+                                $(this).css('color', 'red'); // 如果数据小于0就显示红色,由于日期一定大于0所以不需要处理了
                             }
                         }
-                    })
+                    });
 
                     // // 接下来处理 同比%，同比% 的那一列，数据大于0就要显示为绿色
                     // $('#ccTable tr').each(function() {

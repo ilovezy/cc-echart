@@ -83,6 +83,13 @@ input.input-companyInfo-search {
     color: orange;
 }
 
+
+/* DataTable buttons float right */
+
+.dt-buttons {
+    float: right!important;
+}
+
 @media(min-width: 1300px) {
     .rightSide .showContent {
         margin: 0 auto;
