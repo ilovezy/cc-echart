@@ -12,8 +12,9 @@
 </head>
 
 <body class="container-fluid">
-    <h1 class="text-center">自选股的新浪数据</h1>
+    <h1 class="text-center">自选股</h1>
 
+    <a href="../insert/accounting_optionalunit.c" class="btn btn-success" target="_blank">增加自选股</a>
     <table id="multipleCompanyInfo" class="table text-center table-bordered" data-toggle="table" data-pagination="true" data-use-row-attr-func="true" data-reorderable-rows="true">
         <thead>
             <tr>
@@ -158,12 +159,8 @@
                 val.push(IdArr[index]);
             });
 
-            console.log(MultipleCompanyInfoArr);
-
             // 这里最后需要做一个累计行的数据, 7,8,11,12
             var allCount = [0, 0, 0, 0];
-
-            console.log(allCount);
 
             // 前3个是 持仓数量，持仓单价，累计盈亏，第四个要算一下的，累计盈亏率
             $.each(MultipleCompanyInfoArr, function(index, val) {
@@ -178,6 +175,13 @@
                 }
             });
             allCount[3] = (allCount[2] / (allCount[0] * allCount[1])).toFixed(3);
+
+            $.each(allCount, function(index, val) {
+                if (!$.isNumeric(val)) {
+                    console.log(val);
+                    allCount[index] = '';
+                }
+            });
 
             var trStr = '';
             $.each(MultipleCompanyInfoArr, function(index, val) {
