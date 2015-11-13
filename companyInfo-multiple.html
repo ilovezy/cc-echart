@@ -6,18 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>主要财务指标</title>
     <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap-table/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css">
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
-    <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/extensions/RowReorder/css/rowReorder.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../toolkitcss/v5/commonM/style.css">
 </head>
 
 <body class="container-fluid">
-    <h1 class="text-center">自选股的新浪数据
-    <button type="" class="btn btn-success" id="getDataBtn">getData</button>
-    </h1>
+    <h1 class="text-center">自选股的新浪数据</h1>
 
-    <table id="multipleCompanyInfo" class="table table-hover table-striped text-center table-bordered table-responsive">
+    <table id="multipleCompanyInfo" class="table text-center table-bordered" data-toggle="table" data-pagination="true" data-use-row-attr-func="true" data-reorderable-rows="true">
         <thead>
             <tr>
                 <th class="text-center">代码</th>
@@ -31,6 +28,7 @@
                 <th class="text-center">今日涨跌</th>
                 <th class="text-center">累计盈亏</th>
                 <th class="text-center">累计盈亏率</th>
+                <th class="text-center">操作自选股</th>
             </tr>
         </thead>
         <tbody>
@@ -38,13 +36,27 @@
         </tbody>
     </table>
 
+    <!-- Modal -->
+    <div class="modal fade" id="confirmModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <h2>你确定要取消收藏吗？</h2>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="confirmBtn">是的</button>
+                    <button class="btn btn-default" data-dismiss="modal">算了</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
-    <script src="DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
-    <script src="DataTables-1.10.10/extensions/RowReorder/js/dataTables.rowReorder.min.js"></script>
-    <script src="js/URI.min.js"></script>
-
+    <!-- 改用bootstrap table -->
+    <script src="bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="bower_components/TableDnD/dist/jquery.tablednd.min.js"></script>
+    <script src="bower_components/bootstrap-table/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
 
     <!-- 正常的方法 -->
     <!-- // <script id="sinaData " type="text/javascript " src="http://hq.sinajs.cn/list=sz000002 " charset="gb2312 "></script> -->
@@ -53,131 +65,167 @@
     <!-- // <script src="http://hq.sinajs.cn/list=s_sz000001,s_sz000002,s_sz000003,s_sz000004,s_sz000005"></script> -->
 
     <script type="text/javascript">
-    $('#getDataBtn').click(function() {
-        $.ajax({
-            // 这是后台取来的json数据格式
-            url: '../list/accounting_optionalunit.c?_toolkit=json',
-            type: 'GET',
-            dataType: 'JSON'
+    $.ajax({
+        // 这是后台取来的json数据格式
+        url: '../list/accounting_optionalunit.c?_toolkit=json',
+        type: 'GET',
+        dataType: 'JSON'
 
-        }).done(function(data) {
-            // console.log(data.AR_OPTIONAL_UNIT);
-            var AR_OPTIONAL_UNIT = data.AR_OPTIONAL_UNIT;
-            var MultipleTcodeArr = [];
+    }).done(function(data) {
+        // console.log(data.AR_OPTIONAL_UNIT);
+        var AR_OPTIONAL_UNIT = data.AR_OPTIONAL_UNIT;
+        var MultipleTcodeArr = [];
+        var IdArr = [];
 
-            $.each(AR_OPTIONAL_UNIT, function(index, val) {
-                MultipleTcodeArr.push(val.Tcode);
-            });
-
-            $.each(MultipleTcodeArr, function(index, val) {
-                if (val.charAt(0) == '6') {
-                    MultipleTcodeArr[index] = 's_sh' + val;
-                } else {
-                    MultipleTcodeArr[index] = 's_sz' + val;
-                }
-            });
-
-            var searchString = MultipleTcodeArr.join(',');
-
-            // 去新浪获取一堆股票数据 （上证综合指数）
-            var multipleDataUrl = 'http://hq.sinajs.cn/list=' + searchString;
-            $.ajax({
-                cache: true, // 这里必须为 true 不能为false
-                url: multipleDataUrl,
-                type: "GET",
-                async: false,
-                dataType: "script"
-            }).done(function() {
-
-                var MultiplecompanyInfoArr = [];
-                var tempArr = [];
-
-                // 这是新浪的数据
-                $.each(MultipleTcodeArr, function(index, val) {
-                    if (window['hq_str_' + val]) {
-                        tempArr = window['hq_str_' + val].split(',');
-                    } else {
-                        tempArr = [];
-                    }
-
-                    tempArr.unshift(val);
-
-                    // 这里加入一堆后台数据
-
-                    var ArItem = AR_OPTIONAL_UNIT[index];
-                    var PositionNum = +ArItem.PositionNum || '--';
-                    var PositionPrice = +ArItem.PositionPrice || '--';
-                    var PositionTotal = +ArItem.PositionTotal || '--';
-
-                    tempArr.push(PositionNum || '--'); // 持仓数量
-                    tempArr.push(PositionPrice || '--'); // 持仓单价
-                    tempArr.push(PositionTotal || '--'); // 市值
-
-                    // 今日涨跌(涨跌率*持仓数量)
-                    var todayRate = (+tempArr[3]) * PositionNum;
-                    if ($.isNumeric(todayRate)) {
-                        tempArr.push(todayRate.toFixed(3));
-                    } else {
-                        tempArr.push('--');
-                    }
-
-                    // 累计盈亏（现在市值 - 成本（持仓单价 * 持仓数量））
-                    var countEarn = PositionTotal - (PositionPrice * PositionNum);
-                    if ($.isNumeric(countEarn)) {
-                        tempArr.push(countEarn.toFixed(3));
-                    } else {
-                        tempArr.push('--');
-                    }
-
-                    var countEarnRate = (PositionTotal - PositionPrice * PositionNum) / (PositionPrice * PositionNum);
-                    if ($.isNumeric(countEarnRate)) {
-                        tempArr.push(countEarnRate.toFixed(3));
-                    } else {
-                        tempArr.push('--');
-                    }
-
-                    MultiplecompanyInfoArr.push(tempArr);
-                });
-
-                var trStr = '';
-                $.each(MultiplecompanyInfoArr, function(index, val) {
-
-                    console.log(val + ' ' + val.length);
-
-                    trStr += '<tr><td>' + (val[0].substring(4) || '--') + '</td><td><a href="#">' + (val[1] || '--') + '</a></td><td>' + (val[2] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
-
-                    if (val[4]) {
-                        if (val[4] > 0) {
-                            trStr += '<td style="color: red">' + val[4] + '%</td>';
-                        } else if (val[4] < 0) {
-                            trStr += '<td style="color: green">' + val[4] + '%</td>';
-                        } else {
-                            trStr += '<td>' + val[4] + '%</td>';
-                        }
-                    } else {
-                        trStr += '<td>--</td>';
-                    }
-
-                    trStr += '<td>' + val[7] + '</td><td>' + val[8] + '</td><td>' + val[9] + '</td><td>' + val[10] + '</td><td>' + val[11] + '</td><td>' + val[12] + '</td>' + '</tr>';
-                });
-
-                $('#multipleCompanyInfo tbody').empty().append(trStr);
-
-                $.each(MultipleTcodeArr, function(index, val) {
-                    MultipleTcodeArr[index] = val.substring(4);
-                });
-
-                // 调用 DataTable 这里 rowReorder 只有 1.10.8 以上才支持
-                // 我之前用的正好是 1.10.7 ...
-                $("#multipleCompanyInfo").dataTable({
-                    info: false,
-                    paging: false,
-                    searching: false,
-                    rowReorder: true
-                });
-            });
+        $.each(AR_OPTIONAL_UNIT, function(index, val) {
+            MultipleTcodeArr.push(val.Tcode);
+            //获取各个id
+            IdArr.push(val.Id);
         });
 
+        $.each(MultipleTcodeArr, function(index, val) {
+            if (val.charAt(0) == '6') {
+                MultipleTcodeArr[index] = 's_sh' + val;
+            } else {
+                MultipleTcodeArr[index] = 's_sz' + val;
+            }
+        });
+
+        var searchString = MultipleTcodeArr.join(',');
+
+        // 去新浪获取一堆股票数据 （上证综合指数）
+        var multipleDataUrl = 'http://hq.sinajs.cn/list=' + searchString;
+        $.ajax({
+            cache: true, // 这里必须为 true 不能为false
+            url: multipleDataUrl,
+            type: "GET",
+            async: false,
+            dataType: "script"
+        }).done(function() {
+
+            var MultipleCompanyInfoArr = [];
+            var tempArr = [];
+
+            // 这是新浪的数据
+            $.each(MultipleTcodeArr, function(index, val) {
+                if (window['hq_str_' + val]) {
+                    tempArr = window['hq_str_' + val].split(',');
+                } else {
+                    tempArr = [];
+                }
+
+                tempArr.unshift(val);
+
+                // 这里加入一堆后台数据
+
+                var ArItem = AR_OPTIONAL_UNIT[index];
+                var PositionNum = +ArItem.PositionNum || '--';
+                var PositionPrice = +ArItem.PositionPrice || '--';
+                var PositionTotal = +ArItem.PositionTotal || '--';
+
+                tempArr.push(PositionNum || '--'); // 持仓数量
+                tempArr.push(PositionPrice || '--'); // 持仓单价
+                tempArr.push(PositionTotal || '--'); // 市值
+
+                // 今日涨跌(涨跌率*持仓数量)
+                var todayRate = (+tempArr[3]) * PositionNum;
+                if ($.isNumeric(todayRate)) {
+                    tempArr.push(todayRate.toFixed(3));
+                } else {
+                    tempArr.push('--');
+                }
+
+                // 累计盈亏（当前价格 - 持仓单价） * 持仓数量
+                var countEarn = (tempArr[2] - PositionPrice) * PositionNum;
+                if ($.isNumeric(countEarn)) {
+                    tempArr.push(countEarn.toFixed(3));
+                } else {
+                    tempArr.push('--');
+                }
+
+                var countEarnRate = countEarn / PositionTotal;
+                if ($.isNumeric(countEarnRate)) {
+                    tempArr.push(countEarnRate.toFixed(3));
+                } else {
+                    tempArr.push('--');
+                }
+
+                MultipleCompanyInfoArr.push(tempArr);
+            });
+
+            // 把id也放进去用于后台取消修改等操作
+            $.each(MultipleCompanyInfoArr, function(index, val) {
+                val.push(IdArr[index]);
+            });
+
+            console.log(MultipleCompanyInfoArr);
+
+            // 这里最后需要做一个累计行的数据, 7,8,11,12
+            var allCount = [0, 0, 0, 0];
+
+            console.log(allCount);
+
+            // 前3个是 持仓数量，持仓单价，累计盈亏，第四个要算一下的，累计盈亏率
+            $.each(MultipleCompanyInfoArr, function(index, val) {
+                if ($.isNumeric(+val[7])) {
+                    allCount[0] += (+val[7]);
+                }
+                if ($.isNumeric(+val[8])) {
+                    allCount[1] += (+val[8]);
+                }
+                if ($.isNumeric(+val[11])) {
+                    allCount[2] += (+val[11]);
+                }
+            });
+            allCount[3] = (allCount[2] / (allCount[0] * allCount[1])).toFixed(3);
+
+            var trStr = '';
+            $.each(MultipleCompanyInfoArr, function(index, val) {
+                trStr += '<tr><td><span class="glyphicon glyphicon-resize-vertical" style="float:left"></span>' + (val[0].substring(4) || '--') + '</td><td><a target="_blank" href="companyInfo-base.html?Tcode=' + val[0].substring(4) + '">' + (val[1] || '--') + '</a></td><td>' + (val[2] || '--') + '</td><td>' + (val[3] || '--') + '</td>';
+
+                if (val[4]) {
+                    if (val[4] > 0) {
+                        trStr += '<td style="color: red">' + val[4] + '%</td>';
+                    } else if (val[4] < 0) {
+                        trStr += '<td style="color: green">' + val[4] + '%</td>';
+                    } else {
+                        trStr += '<td>' + val[4] + '%</td>';
+                    }
+                } else {
+                    trStr += '<td>--</td>';
+                }
+
+                trStr += '<td>' + val[7] + '</td><td>' + val[8] + '</td><td>' + val[9] + '</td><td>' + val[10] + '</td><td>' + val[11] + '</td><td>' + val[12] + '</td><td><a target="_blank" href="../update/accounting_optionalunit.c?Id=' + val[13] + '"><span style="padding-right: 15px;" class="glyphicon glyphicon-pencil"></span></a><span class="glyphicon glyphicon-remove" data-id=' + val[13] + '></span></td></tr>'
+
+            });
+            // 加一个累计行
+            trStr += '<tr><td>累计<td><td></td><td></td><td></td><td>' + allCount[0] + '</td><td>' + allCount[1] + '</td><td></td><td></td><td>' + allCount[2] + '</td><td>' + allCount[3] + '</td><td></td>' + '</tr>';
+
+            $('#multipleCompanyInfo tbody').html(trStr);
+
+            $.each(MultipleTcodeArr, function(index, val) {
+                MultipleTcodeArr[index] = val.substring(4);
+            });
+
+            // 给删除自选股按钮增加事件
+            $('span.glyphicon-remove').on('click', function(event) {
+                // 去后台触发一下即可
+                //然后就直接刷新页面吧，简单一点
+                var Id = $(this).attr('data-id');
+                $('#confirmModal').modal('show').on('shown.bs.modal', function(e) {
+                    $("#confirmBtn").click(function() {
+                        $('#confirmModal').modal('hide');
+                        $.ajax({
+                            url: '../delete/accounting_optionalunit.c?Id=' + Id,
+                            type: 'GET',
+                            async: false,
+                            cache: false
+                        });
+                    });
+                });
+
+            });
+        });
     });
 
     // var MultipleTcodeArr = ['000001', '000002', '000003', '000004', '000005', '000009', '000011'];
