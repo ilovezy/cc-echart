@@ -10,12 +10,12 @@
     <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/extensions/FixedHeader/css/fixedHeader.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/extensions/FixedColumns/css/fixedColumns.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="DataTables-1.10.10/extensions/Buttons/css/buttons.dataTables.min.css">
-
     <!-- others -->
     <link rel="stylesheet" type="text/css" href="bootdatepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="node_modules/spinkit/css/spinkit.css">
     <link rel="stylesheet" type="text/css" href="node_modules/spinkit/css/spinners/10-fading-circle.css">
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
+
     <style type="text/css">
     table th {
         text-align: center;
@@ -35,11 +35,11 @@
     </style>
 </head>
 
-<body>
+<body class="tk-dataPage">
     <!-- {"AnalysisReportCondition":{"DetailTrade":"全国地产","PriceDate":"2015-09-02","ReportDate":"201503"}} -->
     <br>
     <div class="container-fluid">
-        <form class="form-inline" id="hiddenToolbar" style="position: absolute; z-index: 1000">
+        <form class="form-inline tk-datasearch" id="hiddenToolbar" style="position: absolute; z-index: 1000">
             <label>
                 指数
                 <select id="IndexId" name="IndexId" class="form-control mr20 input-width-control">

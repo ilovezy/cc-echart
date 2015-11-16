@@ -41,7 +41,7 @@ $.ajax({
         }
     });
 
-// 工具栏的细分行业选项，jsonp获取
+// 工具栏的行业选项，jsonp获取
 // 地址 /Library/WebListXmlPage.tkx?Source=Accounting/TradeData
 var TradeUrl = '../Library/WebListXmlPage.tkx?Source=Accounting/TradeData';
 $.ajax({
@@ -164,13 +164,8 @@ $('#searchData').click(function(event) {
         type: 'POST',
         data: toBackJson,
         success: function() {
-                // console.log('成功，开始绘制表格')
-                // 这里最后就可以调用 getAllDataAndDrawTable 来获取两个jsonp数据并绘制表格了
-                getAllDataAndDrawTable();
-            }
-            // fail: function() {
-            //     // console.log('没有触发后台使后台产生数据')
-            // }
+            getAllDataAndDrawTable();
+        }
     })
 })
 
@@ -257,15 +252,9 @@ function getAllDataAndDrawTable() {
                                 tempArr.push(Company[item][NickName] || '');
                             }
                         }
-                        // Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=202 地址在这里
-                        // 这里第二个就是名称，给名称加链接
-                        // var url = window.location.href;
-                        // var aHref = url.substring(0, url.indexOf('cc-echart/'));
-
                         // 保证最后一项总计不加链接
 
                         if (eachTcode !== '999999') {
-                            // tempArr[1] = '<a href="' + aHref + 'Library/WebDetailXmlPage.tkx?Source=Query/FetchData&CompanyId=' + eachCompanyId + '" target="_blank">' + tempArr[1] + '</a>';
                             tempArr[1] = '<a href="' + './companyInfo-base.html?Tcode=' + eachTcode + '" target="_blank">' + tempArr[1] + '</a>';
                         } else {
                             tempArr[1] = tempArr[1]
@@ -273,8 +262,6 @@ function getAllDataAndDrawTable() {
 
                         allData.tdData.push(tempArr);
                     }
-
-                    // console.log(allData.tdData)
 
                     // alert(allData.tdData.length) // IE 兼容问题就在 allData.tdData这里，IE打开控制台后 length会变，不打开就不会变
 
@@ -324,7 +311,6 @@ function getAllDataAndDrawTable() {
                         }]
                     });
 
-
                     // 要不红绿色在这里搞得了, 这里直接用 red和green可以看得清楚一点，这个是可以的但是太死板了
                     $('#ccTable td').each(function() {
                         var thisVal = $(this).text();
@@ -334,24 +320,9 @@ function getAllDataAndDrawTable() {
                             }
                         }
                     });
-
-                    // // 接下来处理 同比%，同比% 的那一列，数据大于0就要显示为绿色
-                    // $('#ccTable tr').each(function() {
-                    //     $(this).children('td:eq(4)').each(function() {
-                    //         var thisVal = $(this).text();
-                    //         if ($.isNumeric(thisVal)) {
-                    //             if (+thisVal > 0) {
-                    //                 $(this).css('color', 'green')
-                    //             }
-                    //         }
-                    //     })
-                    // })
                 })
         } else {
             $('#showTable').empty().append('<div class="alert alert-warning" style="margin-top: 100px">没有找到您输入的条件所对应的数据，请修改您的搜索条件</div>')
         }
     })
 }
-
-// 页面加载的时候就触发一次 click
-// $('#searchData').trigger('click')
