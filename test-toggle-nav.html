@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>财务数据分析</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/toolkitjs/v5/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/toolkitjs/v5/bootstrap/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/toolkitjs/v5/bootstrap/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/toolkitcss/v5/commonM/style.css" />
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/DataTables-1.10.7/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/DataTables-1.10.7/extensions/FixedHeader/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/DataTables-1.10.7/extensions/FixedColumns/css/fixedColumns.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/DataTables-1.10.7/extensions/Buttons/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/AccountMgr/usercss/Accounting/AnalysisResult.css">
+    <style>
+    .mt-10 {
+        /*margin-top: -10px;*/
+    }
+
+    .ztop {
+        z-index: 1000;
+    }
+
+    .dt-buttons {
+        float: right !important;
+    }
+
+    .form-inline {
+        width: 90%;
+    }
+
+    </style>
+</head>
+
+<body id="WebQueryPage" class="tk-dataPage" data-webpath="/AccountMgr/">
+    <br />
+    <div class="container-fluid">
+        <form class="form-inline tk-datasearch pa ztop" id="QueryForm" data-check="false" data-post="{&quot;Table&quot;:&quot;Condition&quot;,&quot;SearchMethod&quot;:&quot;Id&quot;,&quot;JsonType&quot;:&quot;Object&quot;,&quot;Fields&quot;:[{&quot;Name&quot;:&quot;IndexId&quot;,&quot;Type&quot;:&quot;Combo&quot;},{&quot;Name&quot;:&quot;PlateId&quot;,&quot;Type&quot;:&quot;Combo&quot;},{&quot;Name&quot;:&quot;Trade&quot;,&quot;Type&quot;:&quot;EasySearch&quot;},{&quot;Name&quot;:&quot;DetailTrade&quot;,&quot;Type&quot;:&quot;Text&quot;},{&quot;Name&quot;:&quot;PriceDate&quot;,&quot;Type&quot;:&quot;Date&quot;},{&quot;Name&quot;:&quot;ReportDate1&quot;,&quot;Type&quot;:&quot;Custom&quot;},{&quot;Name&quot;:&quot;DataType&quot;,&quot;Type&quot;:&quot;Combo&quot;}]}">
+            <div class="form-group">
+                <label for="IndexId">指数</label>
+                <span class="tk-control">
+                    <select id="IndexId" name="IndexId" class="form-control" data-title="指数"><option value=""></option>
+                        <option value="140">沪深300-000300</option>
+                        <option value="194">中证800-000906</option>
+                        <option value="272">中证全指-000985</option>
+                        <option value="267">中证超大-000980</option>
+                        <option value="193">中证500-000905</option>
+                        <option value="186">中证1000-000852</option>
+                        <option value="15">上证50-000016</option>
+                        <option value="302">深证成指-399001</option>
+                        <option value="191">中证100-000903</option>
+                        <option value="192">中证200-000904</option>
+                        <option value="195">中证700-000907</option>
+                        <option value="9">上证380-000009</option>
+                        <option value="10">上证180-000010</option>
+                        <option value="40">超大盘-000043</option>
+                        <option value="41">上证中盘-000044</option>
+                        <option value="42">上证小盘-000045</option>
+                        <option value="43">上证中小-000046</option>
+                        <option value="44">上证全指-000047</option>
+                        <option value="306">中小板指-399005</option>
+                        <option value="307">创业板指-399006</option>
+                        <option value="308">深证300-399007</option>
+                        <option value="309">中小300-399008</option>
+                        <option value="310">深证200-399009</option>
+                        <option value="311">深证700-399010</option>
+                        <option value="312">深证1000-399011</option>
+                        <option value="313">创业300-399012</option>
+                        <option value="315">中小创新-399015</option>
+                        <option value="364">深证100-399330</option>
+                        <option value="473">中创100-399612</option>
+                        <option value="485">中创400-399624</option>
+                        <option value="486">中创500-399625</option>
+                        <option value="154">细分医药-000814</option>
+                        <option value="167">中证环保-000827</option>
+                        <option value="183">300非银-000849</option>
+                        <option value="189">小康指数-000901</option>
+                        <option value="210">中证红利-000922</option>
+                        <option value="228">新能源-000941</option>
+                        <option value="229">内地消费-000942</option>
+                        <option value="231">内地资源-000944</option>
+                        <option value="245">创业成长-000958</option>
+                        <option value="265">医药100-000978</option>
+                        <option value="266">大宗商品-000979</option>
+                        <option value="559">工业4.0-399803</option>
+                        <option value="560">中证体育-399804</option>
+                        <option value="561">互联金融-399805</option>
+                        <option value="562">环境治理-399806</option>
+                        <option value="563">高铁产业-399807</option>
+                        <option value="564">中证新能-399808</option>
+                        <option value="565">保险主题-399809</option>
+                        <option value="566">CSSW传媒-399810</option>
+                        <option value="567">CSSW电子-399811</option>
+                        <option value="568">养老产业-399812</option>
+                        <option value="569">中证国安-399813</option>
+                        <option value="570">大农业-399814</option>
+                        <option value="623">军工指数-399959</option>
+                        <option value="630">800非银-399966</option>
+                        <option value="631">中证军工-399967</option>
+                        <option value="634">移动互联-399970</option>
+                        <option value="635">中证传媒-399971</option>
+                        <option value="637">中证国防-399973</option>
+                        <option value="638">国企改革-399974</option>
+                        <option value="640">CS新能车-399976</option>
+                        <option value="648">中证酒-399987</option>
+                        <option value="649">中证医疗-399989</option>
+                        <option value="650">煤炭等权-399990</option>
+                        <option value="651">一带一路-399991</option>
+                        <option value="652">CSWD并购-399992</option>
+                        <option value="653">CSWD生科-399993</option>
+                        <option value="654">信息安全-399994</option>
+                        <option value="655">基建工程-399995</option>
+                        <option value="656">智能家居-399996</option>
+                        <option value="657">中证白酒-399997</option>
+                        <option value="658">中证煤炭-399998</option>
+                        <option value="1006">CS计算机-930651</option>
+                        <option value="1007">CS电子-930652</option>
+                        <option value="1008">CS食品饮料-930653</option>
+                        <option value="1009">CS休闲娱乐-930654</option>
+                        <option value="1001">互联网-H30535</option>
+                        <option value="1002">机器人-H30590</option>
+                        <option value="207">300价值-000919</option>
+                        <option value="212">基本面50-000925</option>
+                        <option value="1">上证指数-000001</option>
+                        <option value="459">央视50-399550</option>
+                        <option value="471">TMT50-399610</option>
+                        <option value="551">深证F60-399701</option>
+                        <option value="552">深证F120-399702</option>
+                        <option value="553">深证F200-399703</option>
+                    </select>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="PlateId">板块</label>
+                <span class="tk-control">
+                    <select id="PlateId" name="PlateId" class="form-control" data-title="板块"><option value=""></option>
+                        <option value="-1">自选股</option>
+                        <option value="36">自定义板块设置</option>
+                    </select>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="Trade">行业</label>
+                <span class="tk-control">
+                    <div class="input-group" data-control="EasySearch" data-url="/AccountMgr/source/C/EasySearch.c" data-dialog-url="/AccountMgr/source/C/~EasySearchRedirect.c?RegName=TRADE">
+                        <input type="hidden" value id="hdTrade" name="hdTrade" />
+                        <input type="text" data-regName="TRADE" placeholder="行业" id="Trade" name="Trade" class="form-control" data-title="行业" value />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                        </span>
+                    </div>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="DetailTrade">标签</label>
+                <span class="tk-control">
+                    <input type="Text" value placeholder="标签" id="DetailTrade" name="DetailTrade" class="form-control" data-title="标签"/>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <!-- added -->
+            <div class="form-group" data-visible="true">
+                <label for="DetailTrade">标签</label>
+                <span class="tk-control">
+                    <input type="Text" value placeholder="标签" id="DetailTrade" name="DetailTrade" class="form-control" data-title="标签"/>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group" data-visible="true">
+                <label for="DetailTrade">标签</label>
+                <span class="tk-control">
+                    <input type="Text" value placeholder="标签" id="DetailTrade" name="DetailTrade" class="form-control" data-title="标签"/>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group" data-visible="true">
+                <label for="DetailTrade">标签</label>
+                <span class="tk-control">
+                    <input type="Text" value placeholder="标签" id="DetailTrade" name="DetailTrade" class="form-control" data-title="标签"/>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <span class="tk-control">
+                    <div class="input-group date" data-control="Date" data-date-format="yyyy-mm-dd" data-date="2015-11-25">
+                        <input type="text" size="10" id="PriceDate" name="PriceDate" class="form-control" data-title="价格日期" value="2015-11-25">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+
+            <div class="form-group" id="ReportDate1" name="ReportDate1" data-getValue="getReportDateValue">
+                <label for="ReportDate">报表时期</label>
+                    <span class="tk-control">
+                <select id="ReportDateYear" name="ReportDateYear" class="form-control"> </select>年
+                <select id="ReportDateMonth" name="ReportDateMonth" class="form-control">
+                  <option value="03">3</option>
+                  <option value="06">6</option>
+                  <option value="09">9</option>
+                  <option value="12">12</option>
+                </select>月</span>
+            </div>
+
+            <div class="form-group">
+                <span class="tk-control">
+                    <select id="DataType" name="DataType" class="form-control" data-title="数据类型"><option value="1">本年累计</option>
+                        <option value="2">本期数</option>
+                        <option value="3" selected>滚动一年</option>
+                    </select>
+                    <label class="help-block"></label>
+                </span>
+            </div>
+            <button class="btn btn-default" id="btn-search">计算</button>
+            <button class="btn btn-default" id="btn-toggle">更多</button>
+        </form>
+
+        <div id="resultTable" class="mt-10" data-export="True" data-response="queryResult">
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/toolkit.js"></script>
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.page.js"></script>
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.data.js?v=5"></script>
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.ui.js?v=2"></script>
+    <script type="text/javascript" src="/AccountMgr/DataTables-1.10.7/media/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/DataTables-1.10.7/extensions/FixedHeader/js/dataTables.fixedHeader.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/DataTables-1.10.7/extensions/FixedColumns/js/dataTables.fixedColumns.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/DataTables-1.10.7/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/DataTables-1.10.7/extensions/Buttons/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/DataTables-1.10.7/extensions/Buttons/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="/AccountMgr/toolkitjs/v5/toolkit/coreT/toolkit.query.js"></script>
+    <script type="text/javascript" src="/AccountMgr/userjs/Accounting/AnalysisResult.js"></script>
+
+    <script>
+    $(function() {
+
+        $('.form-group[data-visible]').addClass('hidden');
+
+        $('#btn-toggle').click(function(event) {
+            var $thisBtn = $(this);
+
+            if($thisBtn.text() == '更多') {
+                $thisBtn.text('收缩');
+
+                $('.form-group').each(function () {
+                    if($(this).attr('data-visible')){
+                        $(this).removeClass('hidden');
+                    }
+                });
+            } else {
+                $thisBtn.text('更多');
+
+                $('.form-group').each(function () {
+                    if($(this).attr('data-visible')){
+                        $(this).addClass('hidden');
+                    }
+                });
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
