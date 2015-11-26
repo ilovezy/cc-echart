@@ -75,8 +75,10 @@ input.input-companyInfo-search {
     width: 1080px;
 }
 
-.rightSide .showPershareTable {
-    width: 920px;
+@media (max-width:1360px) {
+    .rightSide .showContent {
+        width: 920px
+    }
 }
 
 .collectedStar-active {
@@ -168,4 +170,21 @@ fieldset[disabled] .cc-btn {
 .cc-btn-default.active,
 .open>.dropdown-toggle.cc-btn-default {
     background-image: none
+}
+
+
+/* 覆盖 global的 按钮 样式 */
+
+a.cc-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    border-bottom: 2px solid #ddd;
 }
