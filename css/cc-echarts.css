@@ -115,8 +115,7 @@ input.input-companyInfo-search {
     user-select: none;
     background-image: none;
     border: 1px solid transparent;
-    border-radius: 0;
-    border-bottom: 2px solid #ddd;
+    border-radius: 0 4px 4px 0;
 }
 
 .cc-btn:focus,
@@ -184,7 +183,10 @@ a.cc-btn {
     vertical-align: middle;
     cursor: pointer;
     background-image: none;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    border-bottom: 2px solid #ddd;
+}
+
+#searchData {
+    margin-bottom: 15px;
 }

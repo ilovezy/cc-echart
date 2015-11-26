@@ -345,93 +345,93 @@ function getBackDataRunGetSina(Tcode) {
 
                 // 上面是自己计算 countArr的，现在只需要直接去后台获取
                 $.ajax({
-                        url: '../query_FetchDataKData.c?Tcode=' + Tcode + '&DataType=1',
-                        dataType: 'jsonp',
-                        async: false,
-                        cache: false,
-                        jsonpCallback: "jsonpcallback"
-                    })
+                    url: '../query_FetchDataKData.c?Tcode=' + Tcode + '&DataType=1',
+                    dataType: 'jsonp',
+                    async: false,
+                    cache: false,
+                    jsonpCallback: "jsonpcallback"
+
                     // 成功之后的操作
-                    .done(function(data) {
-                        if(data.AR_FETCH_DATA) {
-                            var AR_FETCH_DATA = data.AR_FETCH_DATA || [];
-                            var tempCollection = [];
-                            var uniqueYearArr = [];
-                            $.each(AR_FETCH_DATA, function(index, val) {
-                                var tempObj = {};
-                                var ReportDate = val.ReportDate;
-                                var year = ReportDate.substring(0, 4);
-                                tempObj.ReportDate = ReportDate;
-                                tempObj.year = year;
-                                tempObj.month = ReportDate.substring(4);
-                                tempObj.PerShare = val.PerShare;
-                                tempCollection.push(tempObj);
-                                if(uniqueYearArr.length == 0) {
+                }).done(function(data) {
+                    if(data.AR_FETCH_DATA) {
+                        var AR_FETCH_DATA = data.AR_FETCH_DATA || [];
+                        var tempCollection = [];
+                        var uniqueYearArr = [];
+                        $.each(AR_FETCH_DATA, function(index, val) {
+                            var tempObj = {};
+                            var ReportDate = val.ReportDate;
+                            var year = ReportDate.substring(0, 4);
+                            tempObj.ReportDate = ReportDate;
+                            tempObj.year = year;
+                            tempObj.month = ReportDate.substring(4);
+                            tempObj.PerShare = val.PerShare;
+                            tempCollection.push(tempObj);
+                            if(uniqueYearArr.length == 0) {
+                                uniqueYearArr.push(year);
+                            } else {
+                                if(!($.inArray(year, uniqueYearArr) > -1)) {
                                     uniqueYearArr.push(year);
+                                }
+                            }
+                        });
+
+                        // 是DataType=1
+                        var AR_FETCH_DATA = data.AR_FETCH_DATA;
+
+                        var countEmptyArr = [];
+                        // 填充每年季度
+                        for(var i = 0; i < uniqueYearArr.length; i++) {
+                            var k = 3;
+                            for(var j = 0; j < 4; j++) {
+                                if(j < 3) {
+                                    countEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k);
                                 } else {
-                                    if(!($.inArray(year, uniqueYearArr) > -1)) {
-                                        uniqueYearArr.push(year);
-                                    }
+                                    countEmptyArr.push(('' + uniqueYearArr[i]) + k);
                                 }
-                            });
-
-                            // 是DataType=1
-                            var AR_FETCH_DATA = data.AR_FETCH_DATA;
-
-                            var countEmptyArr = [];
-                            // 填充每年季度
-                            for(var i = 0; i < uniqueYearArr.length; i++) {
-                                var k = 3;
-                                for(var j = 0; j < 4; j++) {
-                                    if(j < 3) {
-                                        countEmptyArr.push((('' + uniqueYearArr[i]) + '0') + k);
-                                    } else {
-                                        countEmptyArr.push(('' + uniqueYearArr[i]) + k);
-                                    }
-                                    k = k + 3;
-                                }
+                                k = k + 3;
                             }
-
-                            // 获取了空的数组了，只有日期的,剩下的就是一一匹配了
-
-                            $.each(tempCollection, function(index, val) {
-                                // console.log(val) 到这里也有
-                                var pos = $.inArray(val.ReportDate, countEmptyArr);
-                                if(pos > -1) {
-                                    countEmptyArr[pos] = val.PerShare;
-                                }
-                            });
-
-                            // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
-                            $.each(countEmptyArr, function(index, val) {
-                                if(val > 1000) {
-                                    countEmptyArr[index] = '';
-                                }
-                            });
-
-                            var countArr = [];
-                            for(i = 0, count = 0, tempArr = []; i < countEmptyArr.length; i++) {
-                                if(count < 3) {
-                                    tempArr.push(countEmptyArr[i]);
-                                    count++;
-                                } else {
-                                    tempArr.push(countEmptyArr[i]);
-                                    countArr.push(tempArr);
-                                    count = 0;
-                                    tempArr = [];
-                                }
-                            }
-
-                            // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
-                            for(i = 0; i < countArr.length; i++) {
-                                countArr[i].unshift(uniqueYearArr[i]);
-                            }
-                            // 这里再处理一次，求出同比增长率
-                            var countUpRateArr = [];
-                            calculateUpRate(countUpRateArr, countArr);
-                            concatStrAndFillTable(countArr, countUpRateArr, $('#mainCountTable tbody'));
                         }
-                    });
+
+                        // 获取了空的数组了，只有日期的,剩下的就是一一匹配了
+
+                        $.each(tempCollection, function(index, val) {
+                            // console.log(val) 到这里也有
+                            var pos = $.inArray(val.ReportDate, countEmptyArr);
+                            if(pos > -1) {
+                                countEmptyArr[pos] = val.PerShare;
+                            }
+                        });
+
+                        // 这里做个弊，因为每股利率基本都不会大于1，而年数一般都在 1900以上了
+                        $.each(countEmptyArr, function(index, val) {
+                            if(val > 1000) {
+                                countEmptyArr[index] = '';
+                            }
+                        });
+
+                        var countArr = [];
+                        for(i = 0, count = 0, tempArr = []; i < countEmptyArr.length; i++) {
+                            if(count < 3) {
+                                tempArr.push(countEmptyArr[i]);
+                                count++;
+                            } else {
+                                tempArr.push(countEmptyArr[i]);
+                                countArr.push(tempArr);
+                                count = 0;
+                                tempArr = [];
+                            }
+                        }
+
+                        // 再把 uniqueYearArr 里的年数，放到对应的数组第一位中去
+                        for(i = 0; i < countArr.length; i++) {
+                            countArr[i].unshift(uniqueYearArr[i]);
+                        }
+                        // 这里再处理一次，求出同比增长率
+                        var countUpRateArr = [];
+                        calculateUpRate(countUpRateArr, countArr);
+                        concatStrAndFillTable(countArr, countUpRateArr, $('#mainCountTable tbody'));
+                    }
+                });
 
                 // 需要把table显示，因为默认是隐藏的
                 $("#showPershareTable, #showBackTable").removeClass('hide');
@@ -459,6 +459,7 @@ function getBackDataRunGetSina(Tcode) {
 // 从新浪获取数据和K线图并且赋值给页面头部的公司信息
 function getSinaDataAndShowK(Tcode) {
     var SinaTcode = '';
+    $('#wallstreetcn-btn-group, #cc-wallstreetCn-wrapper').addClass('hide');
 
     if(Tcode.charAt(0) == '6') {
         SinaTcode = 'sh' + Tcode;
@@ -479,6 +480,7 @@ function getSinaDataAndShowK(Tcode) {
         var tempStr = 'hq_str_' + SinaTcode;
         if(window[tempStr] || window[tempStr] !== '') {
 
+
             var TcodeArr = window[tempStr].split(",");
             $('#sinaData').removeClass('hide'); // 先把头部显示
             $("#sina-K-show").removeClass('hide');
@@ -496,6 +498,8 @@ function getSinaDataAndShowK(Tcode) {
                 } else {
                     $("#nowPrice").removeClass('text-danger').text(TcodeArr[2]);
                 }
+
+                $('#wallstreetcn-btn-group').addClass('hide');
             } else {
                 $('#todayOpen').text(TcodeArr[1]); // 今日开盘价
 
@@ -573,37 +577,12 @@ function getSinaDataAndShowK(Tcode) {
 // 显示错误信息
 function showErrorMessage(str) {
     $("#showErrorMessage").removeClass('hide').find('div').text(str);
+    $('#wallstreetcn-btn-group, #cc-wallstreetCn-wrapper').addClass('hide');
 }
 
 // 清除 PershareTable原有的内容
 function cleanPershareTable() {
     $('#mainSingleTable tbody, #mainCountTable tbody').empty();
-}
-
-// 渲染华尔街的图表
-function renderWallStreetCn(SinaTcode) {
-    // 先清空原有的图表，不然会渲染多个的
-    $('#cc-wallstreetCn-wrapper').empty()
-        .append('<div id="js-wscn-hs-wrapper">');
-
-    // 然后把技术分析的链接修改一下
-    $('#wallstreetCn-link').removeClass('hide').attr('href', 'http://markets.wallstreetcn.com/technical?symbol=' + SinaTcode + '&interval=1D');
-
-    // 插入的 iFrame 父节点
-    var parentId = 'js-wscn-hs-wrapper';
-    // iFrame 的 ID
-    var iframeId = 'js-wscn-hs-iframe';
-    var options = {
-        "width": 900,
-        "height": 400,
-        "symbol": SinaTcode,
-        "interval": 5,
-        "chartTheme": "light",
-        "type": "area"
-    };
-
-    var hs = new WallstreetCN.embed.Hs(parentId, options, iframeId);
-    hs.render();
 }
 
 // 两个 upRateArr，计算同比增涨率, 看 600666，如果增长率为0，也要显示
@@ -671,3 +650,85 @@ function concatStrAndFillTable(arr, upRateArr, tbodyElem) {
 
 // 绑定 easySearch
 $("div[data-control=EasySearch]").bindToolkitUI('easySearchControl');
+
+// 渲染华尔街的图表
+function renderWallStreetCn(SinaTcode) {
+
+    $('#changeInterval button, #changeType button').removeClass('active');
+    $('#changeInterval button[data-efc-interval=1d]').addClass('active');
+    $('#changeType button[data-efc-type=area]').addClass('active');
+
+    $('#wallstreetcn-btn-group, #cc-wallstreetCn-wrapper').removeClass('hide');
+
+    // 先清空原有的图表，不然会渲染多个的
+    $('#cc-wallstreetCn-wrapper').html('<div id="js-wscn-hs-wrapper">');
+
+    // 然后把技术分析的链接修改一下
+    $('#wallstreetCn-link').attr('href', 'http://markets.wallstreetcn.com/technical?symbol=' + SinaTcode + '&interval=1d');
+
+    // 插入的 iFrame 父节点
+    var parentId = 'js-wscn-hs-wrapper';
+    // iFrame 的 ID
+    var iframeId = 'js-wscn-hs-iframe';
+    var options = {
+        "width": 900,
+        "height": 400,
+
+        // 公司 Tcode
+        "symbol": SinaTcode,
+
+        // 1 是 1分钟 OK，5是5分钟分时 ok，1d日分，1w 周分，mn 月分
+        // 详见 http://markets.wallstreetcn.com/stock/SH600000
+        // 搜索5个按钮照到 data-efc-interval 属性
+        // default: 1d
+        "interval": '1d',
+
+        // 主题咯，highchart的主题其实就是 light 和 dark两种
+        "chartTheme": "light",
+        // type: line candlestick area
+        "type": "area"
+    };
+
+    var hs = new WallstreetCN.embed.Hs(parentId, options, iframeId);
+    hs.render();
+
+    // 给每个按钮添加功能
+    function changeView(SinaTcode, options) {
+        var dataInterval = $('#changeInterval button.active').data('efc-interval');
+
+        var dataType = $('#changeType button.active').data('efc-type');
+
+
+        // 先清空原有的图表，不然会渲染多个的
+        $('#cc-wallstreetCn-wrapper').html('<div id="js-wscn-hs-wrapper">');
+
+        // 然后把技术分析的链接修改一下
+        $('#wallstreetCn-link').attr('href', 'http://markets.wallstreetcn.com/technical?symbol=' + SinaTcode + '&interval=' + dataInterval);
+
+        options = {
+            "width": 900,
+            "height": 400,
+            "symbol": SinaTcode,
+            "interval": dataInterval,
+            "chartTheme": "light",
+            "type": dataType
+        };
+
+        hs = new WallstreetCN.embed.Hs(parentId, options, iframeId);
+        hs.render();
+    }
+
+    // 是时候给各个按钮加方法了,每次都要取消绑定再绑定
+    // Interval的按钮组
+    // type图表类型 的按钮组
+    $('#changeInterval button, #changeType button').off('click').on('click', function() {
+        $(this)
+            .siblings('button').removeClass('active')
+            .end().addClass('active');
+
+        changeView(SinaTcode, options);
+    });
+}
+
+// 按钮组加 tooltip
+$('[data-toggle="tooltip"]').tooltip();

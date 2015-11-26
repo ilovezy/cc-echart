@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="bootstrap-3.2.0-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/cc-echarts.css">
     <link rel="stylesheet" type="text/css" href="../toolkitcss/v5/commonM/style.css">
-
-    <style>
-
-    </style>
 </head>
 
 <body class="container-fluid">
@@ -100,6 +96,35 @@
                     </div>
                 </div>
             </div>
+            <br>
+
+            <!-- 华尔街图表 -->
+            <div id="wallstreetcn-btn-group" class="hide">
+
+                <!-- 选择时期 -->
+                <div id="changeInterval" class="btn-group mr20">
+                    <button class="btn btn-default" data-efc-interval="1">1分钟</button>
+                    <button class="btn btn-default" data-efc-interval="5">5分钟</button>
+                    <button class="btn btn-default active" data-efc-interval="1d">日分</button>
+                    <button class="btn btn-default" data-efc-interval="1w">周分</button>
+                    <button class="btn btn-default" data-efc-interval="mn">月分</button>
+                </div>
+                <!-- 选择图表类型 line candlestick area -->
+                <div id="changeType" class="btn-group mr20">
+                    <button class="btn btn-default active" data-efc-type="area">分时图</button>
+                    <button class="btn btn-default" data-efc-type="candlestick">K线图</button>
+                    <button class="btn btn-default" data-efc-type="line">折线图</button>
+                </div>
+
+                <a id="wallstreetCn-link" target="_blank" class="cc-btn btn-default mr20">技术分析</a>
+            </div>
+
+            <!-- Start: Wallstreetcn.com hs widget -->
+            <div id="cc-wallstreetCn-wrapper">
+                <div id="js-wscn-hs-wrapper"></div>
+            </div>
+
+            <br>
             <br>
             <!-- 后台的详细数据小表格 -->
             <div id="showBackTable" style="width: 920px" class="hide">
@@ -218,13 +243,6 @@
                 </div>
             </div>
             <br>
-
-            <!-- 华尔街图表 -->
-            <a id="wallstreetCn-link" href="" target="_blank" class="cc-btn btn-default hide">技术分析</a>
-            <!-- Start: Wallstreetcn.com hs widget -->
-            <div id="cc-wallstreetCn-wrapper">
-                <div id="js-wscn-hs-wrapper"></div>
-            </div>
 
             <!-- 新浪k线图 -->
             <!-- <div id="sina-K-show" class="hide"> -->
